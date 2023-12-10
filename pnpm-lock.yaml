@@ -44,6 +44,9 @@ dependencies:
   prettier:
     specifier: ^3.1.0
     version: registry.npmmirror.com/prettier@3.1.0
+  swiper:
+    specifier: ^11.0.5
+    version: registry.npmmirror.com/swiper@11.0.5
   vue:
     specifier: ^3.3.0
     version: registry.npmmirror.com/vue@3.3.9(typescript@5.3.2)
@@ -6416,6 +6419,13 @@ packages:
     version: 1.0.0
     engines: {node: '>= 0.4'}
     dev: true
+
+  registry.npmmirror.com/swiper@11.0.5:
+    resolution: {integrity: sha512-rhCwupqSyRnWrtNzWzemnBLMoyYuoDgGgspAm/8iBD3jCvAWycPLH4Z3TB0O5520DHLzMx94yUMH/B9Efpa48w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/swiper/-/swiper-11.0.5.tgz}
+    name: swiper
+    version: 11.0.5
+    engines: {node: '>= 4.7.0'}
+    dev: false
 
   registry.npmmirror.com/symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/symbol-tree/-/symbol-tree-3.2.4.tgz}

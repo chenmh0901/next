@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { IonInput } from "@ionic/vue";
-import { ref } from "vue";
+import {IonInput} from "@ionic/vue";
+import {ref} from "vue";
 import axios from "axios";
 
 export interface User {
@@ -21,8 +21,8 @@ const submit = async () => {
     url: `http://localhost:3000/auth/` + type,
     method: "post",
     data: !!signup.value
-      ? user.value
-      : { no: user.value.no, password: user.value.password },
+        ? user.value
+        : {no: user.value.no, password: user.value.password},
     headers: {
       "Content-Type": "application/json",
       Accept: "*/*",
@@ -45,27 +45,27 @@ const submit = async () => {
       <ion-list>
         <ion-item>
           <ion-input
-            label="学号"
-            type="text"
-            :value="user.no"
-            @ion-input="user.no = $event.target.value as string"
+              label="学号"
+              type="text"
+              :value="user.no"
+              @ion-input="user.no = $event.target.value as string"
           ></ion-input>
         </ion-item>
         <ion-item>
           <ion-input
-            label="密码"
-            type="password"
-            :value="user.password"
-            @ion-input="user.password = $event.target.value as string"
+              label="密码"
+              type="password"
+              :value="user.password"
+              @ion-input="user.password = $event.target.value as string"
           ></ion-input>
         </ion-item>
         <template v-if="signup">
           <ion-item>
             <ion-input
-              label="邮箱"
-              type="email"
-              :value="user.email"
-              @ion-input="user.email = $event.target.value as string"
+                label="邮箱"
+                type="email"
+                :value="user.email"
+                @ion-input="user.email = $event.target.value as string"
             ></ion-input>
           </ion-item>
         </template>
@@ -75,7 +75,7 @@ const submit = async () => {
         </ion-item>
         <ion-item>
           <ion-button @click="signup = !signup"
-            >{{ signup ? "去登录" : "注册" }}
+          >{{ signup ? "去登录" : "注册" }}
           </ion-button>
         </ion-item>
       </ion-list>
