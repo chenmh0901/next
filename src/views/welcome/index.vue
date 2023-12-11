@@ -3,17 +3,28 @@ import {Swiper, SwiperSlide} from 'swiper/vue';
 import Hello from "@/views/welcome/hello.vue";
 import Signin from "@/views/welcome/signin.vue";
 import Signup from "@/views/welcome/signup.vue";
-import Detail from "@/views/welcome/detail.vue";
 import {useDevStore} from "@/stores/dev.store";
+import {useAuthStore} from "@/stores/auth.store";
 
 const dev = useDevStore()
-const components = [
-  Hello,
-  Signin,
-  Signup,
-  Detail
-]
+const authStore = useAuthStore()
 
+// TODO 初始化时
+// 1. 如果还没成功登录过，按照常规的新用户情况处理
+// 2. 如果登陆过，不再显示第 1, 2 页，即不再显示 hello 和 signup
+// 3. 第4页 detail 和上面的逻辑是分开的，只需要判断用户的数据完整不完整，需不需要填写表单就好了
+
+// const components = computed(() => {
+//   const list = []
+//   if (!authStore.getToken()) {
+//     list.push(Hello, Signup)
+//   }
+//
+//   list.push(Signin)
+//   return list
+// })
+
+const components = [Hello, Signup, Signin]
 const onSlide = (swiper: any) => {
   dev.log(swiper.activeIndex)
 }

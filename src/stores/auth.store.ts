@@ -1,13 +1,19 @@
 import {defineStore} from "pinia";
 import {ref} from "vue";
 import {User} from "@/types/user";
+import {Storage} from "@ionic/storage";
+
+const storage = new Storage();
+await storage.create();
 
 export const useAuthStore = defineStore('auth', () => {
-  const token = ref<string>()
   const user = ref<User>()
 
+  const getToken = () => {
+    return storage.get('token')
+  }
   const setToken = (t: string) => {
-    token.value = t
+    storage.set('token', t)
   }
 
   const setUser = (u: any) => {
@@ -15,8 +21,8 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   return {
-    token,
     user,
+    getToken,
     setToken,
     setUser,
   }
