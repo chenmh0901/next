@@ -3,16 +3,21 @@ import {ref} from "vue";
 import {User} from "@/types/user";
 import {Storage} from "@ionic/storage";
 
-const storage = new Storage();
-await storage.create();
 
 export const useAuthStore = defineStore('auth', () => {
+  const storage = new Storage();
+  storage.create().then(async () => {
+    token.value = await storage.get('token')
+  });
+
+  const token = ref<string>()
   const user = ref<User>()
 
   const getToken = () => {
-    return storage.get('token')
+    return token
   }
   const setToken = (t: string) => {
+    token.value = t
     storage.set('token', t)
   }
 
@@ -21,6 +26,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   return {
+    token,
     user,
     getToken,
     setToken,
