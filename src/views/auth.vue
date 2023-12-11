@@ -20,7 +20,7 @@ const submit = async () => {
   const config = {
     url: `http://localhost:3000/auth/` + type,
     method: "post",
-    data: !!signup.value
+    data: signup.value
         ? user.value
         : {no: user.value.no, password: user.value.password},
     headers: {

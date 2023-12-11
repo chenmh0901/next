@@ -21,10 +21,6 @@ const routes: Array<RouteRecordRaw> = [
     path: '/auth',
     name: 'Auth',
     component: Auth
-  },
-  {
-    path: '/message/:id',
-    component: () => import('../views/view-msg.vue')
   }
 ]
 

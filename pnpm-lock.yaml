@@ -32,6 +32,9 @@ dependencies:
   '@ionic/vue-router':
     specifier: ^7.0.0
     version: registry.npmmirror.com/@ionic/vue-router@7.5.7
+  '@vueuse/core':
+    specifier: ^10.7.0
+    version: registry.npmmirror.com/@vueuse/core@10.7.0(vue@3.3.9)
   axios:
     specifier: ^1.6.2
     version: registry.npmmirror.com/axios@1.6.2
@@ -41,6 +44,9 @@ dependencies:
   ionicons:
     specifier: ^7.0.0
     version: registry.npmmirror.com/ionicons@7.2.1
+  pinia:
+    specifier: ^2.1.7
+    version: registry.npmmirror.com/pinia@2.1.7(typescript@5.3.2)(vue@3.3.9)
   prettier:
     specifier: ^3.1.0
     version: registry.npmmirror.com/prettier@3.1.0
@@ -2569,6 +2575,12 @@ packages:
     version: 0.0.16
     dev: false
 
+  registry.npmmirror.com/@types/web-bluetooth@0.0.20:
+    resolution: {integrity: sha512-g9gZnnXVq7gM7v3tJCWV/qw7w+KeOlSHAhgF9RytFyifW6AF61hdT2ucrYhPq9hLs5JIryeupHV3qGk95dH9ow==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/web-bluetooth/-/web-bluetooth-0.0.20.tgz}
+    name: '@types/web-bluetooth'
+    version: 0.0.20
+    dev: false
+
   registry.npmmirror.com/@types/yauzl@2.10.3:
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@types/yauzl/-/yauzl-2.10.3.tgz}
     name: '@types/yauzl'
@@ -3011,6 +3023,21 @@ packages:
       vue-component-type-helpers: registry.npmmirror.com/vue-component-type-helpers@1.8.24
     dev: true
 
+  registry.npmmirror.com/@vueuse/core@10.7.0(vue@3.3.9):
+    resolution: {integrity: sha512-4EUDESCHtwu44ZWK3Gc/hZUVhVo/ysvdtwocB5vcauSV4B7NiGY5972WnsojB3vRNdxvAt7kzJWE2h9h7C9d5w==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/core/-/core-10.7.0.tgz}
+    id: registry.npmmirror.com/@vueuse/core/10.7.0
+    name: '@vueuse/core'
+    version: 10.7.0
+    dependencies:
+      '@types/web-bluetooth': registry.npmmirror.com/@types/web-bluetooth@0.0.20
+      '@vueuse/metadata': registry.npmmirror.com/@vueuse/metadata@10.7.0
+      '@vueuse/shared': registry.npmmirror.com/@vueuse/shared@10.7.0(vue@3.3.9)
+      vue-demi: registry.npmmirror.com/vue-demi@0.14.6(vue@3.3.9)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false
+
   registry.npmmirror.com/@vueuse/core@9.13.0(vue@3.3.9):
     resolution: {integrity: sha512-pujnclbeHWxxPRqXWmdkKV5OX4Wk4YeK7wusHqRwU0Q7EFusHoqNA/aPhB6KCh9hEqJkLAJo7bb0Lh9b+OIVzw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/core/-/core-9.13.0.tgz}
     id: registry.npmmirror.com/@vueuse/core/9.13.0
@@ -3026,10 +3053,28 @@ packages:
       - vue
     dev: false
 
+  registry.npmmirror.com/@vueuse/metadata@10.7.0:
+    resolution: {integrity: sha512-GlaH7tKP2iBCZ3bHNZ6b0cl9g0CJK8lttkBNUX156gWvNYhTKEtbweWLm9rxCPIiwzYcr/5xML6T8ZUEt+DkvA==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/metadata/-/metadata-10.7.0.tgz}
+    name: '@vueuse/metadata'
+    version: 10.7.0
+    dev: false
+
   registry.npmmirror.com/@vueuse/metadata@9.13.0:
     resolution: {integrity: sha512-gdU7TKNAUVlXXLbaF+ZCfte8BjRJQWPCa2J55+7/h+yDtzw3vOoGQDRXzI6pyKyo6bXFT5/QoPE4hAknExjRLQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/metadata/-/metadata-9.13.0.tgz}
     name: '@vueuse/metadata'
     version: 9.13.0
+    dev: false
+
+  registry.npmmirror.com/@vueuse/shared@10.7.0(vue@3.3.9):
+    resolution: {integrity: sha512-kc00uV6CiaTdc3i1CDC4a3lBxzaBE9AgYNtFN87B5OOscqeWElj/uza8qVDmk7/U8JbqoONLbtqiLJ5LGRuqlw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/@vueuse/shared/-/shared-10.7.0.tgz}
+    id: registry.npmmirror.com/@vueuse/shared/10.7.0
+    name: '@vueuse/shared'
+    version: 10.7.0
+    dependencies:
+      vue-demi: registry.npmmirror.com/vue-demi@0.14.6(vue@3.3.9)
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
     dev: false
 
   registry.npmmirror.com/@vueuse/shared@9.13.0(vue@3.3.9):
@@ -5775,6 +5820,27 @@ packages:
     version: 2.3.0
     engines: {node: '>=0.10.0'}
     dev: true
+
+  registry.npmmirror.com/pinia@2.1.7(typescript@5.3.2)(vue@3.3.9):
+    resolution: {integrity: sha512-+C2AHFtcFqjPih0zpYuvof37SFxMQ7OEG2zV9jRI12i9BOy3YQVAHwdKtyyc8pDcDyIc33WCIsZaCFWU7WWxGQ==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pinia/-/pinia-2.1.7.tgz}
+    id: registry.npmmirror.com/pinia/2.1.7
+    name: pinia
+    version: 2.1.7
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.3.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': registry.npmmirror.com/@vue/devtools-api@6.5.1
+      typescript: registry.npmmirror.com/typescript@5.3.2
+      vue: registry.npmmirror.com/vue@3.3.9(typescript@5.3.2)
+      vue-demi: registry.npmmirror.com/vue-demi@0.14.6(vue@3.3.9)
+    dev: false
 
   registry.npmmirror.com/pkg-types@1.0.3:
     resolution: {integrity: sha512-nN7pYi0AQqJnoLPC9eHFQ8AcyaixBUOwvqc5TDnIKCMEE6I0y8P7OKA7fPexsXGCGxQDl/cmrLAp26LhcwxZ4A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/pkg-types/-/pkg-types-1.0.3.tgz}

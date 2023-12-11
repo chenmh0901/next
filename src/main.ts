@@ -26,10 +26,12 @@ import './theme/variables.css';
 /* Element plus */
 import ElementPlus from 'element-plus';
 import 'element-plus/dist/index.css'
+import {createPinia} from "pinia";
 
 const app = createApp(App)
   .use(IonicVue)
   .use(router)
+  .use(createPinia())
   .use(ElementPlus);
 
 router.isReady().then(() => {
