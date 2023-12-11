@@ -18,6 +18,6 @@
 </template>
 
 <script setup lang="ts">
-import {IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar,} from "@ionic/vue";
+import {IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar} from "@ionic/vue";
 import 'swiper/css'
 </script>

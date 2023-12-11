@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {IonContent, IonHeader, IonTitle, IonToolbar} from '@ionic/vue'
+
 export interface IProps {
   title: string
 }
