@@ -17,7 +17,8 @@ const authStore = useAuthStore()
 
 const components = computed(() => {
   const list = []
-  if (!authStore.getToken()) {
+  const token = authStore.getToken()
+  if (!token) {
     list.push(Hello, Signup)
   }
 
