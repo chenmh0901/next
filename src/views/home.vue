@@ -11,7 +11,7 @@
           style="margin: 10px auto; display: block; width: 25%; height: 5vh"
           href="auth"
       >
-        点击前往注册页面
+        登录成功之后跳转到这里，是项目的主页面
       </ion-button>
     </ion-content>
   </ion-page>

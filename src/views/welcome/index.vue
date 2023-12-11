@@ -5,6 +5,7 @@ import Signin from "@/views/welcome/signin.vue";
 import Signup from "@/views/welcome/signup.vue";
 import {useDevStore} from "@/stores/dev.store";
 import {useAuthStore} from "@/stores/auth.store";
+import {computed} from "vue";
 
 const dev = useDevStore()
 const authStore = useAuthStore()
@@ -14,17 +15,15 @@ const authStore = useAuthStore()
 // 2. 如果登陆过，不再显示第 1, 2 页，即不再显示 hello 和 signup
 // 3. 第4页 detail 和上面的逻辑是分开的，只需要判断用户的数据完整不完整，需不需要填写表单就好了
 
-// const components = computed(() => {
-//   const list = []
-//   if (!authStore.getToken()) {
-//     list.push(Hello, Signup)
-//   }
-//
-//   list.push(Signin)
-//   return list
-// })
+const components = computed(() => {
+  const list = []
+  if (!authStore.getToken()) {
+    list.push(Hello, Signup)
+  }
 
-const components = [Hello, Signup, Signin]
+  list.push(Signin)
+  return list
+})
 const onSlide = (swiper: any) => {
   dev.log(swiper.activeIndex)
 }
