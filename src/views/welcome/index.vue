@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import {Swiper, SwiperSlide} from 'swiper/vue';
-import Hello from "@/views/welcome/hello.vue";
-import Signin from "@/views/welcome/signin.vue";
-import Signup from "@/views/welcome/signup.vue";
-import {useDevStore} from "@/stores/dev.store";
-import {useAuthStore} from "@/stores/auth.store";
-import {computed} from "vue";
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import Hello from '@/views/welcome/hello.vue';
+import Signin from '@/views/welcome/signin.vue';
+import Signup from '@/views/welcome/signup.vue';
+import { useDevStore } from '@/stores/dev.store';
+import { useAuthStore } from '@/stores/auth.store';
+import { computed } from 'vue';
 
-const dev = useDevStore()
-const authStore = useAuthStore()
+const dev = useDevStore();
+const authStore = useAuthStore();
 
 // TODO 初始化时
 // 1. 如果还没成功登录过，按照常规的新用户情况处理
@@ -16,18 +16,18 @@ const authStore = useAuthStore()
 // 3. 第4页 detail 和上面的逻辑是分开的，只需要判断用户的数据完整不完整，需不需要填写表单就好了
 
 const components = computed(() => {
-  const list = []
-  const token = authStore.getToken()
+  const list = [];
+  const token = authStore.getToken();
   if (!token) {
-    list.push(Hello, Signup)
+    list.push(Hello, Signup);
   }
 
-  list.push(Signin)
-  return list
-})
+  list.push(Signin);
+  return list;
+});
 const onSlide = (swiper: any) => {
-  dev.log(swiper.activeIndex)
-}
+  dev.log(swiper.activeIndex);
+};
 </script>
 
 <template>

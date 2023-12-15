@@ -1,16 +1,21 @@
 <script setup lang="ts">
-import {IonButton, IonContent, IonInput} from "@ionic/vue";
-import {toast} from "@/utils/toast";
-import axios from "axios";
-import {ref} from "vue";
-import {useDevStore} from "@/stores/dev.store";
-import {useAuthStore} from "@/stores/auth.store";
+import { IonButton, IonContent, IonInput } from '@ionic/vue';
+import { toast } from '@/utils/toast';
+import axios from 'axios';
+import { ref } from 'vue';
+import { useDevStore } from '@/stores/dev.store';
+import { useAuthStore } from '@/stores/auth.store';
+import { useRouter } from 'vue-router';
+import { useIonRouter } from '@ionic/vue';
+import { pageTo } from '@/router/director';
 
-const dev = useDevStore()
-const authStore = useAuthStore()
+const router = useIonRouter();
 
-const username = ref<string>('')
-const password = ref<string>('')
+const dev = useDevStore();
+const authStore = useAuthStore();
+
+const username = ref<string>('');
+const password = ref<string>('');
 
 const onClick = () => {
   // TODO 登录逻辑
@@ -26,35 +31,48 @@ const onClick = () => {
       no: username.value,
       password: password.value
     }
-  }
+  };
   axios(config)
-      .then((res) => {
-        if (res.data.access_token) {
-          authStore.setToken(res.data.access_token ?? '')
-          toast('登录成功', 1500)
-        } else {
-          toast('登录错误，请联系管理员', 1500)
-        }
-      })
-      .catch((err) => {
-        dev.log(err)
-        toast('登录失败', 1500)
-      })
-}
-
-
+    .then((res: { data: { access_token: string } }) => {
+      if (res.data.access_token) {
+        authStore.setToken(res.data.access_token ?? '');
+        toast('登录成功', 1500);
+        pageTo('/home');
+      } else {
+        toast('登录错误，请联系管理员', 1500);
+      }
+    })
+    .catch((err) => {
+      dev.log(err);
+      toast('登录失败', 1500);
+    });
+};
 </script>
 
 <template>
   <ion-content>
     <div class="welcome-signin">
       <h1>登入芸馆💡</h1>
-      <ion-input :value="username"
-                 @ion-input="username = $event.target.value as string" placeholder="输入您的账号"></ion-input>
-      <ion-input :value="password"
-                 @ion-input="password = $event.target.value as string" placeholder="输入您的密码"
-                 type="password"></ion-input>
+      <ion-input
+        :value="username"
+        @ion-input="username = $event.target.value as string"
+        placeholder="输入您的账号"
+      ></ion-input>
+      <ion-input
+        :value="password"
+        @ion-input="password = $event.target.value as string"
+        placeholder="输入您的密码"
+        type="password"
+      ></ion-input>
       <ion-button @click="onClick">登录</ion-button>
+      <ion-button
+        @click="
+          () => {
+            router.push('/home');
+          }
+        "
+        >Navigator</ion-button
+      >
     </div>
   </ion-content>
 </template>
