@@ -65,14 +65,6 @@ const onClick = () => {
         type="password"
       ></ion-input>
       <ion-button @click="onClick">登录</ion-button>
-      <ion-button
-        @click="
-          () => {
-            router.push('/home');
-          }
-        "
-        >Navigator</ion-button
-      >
     </div>
   </ion-content>
 </template>
