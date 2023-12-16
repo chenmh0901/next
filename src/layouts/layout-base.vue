@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import {IonContent, IonHeader, IonTitle, IonToolbar} from '@ionic/vue'
+import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/vue';
 
 export interface IProps {
-  title: string
+  title: string;
 }
 
-const props = defineProps<IProps>()
+const props = defineProps<IProps>();
 </script>
 
 <template>
@@ -19,6 +19,4 @@ const props = defineProps<IProps>()
   </ion-content>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,31 +1,31 @@
 <script setup lang="ts">
-import {useDraggable} from "@vueuse/core";
-import {computed, ref} from "vue";
-import {useDevStore} from "@/stores/dev.store";
+import { useDraggable } from '@vueuse/core';
+import { computed, ref } from 'vue';
+import { useDevStore } from '@/stores/dev.store';
 
-const devStore = useDevStore()
+const devStore = useDevStore();
 
 // draggable
-const el = ref(null)
-const {style} = useDraggable(el, {
-  initialValue: {x: 40, y: 40}
-})
+const el = ref(null);
+const { style } = useDraggable(el, {
+  initialValue: { x: 40, y: 40 }
+});
 
 // need render?
 const show = computed(() => {
-  return devStore.logs.length || devStore.elements.length
-})
+  return devStore.logs.length || devStore.elements.length;
+});
 </script>
 
 <template>
-  <div v-if="show" ref="el" style="position: fixed;" :style="style">
+  <div v-if="show" ref="el" style="position: fixed" :style="style">
     <el-card>
       <!-- logs -->
       <el-text v-if="devStore.logs.length" size="large">Logs</el-text>
-      <br>
+      <br />
       <template v-for="log of devStore.logs" :key="log">
         <el-text>{{ log }}</el-text>
-        <br/>
+        <br />
       </template>
 
       <!-- custom elements -->
@@ -34,6 +34,4 @@ const show = computed(() => {
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import {IonContent, IonText} from "@ionic/vue";
-import DetailForm from "@/components/detail/detail-form.vue";
+import { IonContent, IonText } from '@ionic/vue';
+import DetailForm from '@/components/detail/detail-form.vue';
 </script>
 
 <template>
@@ -11,6 +11,4 @@ import DetailForm from "@/components/detail/detail-form.vue";
   </ion-content>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

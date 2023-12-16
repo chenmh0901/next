@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {IonContent} from "@ionic/vue";
+import { IonContent } from '@ionic/vue';
 
 // TODO 这是欢迎页，打开APP默认在这里，应该介绍一下芸馆的功能，有一些装饰图片图标之类的
 </script>

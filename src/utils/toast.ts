@@ -1,11 +1,15 @@
-import {toastController} from "@ionic/vue";
+import { toastController } from '@ionic/vue';
 
-export const toast = async (message: string, duration: number, position: 'top' | 'middle' | 'bottom' = 'top') => {
+export const toast = async (
+  message: string,
+  duration: number,
+  position: 'top' | 'middle' | 'bottom' = 'top'
+) => {
   const toast = await toastController.create({
     message,
     duration,
-    position,
+    position
   });
 
   await toast.present();
-}
+};
