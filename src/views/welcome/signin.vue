@@ -33,7 +33,7 @@ const onClick = () => {
       if (res.data.access_token) {
         authStore.setToken(res.data.access_token ?? '');
         toast('登录成功', 1500);
-        pageTo('/home');
+        pageTo('/detail');
       } else {
         toast('登录错误，请联系管理员', 1500);
       }
