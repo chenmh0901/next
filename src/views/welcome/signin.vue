@@ -5,11 +5,7 @@ import axios from 'axios';
 import { ref } from 'vue';
 import { useDevStore } from '@/stores/dev.store';
 import { useAuthStore } from '@/stores/auth.store';
-import { useRouter } from 'vue-router';
-import { useIonRouter } from '@ionic/vue';
 import { pageTo } from '@/router/director';
-
-const router = useIonRouter();
 
 const dev = useDevStore();
 const authStore = useAuthStore();
