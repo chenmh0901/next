@@ -15,10 +15,11 @@ export interface IProps {
 const props = defineProps<IProps>();
 
 const info = ref<User>();
-onMounted(async () => {
+
+const fetchUserInfo = async (userNo?: string) => {
   const token = await getToken();
   const config = {
-    url: `http://localhost:3000/user/`,
+    url: `http://localhost:3000/user/${userNo ?? ''}`,
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
@@ -29,6 +30,9 @@ onMounted(async () => {
   axios(config).then((res) => {
     info.value = res.data;
   });
+};
+onMounted(() => {
+  fetchUserInfo(props.userNo);
 });
 </script>
 

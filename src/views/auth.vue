@@ -3,13 +3,13 @@ import { IonInput, IonPage, IonToolbar } from '@ionic/vue';
 import { ref } from 'vue';
 import axios from 'axios';
 
-export interface User {
+interface AuthForm {
   no: string;
   password: string;
   email?: string;
 }
 
-const user = ref<User>({
+const user = ref<AuthForm>({
   no: '',
   password: ''
 });
