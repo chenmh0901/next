@@ -1,35 +1,40 @@
-import {defineStore} from "pinia";
-import {ref} from "vue";
-import {User} from "@/types/user";
-import {Storage} from "@ionic/storage";
-
+import { defineStore } from 'pinia';
+import { ref } from 'vue';
+import { User } from '@/types/user';
+import { Storage } from '@ionic/storage';
 
 export const useAuthStore = defineStore('auth', () => {
-  const storage = new Storage();
-  storage.create().then(async () => {
-    token.value = await storage.get('token')
-  });
-
-  const token = ref<string>()
-  const user = ref<User>()
+  const user = ref<User>();
 
   const getToken = () => {
-    return token
-  }
+    return new Promise<string>((resolve, reject) => {
+      const storage = new Storage();
+      storage.create().then((s) => {
+        s.get('token')
+          .then((t) => resolve(t))
+          .catch((e) => reject(e));
+      });
+    });
+  };
   const setToken = (t: string) => {
-    token.value = t
-    storage.set('token', t)
-  }
+    return new Promise<string>((resolve, reject) => {
+      const storage = new Storage();
+      storage.create().then((s) => {
+        s.set('token', t)
+          .then((t) => resolve(t))
+          .catch((e) => reject(e));
+      });
+    });
+  };
 
   const setUser = (u: any) => {
-    user.value = u
-  }
+    user.value = u;
+  };
 
   return {
-    token,
     user,
     getToken,
     setToken,
-    setUser,
-  }
-})
+    setUser
+  };
+});
