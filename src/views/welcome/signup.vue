@@ -1,26 +1,48 @@
 <script setup lang="ts">
 import { IonButton, IonContent, IonInput, IonText } from '@ionic/vue';
 import { ref } from 'vue';
-
 import axios from 'axios';
 import { pageTo } from '@/router/director';
+import { toast } from '@/utils/toast';
 
-interface registerForm {
+interface RegForm {
   no: string;
   password: string;
   email: string;
 }
-const user = ref<registerForm>({
+
+const form = ref<RegForm>({
   no: '',
   password: '',
   email: ''
 });
+
+const validate = (f: RegForm) => {
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (f.no.length === 0) {
+    toast('学号不能为空');
+  } else if (f.no.length !== 10) {
+    toast('请输入正确的学号格式');
+  } else if (f.password.length === 0) {
+    toast('请输入密码');
+  } else if (f.password.length < 6) {
+    toast('请输入更安全的密码');
+  } else if (f.email?.length === 0) {
+    toast('请输入邮箱');
+  } else if (f.email && !emailPattern.test(f.email)) {
+    toast('请输入正确的邮箱格式');
+  } else {
+    return true;
+  }
+  return false;
+};
+
 const submit = async () => {
-  if (validateForm(user.value)) {
+  if (validate(form.value)) {
     const config = {
       url: `http://localhost:3000/auth/signin`,
       method: 'post',
-      data: { no: user.value.no, password: user.value.password },
+      data: { no: form.value.no, password: form.value.password },
       headers: {
         'Content-Type': 'application/json',
         Accept: '*/*'
@@ -44,23 +66,23 @@ const showSignupForm = ref(false);
         <ion-input
           placeholder="输入您的学号"
           label="学号"
-          :value="user.no"
-          @ion-input="user.no = $event.target.value as string"
+          :value="form.no"
+          @ion-input="form.no = $event.target.value as string"
           type="text"
           :clear-input="true"
         ></ion-input>
         <ion-input
           placeholder="输入您的密码"
           label="密码"
-          :value="user.password"
-          @ion-input="user.password = $event.target.value as string"
+          :value="form.password"
+          @ion-input="form.password = $event.target.value as string"
           type="password"
         ></ion-input>
         <ion-input
           placeholder="输入您的邮箱"
           label="邮箱"
-          :value="user.email"
-          @ion-input="user.email = $event.target.value as string"
+          :value="form.email"
+          @ion-input="form.email = $event.target.value as string"
           type="text"
         ></ion-input>
         <ion-button shape="round" @click="submit">点击注册新账号</ion-button>
