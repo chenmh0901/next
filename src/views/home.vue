@@ -2,7 +2,7 @@
   <ion-page>
     <ion-header :translucent="true" style="box-shadow: none">
       <ion-toolbar>
-        <ion-title style="margin-left: 50%">芸社</ion-title>
+        <ion-title>芸社</ion-title>
         <ion-buttons slot="end">
           <ion-button>
             <ion-icon :icon="addCircleOutline" size="large"></ion-icon>
@@ -12,14 +12,37 @@
     </ion-header>
 
     <ion-content :fullscreen="true">
-      <ion-searchbar
-        placeholder="搜索"
-        style="--box-shadow: none; border-bottom: grey solid 1px"
-      ></ion-searchbar>
+      <div class="home-users">
+        <div v-for="user in users" :key="user.id" class="home-users-container">
+          <ion-card class="home-users-card">
+            <div class="home-card-avatar">
+              <img
+                style="
+                  border-radius: 20px;
+                  width: 100%;
+                  height: 100%;
+                  box-shadow:
+                    rgba(0, 0, 0, 0.2) 0 4px 1px -2px,
+                    rgba(0, 0, 0, 0.14) 0 3px 2px 0,
+                    rgba(0, 0, 0, 0.12) 0 2px 5px 0;
+                "
+                src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
+                alt="Grapefruit slice atop a pile of other slices"
+              />
+            </div>
+            <div class="home-card-info">
+              <ion-card-title style="margin-bottom: 10px">{{
+                user.name
+              }}</ion-card-title>
+              <ion-card-subtitle>{{ user.no }}</ion-card-subtitle>
+            </div>
+          </ion-card>
+        </div>
+      </div>
     </ion-content>
     <ion-footer>
       <ion-toolbar>
-        <ion-title style="margin-left: 40%">Footer</ion-title>
+        <ion-title>Footer</ion-title>
       </ion-toolbar>
     </ion-footer>
   </ion-page>
@@ -27,19 +50,73 @@
 
 <script setup lang="ts">
 import {
+  IonCard,
   IonContent,
-  IonHeader,
   IonFooter,
+  IonHeader,
+  IonIcon,
   IonPage,
   IonTitle,
-  IonToolbar,
-  IonIcon,
-  IonSearchbar
+  IonToolbar
 } from '@ionic/vue';
 import { addCircleOutline } from 'ionicons/icons';
 import 'swiper/css';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
+import axios from 'axios';
+import { useAuthStore } from '@/stores/auth.store';
 
+const { getToken } = useAuthStore();
+
+const fetchUsers = async () => {
+  const token = await getToken();
+  const config = {
+    url: `http://localhost:3000/user/all`,
+    method: 'get',
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: '*/*',
+      Authorization: 'bearer ' + token
+    }
+  };
+  axios(config).then((res) => {
+    users.value = res.data;
+  });
+};
+onMounted(() => {
+  fetchUsers();
+});
 const users = ref<User[]>([]);
 </script>
+
+<style scoped>
+.home-users {
+  width: 94%;
+  margin: 3%;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.home-users-container {
+  width: 50%;
+  padding: 5px;
+}
+
+.home-users-card {
+  height: 10vh;
+  border-radius: 20px;
+  display: flex;
+}
+
+.home-card-avatar {
+  height: 100%;
+  padding: 20px;
+}
+
+.home-card-info {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+</style>
