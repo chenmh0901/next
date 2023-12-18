@@ -14,7 +14,11 @@
     <ion-content :fullscreen="true">
       <div class="home-users">
         <div v-for="user in users" :key="user.id" class="home-users-container">
-          <ion-card class="home-users-card">
+          <ion-card
+            class="home-users-card"
+            @click="showdetailForm"
+            :disabled="showDetail"
+          >
             <div class="home-card-avatar">
               <img
                 style="
@@ -39,6 +43,12 @@
           </ion-card>
         </div>
       </div>
+      <ion-card class="home-detail-form" v-show="showDetail">
+        <detail-show
+          class="detail-form"
+          @close-form="showdetailForm"
+        ></detail-show>
+      </ion-card>
     </ion-content>
     <ion-footer>
       <ion-toolbar>
@@ -65,9 +75,16 @@ import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth.store';
+import DetailShow from '@/components/detail/detail-show.vue';
 
 const { getToken } = useAuthStore();
 
+const showdetailForm = () => {
+  // pageTo('/show');
+  showDetail.value = !showDetail.value;
+  console.log(showDetail.value);
+};
+const showDetail = ref<boolean>(false);
 const fetchUsers = async () => {
   const token = await getToken();
   const config = {
@@ -118,5 +135,17 @@ const users = ref<User[]>([]);
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+.home-detail-form {
+  margin-left: 15%;
+  padding: 5%;
+  position: absolute;
+  top: 20%;
+  height: 60%;
+  width: 70%;
+}
+.detail-form {
+  height: 100%;
+  width: 100%;
 }
 </style>
