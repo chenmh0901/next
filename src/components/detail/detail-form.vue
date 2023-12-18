@@ -5,7 +5,7 @@ import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import { User } from '@/types/user';
 import { toast } from '@/utils/toast';
-import { validateDetailForm } from '@/components/detail/validatorDetailForm';
+import { validateDetailForm } from '@/components/detail/validator';
 import { pageTo } from '@/router/director';
 
 const { getToken } = useAuthStore();

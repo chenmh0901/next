@@ -16,7 +16,12 @@
         <div v-for="user in users" :key="user.id" class="home-users-container">
           <ion-card
             class="home-users-card"
-            @click="showdetailForm"
+            @click="
+              () => {
+                userDetail = user;
+                showDetail = true;
+              }
+            "
             :disabled="showDetail"
           >
             <div class="home-card-avatar">
@@ -46,7 +51,12 @@
       <ion-card class="home-detail-form" v-show="showDetail">
         <detail-show
           class="detail-form"
-          @close-form="showdetailForm"
+          :close="
+            () => {
+              showDetail = false;
+            }
+          "
+          :user="userDetail"
         ></detail-show>
       </ion-card>
     </ion-content>
@@ -79,12 +89,8 @@ import DetailShow from '@/components/detail/detail-show.vue';
 
 const { getToken } = useAuthStore();
 
-const showdetailForm = () => {
-  // pageTo('/show');
-  showDetail.value = !showDetail.value;
-  console.log(showDetail.value);
-};
-const showDetail = ref<boolean>(false);
+// fetch users
+const users = ref<User[]>([]);
 const fetchUsers = async () => {
   const token = await getToken();
   const config = {
@@ -103,7 +109,10 @@ const fetchUsers = async () => {
 onMounted(() => {
   fetchUsers();
 });
-const users = ref<User[]>([]);
+
+// detail form
+const userDetail = ref<User>();
+const showDetail = ref<boolean>(false);
 </script>
 
 <style scoped>
