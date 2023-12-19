@@ -40,9 +40,9 @@
               />
             </div>
             <div class="home-card-info">
-              <ion-card-title style="margin-bottom: 10px">{{
-                user.name
-              }}</ion-card-title>
+              <ion-card-title style="margin-bottom: 10px"
+                >{{ user.name }}
+              </ion-card-title>
               <ion-card-subtitle>{{ user.no }}</ion-card-subtitle>
             </div>
           </ion-card>
@@ -83,30 +83,20 @@ import { addCircleOutline } from 'ionicons/icons';
 import 'swiper/css';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
-import axios from 'axios';
-import { useAuthStore } from '@/stores/auth.store';
 import DetailShow from '@/components/detail/detail-show.vue';
 import { useUserStore } from '@/stores/user.store';
+import { useHttp } from '@/utils/http';
 
-const { getToken } = useAuthStore();
 const userStore = useUserStore();
 
 // fetch users
 const users = ref<User[]>([]);
 const fetchUsers = async () => {
-  const token = await getToken();
-  const config = {
-    url: `http://localhost:3000/user/all`,
+  const res = await useHttp<User[]>({
     method: 'get',
-    headers: {
-      'Content-Type': 'application/json',
-      Accept: '*/*',
-      Authorization: 'bearer ' + token
-    }
-  };
-  axios(config).then((res) => {
-    users.value = res.data;
+    path: 'user/all'
   });
+  users.value = res.data;
 };
 onMounted(() => {
   fetchUsers();
@@ -147,6 +137,7 @@ const showDetail = ref<boolean>(false);
   flex-direction: column;
   justify-content: center;
 }
+
 .home-detail-form {
   margin-left: 15%;
   padding: 5%;
@@ -155,6 +146,7 @@ const showDetail = ref<boolean>(false);
   height: 60%;
   width: 70%;
 }
+
 .detail-form {
   height: 100%;
   width: 100%;
