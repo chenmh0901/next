@@ -15,8 +15,8 @@ interface IResponseBody {
   [key: string]: any;
 }
 
-export const useHttp = async <T extends IRequestBody, R extends IResponseBody>(
-  options: IHttpOptions<T>
+export const useHttp = async <R extends IResponseBody>(
+  options: IHttpOptions<IRequestBody>
 ) => {
   const token = await useAuthStore().getToken();
   const config = {
