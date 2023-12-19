@@ -1,10 +1,31 @@
 import { defineStore } from 'pinia';
-import { ref } from 'vue';
+import { Storage } from '@ionic/storage';
 import { User } from '@/types/user';
 
 export const useUserStore = defineStore('user', () => {
-  const user = ref<User>();
+  const getUser = () => {
+    return new Promise<User>((resolve, reject) => {
+      const storage = new Storage();
+      storage.create().then((s) => {
+        s.get('user')
+          .then((t) => resolve(t))
+          .catch((e) => reject(e));
+      });
+    });
+  };
+  const setUser = (t: User) => {
+    return new Promise<User>((resolve, reject) => {
+      const storage = new Storage();
+      storage.create().then((s) => {
+        s.set('user', t)
+          .then((t) => resolve(t))
+          .catch((e) => reject(e));
+      });
+    });
+  };
+
   return {
-    user
+    getUser,
+    setUser
   };
 });

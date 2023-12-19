@@ -62,7 +62,7 @@
     </ion-content>
     <ion-footer>
       <ion-toolbar>
-        <ion-title>Nav {{ userStore.user }}</ion-title>
+        <ion-title>Nav {{ self }}</ion-title>
       </ion-toolbar>
     </ion-footer>
   </ion-page>
@@ -105,6 +105,12 @@ onMounted(() => {
 // detail form
 const userDetail = ref<User>();
 const showDetail = ref<boolean>(false);
+
+// user self info
+const self = ref<User>();
+onMounted(async () => {
+  self.value = await userStore.getUser();
+});
 </script>
 
 <style scoped>
