@@ -14,7 +14,7 @@ const { style } = useDraggable(el, {
 // need render?
 const show = computed(() => {
   // when debug, always show
-  return true;
+  return false;
   // return devStore.logs.length || devStore.elements.length;
 });
 </script>
