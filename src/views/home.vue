@@ -62,7 +62,7 @@
     </ion-content>
     <ion-footer>
       <ion-toolbar>
-        <ion-title>Nav {{ self }}</ion-title>
+        <ion-title>是管理员吗？ {{ isAdminUser }}</ion-title>
       </ion-toolbar>
     </ion-footer>
   </ion-page>
@@ -107,9 +107,9 @@ const userDetail = ref<User>();
 const showDetail = ref<boolean>(false);
 
 // user self info
-const self = ref<User>();
+const isAdminUser = ref<boolean>();
 onMounted(async () => {
-  self.value = await userStore.getUser();
+  isAdminUser.value = await userStore.getIsAdmin();
 });
 </script>
 
