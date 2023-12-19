@@ -2,6 +2,7 @@ export type User = {
   id: number;
   no: string;
   name: string;
+  admin: boolean;
   email?: string;
   wechat?: string;
   QQ?: string;

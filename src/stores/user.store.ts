@@ -24,8 +24,14 @@ export const useUserStore = defineStore('user', () => {
     });
   };
 
+  const isAdmin = async () => {
+    const u = await getUser();
+    return u.admin;
+  };
+
   return {
     getUser,
-    setUser
+    setUser,
+    isAdmin
   };
 });
