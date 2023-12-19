@@ -13,7 +13,7 @@ const authStore = useAuthStore();
 const username = ref<string>('');
 const password = ref<string>('');
 
-const onClick = () => {
+const onClick = async () => {
   // TODO 登录逻辑
   // 1. 登录成功再把东西存到 store 里
   // 2. 每次只需要判断 store 里有没有东西，有的话就直接跳转
@@ -28,26 +28,20 @@ const onClick = () => {
       password: password.value
     }
   };
-  axios(config)
-    .then(
-      (res: { data: { detailFinished: boolean; access_token: string } }) => {
-        if (res.data.access_token) {
-          authStore.setToken(res.data.access_token ?? '');
-          toast('登录成功', 1500);
-          if (res.data.detailFinished) {
-            pageTo('/home');
-          } else {
-            pageTo('/detail');
-          }
-        } else {
-          toast('登录错误，请联系管理员', 1500);
-        }
-      }
-    )
-    .catch((err) => {
-      dev.log(err);
-      toast('登录失败', 1500);
-    });
+  try {
+    const res: { data: { detailFinished: boolean; access_token: string } } =
+      await axios(config);
+    authStore.setToken(res.data.access_token ?? '');
+    toast('登录成功', 1500);
+    if (res.data.detailFinished) {
+      pageTo('/home');
+    } else {
+      pageTo('/detail');
+    }
+  } catch (e) {
+    dev.log(e as string);
+    toast('登录失败', 1500);
+  }
 };
 </script>
 
