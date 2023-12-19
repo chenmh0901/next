@@ -6,9 +6,12 @@ import { ref } from 'vue';
 import { useDevStore } from '@/stores/dev.store';
 import { useAuthStore } from '@/stores/auth.store';
 import { pageTo } from '@/router/director';
+import { User } from '@/types/user';
+import { useUserStore } from '@/stores/user.store';
 
 const dev = useDevStore();
 const authStore = useAuthStore();
+const userStore = useUserStore();
 
 const username = ref<string>('');
 const password = ref<string>('');
@@ -21,7 +24,8 @@ const onClick = async () => {
     method: 'post',
     url: 'http://localhost:3000/auth/signin',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: ''
     },
     data: {
       no: username.value,
@@ -29,9 +33,19 @@ const onClick = async () => {
     }
   };
   try {
+    // ask4token
     const res: { data: { detailFinished: boolean; access_token: string } } =
       await axios(config);
-    authStore.setToken(res.data.access_token ?? '');
+    await authStore.setToken(res.data.access_token ?? '');
+
+    // then ask4admin
+    config.method = 'get';
+    config.url = 'http://localhost:3000/user';
+    config.headers['Authorization'] = `Bearer ${res.data.access_token}`;
+    const res2: { data: User } = await axios(config);
+    userStore.user = res2.data;
+
+    // router
     toast('登录成功', 1500);
     if (res.data.detailFinished) {
       pageTo('/home');

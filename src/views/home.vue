@@ -62,7 +62,7 @@
     </ion-content>
     <ion-footer>
       <ion-toolbar>
-        <ion-title>Footer</ion-title>
+        <ion-title>Nav {{ userStore.user }}</ion-title>
       </ion-toolbar>
     </ion-footer>
   </ion-page>
@@ -86,8 +86,10 @@ import { User } from '@/types/user';
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth.store';
 import DetailShow from '@/components/detail/detail-show.vue';
+import { useUserStore } from '@/stores/user.store';
 
 const { getToken } = useAuthStore();
+const userStore = useUserStore();
 
 // fetch users
 const users = ref<User[]>([]);
