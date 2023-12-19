@@ -4,12 +4,17 @@ import { ref } from 'vue';
 import axios from 'axios';
 import { pageTo } from '@/router/director';
 import { toast } from '@/utils/toast';
+import { useAuthStore } from '@/stores/auth.store';
+import { useDevStore } from '@/stores/dev.store';
 
 interface RegForm {
   no: string;
   password: string;
   email: string;
 }
+
+const dev = useDevStore();
+const authStore = useAuthStore();
 
 const form = ref<RegForm>({
   no: '',
@@ -38,21 +43,47 @@ const validate = (f: RegForm) => {
 };
 
 const submit = async () => {
-  if (validate(form.value)) {
-    const config = {
-      url: `http://localhost:3000/auth/signin`,
-      method: 'post',
-      data: { no: form.value.no, password: form.value.password },
-      headers: {
-        'Content-Type': 'application/json',
-        Accept: '*/*'
-      }
-    };
-    axios(config).then((r) => {
-      console.log(r.data);
-      pageTo('/detail');
-    });
+  if (!validate(form.value)) {
+    return;
   }
+
+  // 注册
+  const config = {
+    url: `http://localhost:3000/auth/signup`,
+    method: 'post',
+    data: {
+      no: form.value.no,
+      password: form.value.password,
+      email: form.value.email
+    },
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: '*/*'
+    }
+  };
+  try {
+    await axios(config);
+  } catch (e) {
+    toast('注册失败');
+    return;
+  }
+
+  // 登录
+  config.url = `http://localhost:3000/auth/signin`;
+  axios(config)
+    .then((res: { data: { access_token: string } }) => {
+      if (res.data.access_token) {
+        authStore.setToken(res.data.access_token ?? '');
+        toast('登录成功', 1500);
+        pageTo('/detail');
+      } else {
+        toast('登录错误，请联系管理员', 1500);
+      }
+    })
+    .catch((err) => {
+      dev.log(err);
+      toast('登录失败', 1500);
+    });
 };
 // TODO 点击注册新账号按钮 -> 在此页面控制注册逻辑
 const showSignupForm = ref(false);
