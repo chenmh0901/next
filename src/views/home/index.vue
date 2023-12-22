@@ -13,18 +13,17 @@
 
     <ion-content :fullscreen="true">
       <div class="home-users">
-        <div v-for="user in users" :key="user.id" class="home-users-container">
+        <div v-for="user in users" :key="user.id" class="w-1/2 p-1">
           <ion-card
             class="home-users-card"
             @click="
               () => {
                 userDetail = user;
-                showDetail = true;
+                show = true;
               }
             "
-            :disabled="showDetail"
           >
-            <div class="home-card-avatar">
+            <div class="h-full p-5">
               <img
                 style="
                   border-radius: 20px;
@@ -39,26 +38,15 @@
                 alt="Grapefruit slice atop a pile of other slices"
               />
             </div>
-            <div class="home-card-info">
-              <ion-card-title style="margin-bottom: 10px"
-                >{{ user.name }}
-              </ion-card-title>
-              <ion-card-subtitle>{{ user.no }}</ion-card-subtitle>
+            <div class="flex flex-col justify-center p-5">
+              <ion-card-title class="mb-2">{{ user.name }}</ion-card-title>
+              <ion-card-subtitle>
+                {{ user.no }}
+              </ion-card-subtitle>
             </div>
           </ion-card>
         </div>
       </div>
-      <ion-card class="home-detail-form" v-show="showDetail">
-        <detail-show
-          class="detail-form"
-          :close="
-            () => {
-              showDetail = false;
-            }
-          "
-          :user="userDetail"
-        ></detail-show>
-      </ion-card>
     </ion-content>
     <ion-footer>
       <ion-toolbar>
@@ -66,6 +54,19 @@
       </ion-toolbar>
     </ion-footer>
   </ion-page>
+
+  <el-popover v-model="show" class="home-detail-form" v-if="userDetail">
+    <detail-show
+      class="w-full h-full"
+      :close="
+        () => {
+          userDetail = undefined;
+          show = false;
+        }
+      "
+      :user="userDetail"
+    ></detail-show>
+  </el-popover>
 </template>
 
 <script setup lang="ts">
@@ -103,8 +104,8 @@ onMounted(() => {
 });
 
 // detail form
+const show = ref(false);
 const userDetail = ref<User>();
-const showDetail = ref<boolean>(false);
 
 // user self info
 const isAdminUser = ref<boolean>();
@@ -115,33 +116,15 @@ onMounted(async () => {
 
 <style scoped>
 .home-users {
+  @apply flex flex-wrap;
   width: 94%;
   margin: 3%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.home-users-container {
-  width: 50%;
-  padding: 5px;
 }
 
 .home-users-card {
+  @apply flex;
   height: 10vh;
   border-radius: 20px;
-  display: flex;
-}
-
-.home-card-avatar {
-  height: 100%;
-  padding: 20px;
-}
-
-.home-card-info {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
 }
 
 .home-detail-form {
@@ -151,10 +134,5 @@ onMounted(async () => {
   top: 20%;
   height: 60%;
   width: 70%;
-}
-
-.detail-form {
-  height: 100%;
-  width: 100%;
 }
 </style>

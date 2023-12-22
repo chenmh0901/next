@@ -21,6 +21,7 @@ import '@ionic/vue/css/flex-utils.css';
 import '@ionic/vue/css/display.css';
 
 /* Theme variables */
+import './theme/global.css';
 import './theme/variables.css';
 
 /* Element plus */
