@@ -60,7 +60,7 @@
   </ion-page>
 
   <ion-modal id="example-modal" :trigger="userDetail?.id">
-    <detail-show :user="userDetail"></detail-show>
+    <dialog-user-detail :user="userDetail"></dialog-user-detail>
   </ion-modal>
 </template>
 
