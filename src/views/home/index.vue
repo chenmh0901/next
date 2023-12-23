@@ -13,13 +13,17 @@
 
     <ion-content :fullscreen="true">
       <div class="home-users">
-        <div v-for="user in users" :key="user.id" class="w-1/2 p-1">
+        <div
+          v-for="user in users"
+          :key="user.id"
+          class="w-1/2 p-1"
+          :id="user.id.toString()"
+        >
           <ion-card
             class="home-users-card"
             @click="
               () => {
                 userDetail = user;
-                show = true;
               }
             "
           >
@@ -55,18 +59,9 @@
     </ion-footer>
   </ion-page>
 
-  <el-popover v-model="show" class="home-detail-form" v-if="userDetail">
-    <detail-show
-      class="w-full h-full"
-      :close="
-        () => {
-          userDetail = undefined;
-          show = false;
-        }
-      "
-      :user="userDetail"
-    ></detail-show>
-  </el-popover>
+  <ion-modal id="example-modal" :trigger="userDetail?.id">
+    <detail-show :user="userDetail"></detail-show>
+  </ion-modal>
 </template>
 
 <script setup lang="ts">
@@ -78,15 +73,17 @@ import {
   IonIcon,
   IonPage,
   IonTitle,
-  IonToolbar
+  IonToolbar,
+  IonModal
 } from '@ionic/vue';
 import { addCircleOutline } from 'ionicons/icons';
 import 'swiper/css';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
-import DetailShow from '@/components/detail/detail-show.vue';
 import { useUserStore } from '@/stores/user.store';
 import { useHttp } from '@/utils/http';
+import DialogUserDetail from '@/views/home/components/dialog-user-detail.vue';
+import DetailShow from '@/components/detail/detail-show.vue';
 
 const userStore = useUserStore();
 
@@ -104,7 +101,6 @@ onMounted(() => {
 });
 
 // detail form
-const show = ref(false);
 const userDetail = ref<User>();
 
 // user self info
@@ -127,12 +123,11 @@ onMounted(async () => {
   border-radius: 20px;
 }
 
-.home-detail-form {
-  margin-left: 15%;
-  padding: 5%;
-  position: absolute;
-  top: 20%;
-  height: 60%;
-  width: 70%;
+ion-modal#example-modal {
+  --width: fit-content;
+  --min-width: 250px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
 }
 </style>
