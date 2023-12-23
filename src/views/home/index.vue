@@ -24,6 +24,7 @@
             @click="
               () => {
                 userDetail = user;
+                show = true;
               }
             "
           >
@@ -44,24 +45,23 @@
             </div>
             <div class="flex flex-col justify-center p-5">
               <ion-card-title class="mb-2">{{ user.name }}</ion-card-title>
-              <ion-card-subtitle>
-                {{ user.no }}
-              </ion-card-subtitle>
+              <ion-card-subtitle> {{ user.no }} </ion-card-subtitle>
             </div>
           </ion-card>
         </div>
       </div>
     </ion-content>
+    <dialog-user-detail
+      :user="userDetail"
+      :show="show"
+      :close="() => (show = false)"
+    ></dialog-user-detail>
     <ion-footer>
       <ion-toolbar>
         <ion-title>是管理员吗？ {{ isAdminUser }}</ion-title>
       </ion-toolbar>
     </ion-footer>
   </ion-page>
-
-  <ion-modal id="example-modal" :trigger="userDetail?.id">
-    <dialog-user-detail :user="userDetail"></dialog-user-detail>
-  </ion-modal>
 </template>
 
 <script setup lang="ts">
@@ -73,8 +73,7 @@ import {
   IonIcon,
   IonPage,
   IonTitle,
-  IonToolbar,
-  IonModal
+  IonToolbar
 } from '@ionic/vue';
 import { addCircleOutline } from 'ionicons/icons';
 import 'swiper/css';
@@ -83,7 +82,6 @@ import { User } from '@/types/user';
 import { useUserStore } from '@/stores/user.store';
 import { useHttp } from '@/utils/http';
 import DialogUserDetail from '@/views/home/components/dialog-user-detail.vue';
-import DetailShow from '@/components/detail/detail-show.vue';
 
 const userStore = useUserStore();
 
@@ -101,7 +99,8 @@ onMounted(() => {
 });
 
 // detail form
-const userDetail = ref<User>();
+const show = ref(false);
+const userDetail = ref<User>({} as User);
 
 // user self info
 const isAdminUser = ref<boolean>();
