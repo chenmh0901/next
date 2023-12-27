@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+ <trees>
+     <tree path="/src/views/welcome/hello.vue" title="欢迎"/>
+     <tree path="/src/views/welcome/signin.vue" title="登录"/>
+     <tree path="/src/views/welcome/signup.vue" title="注册"/>
+     <tree path="/src/views/welcome/detail.vue" title="详情"/>
+ </trees>
