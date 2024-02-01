@@ -7,10 +7,12 @@
         </ion-header>
         <ion-content>
             <div class="profile-avatar">
-                <div style="width: 150px;height: 150px;background-color: red;">123</div>
+                <div style="width: 150px;height: 150px;">
+                    <img src="../../../resources/icon.png" alt="">
+                </div>
             </div>
             <div class="profile-info">
-                <detail-show :user="user" />
+                <profile-form :user="user" />
             </div>
         </ion-content>
         <ion-footer>
@@ -23,7 +25,7 @@
 
 <script setup lang="ts">
 import { IonContent, IonPage, IonFooter, IonHeader } from '@ionic/vue';
-import DetailShow from '@/components/detail/detail-show.vue';
+import ProfileForm from './components/profile-form.vue';
 import { User } from '@/types/user';
 const user: User = {
     id: 123,
@@ -53,7 +55,6 @@ const user: User = {
 .profile-info {
     display: flex;
     justify-content: center;
-    align-items: center;
     height: 600px;
 }
 </style>
