@@ -4,6 +4,7 @@ import Home from '@/views/home/index.vue';
 import Welcome from '@/views/welcome/index.vue';
 import Detail from '@/views/detail.vue';
 import Test from '@/views/test.vue';
+import Profile from '@/views/profile/profile.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -24,6 +25,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/detail',
     name: 'Detail',
     component: Detail
+  },
+  {
+    path: '/profile',
+    name: 'Profile',
+    component: Profile
   },
   {
     // @TODO danger
