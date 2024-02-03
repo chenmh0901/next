@@ -1,22 +1,38 @@
 <script setup lang="ts">
-import { IonContent, IonHeader, IonTitle, IonToolbar } from '@ionic/vue';
+import {
+  IonContent,
+  IonFooter,
+  IonHeader,
+  IonTitle,
+  IonToolbar,
+  IonPage
+} from '@ionic/vue';
 
-export interface IProps {
-  title: string;
-}
+const emit = defineEmits<{
+  (e: 'toggle-page', val: PAGE): void;
+}>();
 
-const props = defineProps<IProps>();
+type PAGE = 'USER_LIST' | 'BOARD' | 'PROFILE';
 </script>
 
 <template>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>{{ props.title }}</ion-title>
-    </ion-toolbar>
-  </ion-header>
-  <ion-content class="layout-base-content">
-    <slot></slot>
-  </ion-content>
+  <ion-page>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title>搜索框</ion-title>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content :fullscreen="true" class="layout-base-content">
+      <slot></slot>
+    </ion-content>
+    <ion-footer style="position: absolute; bottom: 0">
+      <ion-toolbar>
+        <ion-button @click="emit('toggle-page', 'USER_LIST')">Home</ion-button>
+        <ion-button @click="emit('toggle-page', 'BOARD')">Board</ion-button>
+        <ion-button @click="emit('toggle-page', 'PROFILE')">Profile</ion-button>
+      </ion-toolbar>
+    </ion-footer>
+  </ion-page>
 </template>
 
 <style scoped></style>

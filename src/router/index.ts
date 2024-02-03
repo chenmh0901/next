@@ -1,10 +1,8 @@
 import { createRouter, createWebHistory } from '@ionic/vue-router';
 import { RouteRecordRaw } from 'vue-router';
-import Home from '@/views/home/index.vue';
 import Signin from '@/views/signin/index.vue';
-import Detail from '@/views/detail.vue';
+import Home from '@/views/home/index.vue';
 import Test from '@/views/test.vue';
-import Profile from '@/views/profile/profile.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -22,17 +20,6 @@ const routes: Array<RouteRecordRaw> = [
     component: Home
   },
   {
-    path: '/detail',
-    name: 'Detail',
-    component: Detail
-  },
-  {
-    path: '/profile',
-    name: 'Profile',
-    component: Profile
-  },
-  {
-    // @TODO danger
     path: '/test',
     name: 'Test',
     component: Test

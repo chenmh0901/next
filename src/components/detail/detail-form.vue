@@ -1,14 +1,11 @@
 <script setup lang="ts">
 import { IonButton, IonContent, IonInput } from '@ionic/vue';
-import { useAuthStore } from '@/stores/auth.store';
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
 import { User } from '@/types/user';
 import { toast } from '@/utils/toast';
 import { validateDetailForm } from '@/components/detail/validator';
 import { pageTo } from '@/router/director';
-
-const { getToken } = useAuthStore();
 
 export interface IProps {
   editable?: boolean;
@@ -21,14 +18,14 @@ const form = ref<User>();
 
 // 获取表单
 const fetchUserInfo = async (userNo?: string) => {
-  const token = await getToken();
+  // const token = await getToken();
   const config = {
     url: `http://localhost:3000/user/${userNo ?? ''}`,
     method: 'get',
     headers: {
       'Content-Type': 'application/json',
-      Accept: '*/*',
-      Authorization: 'bearer ' + token
+      Accept: '*/*'
+      // Authorization: 'bearer ' + token
     }
   };
   axios(config).then((res) => {
@@ -45,14 +42,14 @@ const patchUserInfo = async (userNo: string) => {
   // TODO validate
   if (!validateDetailForm(form.value)) return;
 
-  const token = await getToken();
+  // const token = await getToken();
   const config = {
     url: `http://localhost:3000/user/${userNo}`,
     method: 'patch',
     headers: {
       'Content-Type': 'application/json',
-      Accept: '*/*',
-      Authorization: 'bearer ' + token
+      Accept: '*/*'
+      // Authorization: 'bearer ' + token
     },
     data: form.value
   };

@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { useAuthStore } from '@/stores/auth.store';
 
 const DEV_URL = 'http://localhost:3000/';
 
@@ -20,13 +19,12 @@ interface IResponseBody {
 export const useHttp = async <R extends IResponseBody>(
   options: IHttpOptions<IRequestBody>
 ) => {
-  const token = await useAuthStore().getToken();
   const config = {
     method: options.method,
     url: DEV_URL + options.path,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer `
     },
     data: options.data
   };
