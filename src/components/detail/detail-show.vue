@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import { IonButton, IonContent, IonInput } from '@ionic/vue';
+import { IonInput } from '@ionic/vue';
 import { User } from '@/types/user';
 import { computed } from 'vue';
 interface IProps {
   user: User;
-  close: () => void;
 }
 const props = defineProps<IProps>();
 
@@ -19,7 +18,7 @@ const user = computed(() => {
 </script>
 
 <template>
-  <ion-content v-if="user">
+  <div v-if="user">
     <ion-input label="姓名" :value="user.name" disabled></ion-input>
     <ion-input label="微信" :value="user.wechat" disabled></ion-input>
     <ion-input label="QQ" :value="user.QQ" disabled></ion-input>
@@ -27,8 +26,7 @@ const user = computed(() => {
     <ion-input label="班级" :value="user.class" disabled></ion-input>
     <ion-input label="寝室号" :value="user.room" disabled></ion-input>
     <ion-input label="籍贯" :value="user.birthPlace" disabled></ion-input>
-    <ion-button shape="round" @click="props.close">确认</ion-button>
-  </ion-content>
+  </div>
 </template>
 
 <style scoped></style>

@@ -13,18 +13,22 @@
 
     <ion-content :fullscreen="true">
       <div class="home-users">
-        <div v-for="user in users" :key="user.id" class="home-users-container">
+        <div
+          v-for="user in users"
+          :key="user.id"
+          class="w-1/2 p-1"
+          :id="user.id.toString()"
+        >
           <ion-card
             class="home-users-card"
             @click="
               () => {
                 userDetail = user;
-                showDetail = true;
+                show = true;
               }
             "
-            :disabled="showDetail"
           >
-            <div class="home-card-avatar">
+            <div class="h-full p-5">
               <img
                 style="
                   border-radius: 20px;
@@ -39,27 +43,19 @@
                 alt="Grapefruit slice atop a pile of other slices"
               />
             </div>
-            <div class="home-card-info">
-              <ion-card-title style="margin-bottom: 10px"
-                >{{ user.name }}
-              </ion-card-title>
-              <ion-card-subtitle>{{ user.no }}</ion-card-subtitle>
+            <div class="flex flex-col justify-center p-5">
+              <ion-card-title class="mb-2">{{ user.name }}</ion-card-title>
+              <ion-card-subtitle> {{ user.no }} </ion-card-subtitle>
             </div>
           </ion-card>
         </div>
       </div>
-      <ion-card class="home-detail-form" v-show="showDetail">
-        <detail-show
-          class="detail-form"
-          :close="
-            () => {
-              showDetail = false;
-            }
-          "
-          :user="userDetail"
-        ></detail-show>
-      </ion-card>
     </ion-content>
+    <dialog-user-detail
+      :user="userDetail"
+      :show="show"
+      :close="() => (show = false)"
+    ></dialog-user-detail>
     <ion-footer>
       <ion-toolbar>
         <ion-title>是管理员吗？ {{ isAdminUser }}</ion-title>
@@ -83,9 +79,9 @@ import { addCircleOutline } from 'ionicons/icons';
 import 'swiper/css';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
-import DetailShow from '@/components/detail/detail-show.vue';
 import { useUserStore } from '@/stores/user.store';
 import { useHttp } from '@/utils/http';
+import DialogUserDetail from '@/views/home/components/dialog-user-detail.vue';
 
 const userStore = useUserStore();
 
@@ -103,8 +99,8 @@ onMounted(() => {
 });
 
 // detail form
-const userDetail = ref<User>();
-const showDetail = ref<boolean>(false);
+const show = ref(false);
+const userDetail = ref<User>({} as User);
 
 // user self info
 const isAdminUser = ref<boolean>();
@@ -115,46 +111,22 @@ onMounted(async () => {
 
 <style scoped>
 .home-users {
+  @apply flex flex-wrap;
   width: 94%;
   margin: 3%;
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.home-users-container {
-  width: 50%;
-  padding: 5px;
 }
 
 .home-users-card {
+  @apply flex;
   height: 10vh;
   border-radius: 20px;
-  display: flex;
 }
 
-.home-card-avatar {
-  height: 100%;
-  padding: 20px;
-}
-
-.home-card-info {
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.home-detail-form {
-  margin-left: 15%;
-  padding: 5%;
-  position: absolute;
-  top: 20%;
-  height: 60%;
-  width: 70%;
-}
-
-.detail-form {
-  height: 100%;
-  width: 100%;
+ion-modal#example-modal {
+  --width: fit-content;
+  --min-width: 250px;
+  --height: fit-content;
+  --border-radius: 6px;
+  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
 }
 </style>

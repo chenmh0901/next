@@ -33,7 +33,7 @@ const onClick = async () => {
     await authStore.setToken(res_token.data.access_token ?? '');
     console.log(res_token.data);
 
-    // then ask4admin
+    // then ask for admin
     const res_user = await useHttp<User>({
       path: 'user',
       method: 'get'
