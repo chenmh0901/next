@@ -27,6 +27,7 @@
     "@ionic/vue": "^7.0.0",
     "@ionic/vue-router": "^7.0.0",
     "@types/lodash": "^4.14.202",
+    "@types/node": "^20.11.16",
     "@vueuse/core": "^10.7.0",
     "autoprefixer": "^10.4.16",
     "axios": "^1.6.2",

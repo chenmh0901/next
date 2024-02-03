@@ -16,13 +16,13 @@
           style="width: 150px; height: 150px; --border-radius: 4px"
           v-if="!edit"
         >
-          <img src="../../../resources/icon.png" alt="avatar loading" />
+          <img :src="require('@/assets/icon.png')" alt="avatar loading" />
         </ion-avatar>
         <ion-avatar
           style="width: 150px; height: 150px; --border-radius: 4px"
           v-else
         >
-          <img src="../../../resources/splash.png" alt="avatar loading" />
+          <img :src="require('@/assets/splash.png')" alt="avatar loading" />
         </ion-avatar>
       </div>
       <div class="profile-info">
