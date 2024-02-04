@@ -1,36 +1,39 @@
 <script setup lang="ts">
-import { IonCard,IonIcon,IonButton } from '@ionic/vue';
-import {copyOutline} from 'ionicons/icons';
+import { IonCard, IonIcon, IonButton } from '@ionic/vue';
+import { copyOutline } from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
 import { useToggle } from '@/composables/use-toggle';
 import { computed, ref } from 'vue';
 import { b } from 'vitest/dist/reporters-5f784f42';
 
-const users = computed(()=>{
-  const user=[];
-  for(let i=0;i<3;i++){
+const users = computed(() => {
+  const user = [];
+  for (let i = 0; i < 3; i++) {
     user.push({
       id: i + 1,
-      no: "1210204146",
-      name: "陈明浩",
+      no: '1210204146',
+      name: '陈明浩',
       admin: true,
-      email: "string",
-      wechat: "string",
-      QQ: "string",
-      phone: "string",
-      class: "数媒212",
-      room: "string",
-      birthPlace: "string",
-      resume: "string"
-    })
+      email: 'string',
+      wechat: 'string',
+      QQ: 'string',
+      phone: 'string',
+      class: '数媒212',
+      room: 'string',
+      birthPlace: 'string',
+      resume: 'string'
+    });
   }
   return user;
 });
-const show=ref(false);
-const userDetail=ref();
+const show = ref(false);
+const userDetail = ref();
 //  show mode
 
-const [isColShow,toggle]=useToggle<boolean,boolean>(ref(true),{T:true,F:false});
+const [isColShow, toggle] = useToggle<boolean, boolean>(ref(true), {
+  T: true,
+  F: false
+});
 </script>
 
 <template>
@@ -41,11 +44,16 @@ const [isColShow,toggle]=useToggle<boolean,boolean>(ref(true),{T:true,F:false});
       :class="isColShow ? 'w-1/2 p-1' : 'w-full p-1'"
       :id="user.id"
     >
-      <ion-card :class="isColShow? 'home-user-card':'flex flex-row'" @click="()=>{
-        userDetail=user;
-        show=true;
-      }">
-        <div :class="isColShow ? 'h-full p-5':'w-1/3 p-5'">
+      <ion-card
+        :class="isColShow ? 'home-user-card' : 'flex flex-row'"
+        @click="
+          () => {
+            userDetail = user;
+            show = true;
+          }
+        "
+      >
+        <div :class="isColShow ? 'h-full p-5' : 'w-1/3 p-5'">
           <img
             style="
               border-radius: 20px;
@@ -68,7 +76,11 @@ const [isColShow,toggle]=useToggle<boolean,boolean>(ref(true),{T:true,F:false});
       </ion-card>
     </div>
   </div>
-  <dialog-user-detail :show="show" :user="userDetail" :close="()=>(show=false)"></dialog-user-detail>
+  <dialog-user-detail
+    :show="show"
+    :user="userDetail"
+    :close="() => (show = false)"
+  ></dialog-user-detail>
   <ion-button class="fixed top-10 right-0" @click="toggle()" size="small">
     <ion-icon :icon="copyOutline"></ion-icon>
   </ion-button>

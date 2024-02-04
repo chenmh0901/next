@@ -8,8 +8,9 @@ interface IProps {
   formMode: FormMode;
   changeMode: () => void;
 }
-type FormMode="EDIT"|"VIEW";
-const formMode=ref<FormMode>();
+
+type FormMode = 'EDIT' | 'VIEW';
+const formMode = ref<FormMode>();
 const props = defineProps<IProps>();
 
 const user = computed(() => {
@@ -103,10 +104,10 @@ const user = computed(() => {
       color="primary"
       @click="changeMode"
       v-if="!props.edit"
-    >编辑
+      >编辑
     </ion-button>
     <ion-button expand="block" color="primary" @click="changeMode" v-else
-    >保存
+      >保存
     </ion-button>
   </ion-list>
 </template>
