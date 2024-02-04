@@ -24,8 +24,9 @@ type PAGE = 'USER_LIST' | 'BOARD' | 'PROFILE';
     </ion-header>
     <ion-content :fullscreen="true" class="layout-base-content">
       <slot></slot>
+dxdx      <div class="h-15"></div>
     </ion-content>
-    <ion-footer style="position: absolute; bottom: 0">
+    <ion-footer class="h-15" style="position: absolute; bottom: 0;">
       <ion-toolbar>
         <ion-button @click="emit('toggle-page', 'USER_LIST')">Home</ion-button>
         <ion-button @click="emit('toggle-page', 'BOARD')">Board</ion-button>
