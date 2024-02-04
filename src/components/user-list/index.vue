@@ -2,6 +2,7 @@
 import { IonCard,IonIcon,IonButton } from '@ionic/vue';
 import {copyOutline} from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
+import { useToggle, UseToggleOptions } from '@/composables/use-toggle';
 import { computed, ref } from 'vue';
 
 const users = computed(()=>{
@@ -27,7 +28,7 @@ const users = computed(()=>{
 const show=ref(false);
 const userDetail=ref();
 //  show mode
-const isColShow=ref(true);
+const [isColShow,toggle]=useToggle(true);
 </script>
 
 <template>
@@ -66,7 +67,7 @@ const isColShow=ref(true);
     </div>
   </div>
   <dialog-user-detail :show="show" :user="userDetail" :close="()=>(show=false)"></dialog-user-detail>
-  <ion-button class="fixed top-10 right-0" @click="isColShow=!isColShow" size="small">
+  <ion-button class="fixed top-10 right-0" @click="toggle()" size="small">
     <ion-icon :icon="copyOutline"></ion-icon>
   </ion-button>
 </template>

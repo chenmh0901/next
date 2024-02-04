@@ -1,3 +1,33 @@
+<script setup lang="ts">
+import {
+  IonContent,
+  IonPage,
+  IonFooter,
+  IonHeader,
+  IonAvatar
+} from '@ionic/vue';
+import { settingsOutline } from 'ionicons/icons';
+import ProfileForm from './components/profile-form.vue';
+import { User } from '@/types/user';
+import { ref } from 'vue';
+
+const edit = ref(false);
+const user = ref<User>({
+  id: 1,
+  no: '',
+  name: '',
+  admin: true,
+  email: '',
+  wechat: '',
+  QQ: '',
+  phone: '',
+  class: '',
+  room: '',
+  birthPlace: '',
+  resume: ''
+} as User);
+</script>
+
 <template>
   <ion-page>
     <ion-header>
@@ -44,36 +74,6 @@
     </ion-footer>
   </ion-page>
 </template>
-
-<script setup lang="ts">
-import {
-  IonContent,
-  IonPage,
-  IonFooter,
-  IonHeader,
-  IonAvatar
-} from '@ionic/vue';
-import { settingsOutline } from 'ionicons/icons';
-import ProfileForm from './components/profile-form.vue';
-import { User } from '@/types/user';
-import { ref } from 'vue';
-
-const edit = ref(false);
-const user = ref<User>({
-  id: 1,
-  no: '',
-  name: '',
-  admin: true,
-  email: '',
-  wechat: '',
-  QQ: '',
-  phone: '',
-  class: '',
-  room: '',
-  birthPlace: '',
-  resume: ''
-} as User);
-</script>
 
 <style coped>
 .profile-avatar {
