@@ -2,8 +2,9 @@
 import { IonCard,IonIcon,IonButton } from '@ionic/vue';
 import {copyOutline} from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
-import { useToggle, UseToggleOptions } from '@/composables/use-toggle';
+import { useToggle } from '@/composables/use-toggle';
 import { computed, ref } from 'vue';
+import { b } from 'vitest/dist/reporters-5f784f42';
 
 const users = computed(()=>{
   const user=[];
@@ -28,7 +29,8 @@ const users = computed(()=>{
 const show=ref(false);
 const userDetail=ref();
 //  show mode
-const [isColShow,toggle]=useToggle(true);
+
+const [isColShow,toggle]=useToggle<boolean,boolean>(ref(true),{T:true,F:false});
 </script>
 
 <template>

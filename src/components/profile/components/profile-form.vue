@@ -5,10 +5,11 @@ import { computed } from 'vue';
 
 interface IProps {
   user: User;
-  edit: boolean;
+  formMode: FormMode;
   changeMode: () => void;
 }
-
+type FormMode="EDIT"|"VIEW";
+const formMode=ref<FormMode>();
 const props = defineProps<IProps>();
 
 const user = computed(() => {
