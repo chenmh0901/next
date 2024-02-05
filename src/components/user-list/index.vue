@@ -1,10 +1,9 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import { IonCard, IonIcon, IonButton } from '@ionic/vue';
 import { copyOutline } from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
+import { computed, Ref, ref } from 'vue';
 import { useToggle } from '@/composables/use-toggle';
-import { computed, ref } from 'vue';
-import { b } from 'vitest/dist/reporters-5f784f42';
 
 const users = computed(() => {
   const user = [];
@@ -28,24 +27,21 @@ const users = computed(() => {
 });
 const show = ref(false);
 const userDetail = ref();
-//  show mode
 
-const [isColShow, toggle] = useToggle<boolean, boolean>(ref(true), {
-  T: true,
-  F: false
-});
+//  show mode
+const showModeToggle = useToggle<boolean>(ref(true));
 </script>
 
 <template>
   <div class="home-users flex flex-wrap">
     <div
       v-for="user in users"
-      :key="user.id"
-      :class="isColShow ? 'w-1/2 p-1' : 'w-full p-1'"
       :id="user.id"
+      :key="user.id"
+      :class="showModeToggle.val.value ? 'w-1/2 p-1' : 'w-full p-1'"
     >
       <ion-card
-        :class="isColShow ? 'home-user-card' : 'flex flex-row'"
+        :class="showModeToggle.val.value ? 'home-user-card' : 'flex flex-row'"
         @click="
           () => {
             userDetail = user;
@@ -53,8 +49,10 @@ const [isColShow, toggle] = useToggle<boolean, boolean>(ref(true), {
           }
         "
       >
-        <div :class="isColShow ? 'h-full p-5' : 'w-1/3 p-5'">
+        <div :class="showModeToggle.val.value ? 'h-full p-5' : 'w-1/3 p-5'">
           <img
+            alt="Grapefruit slice atop a pile of other slices"
+            src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
             style="
               border-radius: 20px;
               width: 100%;
@@ -64,8 +62,6 @@ const [isColShow, toggle] = useToggle<boolean, boolean>(ref(true), {
                 rgba(0, 0, 0, 0.14) 0 3px 2px 0,
                 rgba(0, 0, 0, 0.12) 0 2px 5px 0;
             "
-            src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
-            alt="Grapefruit slice atop a pile of other slices"
           />
         </div>
         <div class="flex flex-col justify-center p-5">
@@ -77,11 +73,12 @@ const [isColShow, toggle] = useToggle<boolean, boolean>(ref(true), {
     </div>
   </div>
   <dialog-user-detail
+    :close="() => (show = false)"
     :show="show"
     :user="userDetail"
-    :close="() => (show = false)"
   ></dialog-user-detail>
-  <ion-button class="fixed top-10 right-0" @click="toggle()" size="small">
+  <ion-button class="fixed top-10 right-0" size="small"
+              @click="()=>{console.log(showModeToggle.val.value);showModeToggle.toggle(true);}">
     <ion-icon :icon="copyOutline"></ion-icon>
   </ion-button>
 </template>
