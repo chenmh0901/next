@@ -1,17 +1,21 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {
   IonContent,
   IonPage,
   IonFooter,
   IonHeader,
-  IonAvatar
+  IonAvatar,
+  IonIcon
 } from '@ionic/vue';
 import { settingsOutline } from 'ionicons/icons';
 import ProfileForm from './components/profile-form.vue';
 import { User } from '@/types/user';
 import { ref } from 'vue';
+import { useToggle } from '@/composables/use-toggle';
 
-const edit = ref(false);
+type FormMode = 'EDIT' | 'VIEW';
+const formMode = useToggle<FormMode>(ref<FormMode>('VIEW'), { Truthy: 'EDIT', Falsy: 'VIEW' });
+
 const user = ref<User>({
   id: 1,
   no: '',
@@ -43,27 +47,27 @@ const user = ref<User>({
     <ion-content>
       <div class="profile-avatar">
         <ion-avatar
-          style="width: 150px; height: 150px; --border-radius: 4px"
           v-if="!edit"
+          style="width: 150px; height: 150px; --border-radius: 4px"
         >
           <!--<img src="('@/assets/icon.png')" alt="avatar loading" />-->
         </ion-avatar>
         <ion-avatar
-          style="width: 150px; height: 150px; --border-radius: 4px"
           v-else
+          style="width: 150px; height: 150px; --border-radius: 4px"
         >
           <!--<img src="('@/assets/splash.png')" alt="avatar loading" />-->
         </ion-avatar>
       </div>
       <div class="profile-info">
         <profile-form
-          :user="user"
-          :edit="edit"
-          :change-mode="
+          :form-mode="formMode.val.value"
+          :toggle="
             () => {
-              edit = !edit;
+              formMode.toggle();
             }
           "
+          :user="user"
         />
       </div>
     </ion-content>

@@ -78,7 +78,7 @@ const showModeToggle = useToggle<boolean>(ref(true));
     :user="userDetail"
   ></dialog-user-detail>
   <ion-button class="fixed top-10 right-0" size="small"
-              @click="()=>{console.log(showModeToggle.val.value);showModeToggle.toggle(true);}">
+              @click="showModeToggle.toggle()">
     <ion-icon :icon="copyOutline"></ion-icon>
   </ion-button>
 </template>
