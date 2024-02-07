@@ -1,5 +1,6 @@
 <script lang="ts" setup>
-import { IonPopover, IonCard } from '@ionic/vue';
+import { IonPopover } from '@ionic/vue';
+import MsgCard from '@/components/board/components/msg-card.vue';
 
 interface IProps {
   msg: string;
@@ -12,11 +13,7 @@ const props = defineProps<IProps>();
 
 <template>
   <ion-popover :is-open="props.show" class="" size="auto" @did-dismiss="close">
-    <ion-card class="h-[400px] flex flex-col items-center">
-      <ion-card-title>通知</ion-card-title>
-      <ion-card-content>{{ msg }}
-      </ion-card-content>
-    </ion-card>
+    <msg-card :msg="props.msg"></msg-card>
   </ion-popover>
 </template>
 

@@ -13,8 +13,12 @@ import { User } from '@/types/user';
 import { ref } from 'vue';
 import { useToggle } from '@/composables/use-toggle';
 
-type FormMode = 'EDIT' | 'VIEW';
-const formMode = useToggle<FormMode>(ref<FormMode>('VIEW'), { Truthy: 'EDIT', Falsy: 'VIEW' });
+enum FormMode {
+  EDIT = 'EDIT',
+  VIEW = 'VIEW'
+}
+
+const formMode = useToggle<FormMode>(ref<FormMode>(FormMode.VIEW), { Truthy: FormMode.EDIT, Falsy: FormMode.VIEW });
 
 const user = ref<User>({
   id: 1,
@@ -33,53 +37,36 @@ const user = ref<User>({
 </script>
 
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>Profile</ion-title>
-        <ion-buttons slot="end">
-          <ion-button>
-            <ion-icon :icon="settingsOutline" size="large"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content>
-      <div class="profile-avatar">
-        <ion-avatar
-          v-if="!edit"
-          style="width: 150px; height: 150px; --border-radius: 4px"
-        >
-          <!--<img src="('@/assets/icon.png')" alt="avatar loading" />-->
-        </ion-avatar>
-        <ion-avatar
-          v-else
-          style="width: 150px; height: 150px; --border-radius: 4px"
-        >
-          <!--<img src="('@/assets/splash.png')" alt="avatar loading" />-->
-        </ion-avatar>
-      </div>
-      <div class="profile-info">
-        <profile-form
-          :form-mode="formMode.val.value"
-          :toggle="
+  <ion-content>
+    <div class="profile-avatar">
+      <ion-avatar
+        v-if="formMode.val.value===FormMode.VIEW"
+        style="width: 150px; height: 150px; --border-radius: 4px"
+      >
+        <!--<img src="('@/assets/icon.png')" alt="avatar loading" />-->
+      </ion-avatar>
+      <ion-avatar
+        v-else
+        style="width: 150px; height: 150px; --border-radius: 4px"
+      >
+        <!--<img src="('@/assets/splash.png')" alt="avatar loading" />-->
+      </ion-avatar>
+    </div>
+    <div class="profile-info">
+      <profile-form
+        :form-mode="formMode.val.value"
+        :toggle="
             () => {
               formMode.toggle();
             }
           "
-          :user="user"
-        />
-      </div>
-    </ion-content>
-    <ion-footer>
-      <ion-toolbar>
-        <ion-title>是管理员吗？ {{ 'isAdminUser' }}</ion-title>
-      </ion-toolbar>
-    </ion-footer>
-  </ion-page>
+        :user="user"
+      />
+    </div>
+  </ion-content>
 </template>
 
-<style coped>
+<style scoped>
 .profile-avatar {
   display: flex;
   justify-content: center;

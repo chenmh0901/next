@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IonCard } from '@ionic/vue';
 import { computed, ref } from 'vue';
-import DialogMsgCard from '@/components/board/components/dialog-msg-card.vue';
+import DialogMsgCard from '@/components/board/components/dialog-msg-detail.vue';
 
 const msgs = computed(() => {
   const msg = [];
