@@ -1,24 +1,20 @@
 <script lang="ts" setup>
-import {
-  IonContent,
-  IonPage,
-  IonFooter,
-  IonHeader,
-  IonAvatar,
-  IonIcon
-} from '@ionic/vue';
-import { settingsOutline } from 'ionicons/icons';
+import { IonContent, IonAvatar } from '@ionic/vue';
 import ProfileForm from './components/profile-form.vue';
 import { User } from '@/types/user';
 import { ref } from 'vue';
-import { useToggle } from '@/composables/use-toggle';
+import { useEasyToggle } from '@/composables/use-easy-toggle';
 
 enum FormMode {
   EDIT = 'EDIT',
   VIEW = 'VIEW'
 }
 
-const formMode = useToggle<FormMode>(ref<FormMode>(FormMode.VIEW), { Truthy: FormMode.EDIT, Falsy: FormMode.VIEW });
+// const formMode = useToggle<FormMode>(ref<FormMode>(FormMode.VIEW), {
+//   Truthy: FormMode.EDIT,
+//   Falsy: FormMode.VIEW
+// });
+const formMode = useEasyToggle([FormMode.EDIT, FormMode.VIEW]);
 
 const user = ref<User>({
   id: 1,
@@ -40,7 +36,7 @@ const user = ref<User>({
   <ion-content>
     <div class="profile-avatar">
       <ion-avatar
-        v-if="formMode.val.value===FormMode.VIEW"
+        v-if="formMode.val.value === FormMode.VIEW"
         style="width: 150px; height: 150px; --border-radius: 4px"
       >
         <!--<img src="('@/assets/icon.png')" alt="avatar loading" />-->
@@ -56,10 +52,10 @@ const user = ref<User>({
       <profile-form
         :form-mode="formMode.val.value"
         :toggle="
-            () => {
-              formMode.toggle();
-            }
-          "
+          () => {
+            formMode.toggle();
+          }
+        "
         :user="user"
       />
     </div>
