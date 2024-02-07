@@ -25,7 +25,12 @@ export const useEasyToggle = (
     options?.default ?? options?.source.value ?? shufflingValues[0]
   );
 
-  const toggle = () => {
+  const toggle = (draft?: any) => {
+    if (draft) {
+      draft.value = val;
+      return;
+    }
+
     // find index of current value
     const index = shufflingValues.indexOf(val.value);
     if (index !== 1 && index !== shufflingValues.length - 1) {
