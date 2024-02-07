@@ -16,21 +16,6 @@ enum FormMode {
 
 const props = defineProps<IProps>();
 
-const labelMappings = {
-  name: '姓名',
-  wechat: '微信',
-  sex: '性别',
-  class: '班级',
-  room: '寝室',
-  no: '学号',
-  birthday: '生日',
-  birthPlace: '籍贯',
-  phone: '手机',
-  QQ: 'QQ',
-  email: '邮箱',
-  resume: '简介'
-};
-
 const userWithLabels = computed(() => {
   const u = { ...props.user } as any;
   const keys = Object.keys(u) as Array<keyof User>;
@@ -49,22 +34,31 @@ const userWithLabels = computed(() => {
 
 <template>
   <ion-list v-if="user" class="w-full">
-    <ion-item v-for="(item, key) in userWithLabels" :key="key" class="my-4" lines="none">
-      <label class="w-1/5">{{ item.label }}:</label>
-      <ion-input
-        :disabled="formMode === FormMode.VIEW"
-        :value="item.value"
-        class="border border-grey-300 rounded-lg text-center w-4/5"
-      ></ion-input>
+    <ion-item
+      v-for="(item, key) in userWithLabels"
+      :key="key"
+      class="my-4"
+      lines="none"
+    >
+      <template v-if="key.field == 'input'">
+        <label class="w-1/5">{{ key.label }}:</label>
+        <ion-input
+          :disabled="formMode === FormMode.VIEW"
+          :value="item.value"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
+        ></ion-input>
+      </template>
     </ion-item>
     <ion-button
       v-if="formMode === FormMode.VIEW"
       color="primary"
       expand="block"
       @click="toggle"
-    >编辑
+      >编辑
     </ion-button>
-    <ion-button v-else color="primary" expand="block" @click="toggle">保存</ion-button>
+    <ion-button v-else color="primary" expand="block" @click="toggle"
+      >保存</ion-button
+    >
   </ion-list>
 </template>
 
