@@ -16,118 +16,56 @@ enum FormMode {
 
 const props = defineProps<IProps>();
 
+const labelMappings = {
+  name: '姓名',
+  wechat: '微信',
+  sex: '性别',
+  class: '班级',
+  room: '寝室',
+  no: '学号',
+  birthday: '生日',
+  birthPlace: '籍贯',
+  phone: '手机',
+  QQ: 'QQ',
+  email: '邮箱',
+  resume: '简介'
+};
 
-const user = computed(() => {
+const userWithLabels = computed(() => {
   const u = { ...props.user } as any;
   const keys = Object.keys(u) as Array<keyof User>;
-  keys.forEach((k) => {
+  const filteredKeys = keys.filter((k) => k !== 'id' && k !== 'admin');
+  filteredKeys.forEach((k) => {
     if (!u[k]) {
       u[k] = '未填写';
     }
   });
-  return u;
+  return filteredKeys.map((key) => ({
+    label: labelMappings[key],
+    value: u[key]
+  }));
 });
 </script>
 
 <template>
-  <ion-list v-if="user">
-    <ion-item lines="none">
-      <ion-item lines="none" style="margin: 0; padding: 0">
-        <label style="width: 40%">姓名:</label>
-        <ion-input
-          :disabled="formMode===FormMode.VIEW"
-          :value="user.name"
-          style="width: 60%"
-        ></ion-input>
-      </ion-item>
-      <ion-item lines="none" style="margin: 0; padding: 0">
-        <label style="width: 40%">性别:</label>
-        <ion-input
-          :disabled="formMode===FormMode.VIEW"
-          :value="user.sex"
-          style="width: 60%"
-        ></ion-input>
-      </ion-item>
-    </ion-item>
-    <ion-item lines="none">
-      <ion-item lines="none" style="margin: 0; padding: 0">
-        <label style="width: 40%">班级:</label>
-        <ion-input
-          :disabled="formMode===FormMode.VIEW"
-          :value="user.class"
-          style="width: 60%"
-        ></ion-input>
-      </ion-item>
-      <ion-item lines="none" style="margin: 0; padding: 0">
-        <label style="width: 40%">寝室:</label>
-        <ion-input
-          :disabled="formMode===FormMode.VIEW"
-          :value="user.room"
-          style="width: 60%"
-        ></ion-input>
-      </ion-item>
-    </ion-item>
-    <ion-item lines="none">
-      <label>学号:</label>
-      <ion-input :disabled="formMode===FormMode.VIEW" :value="user.no"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <label>生日:</label>
-      <ion-input :disabled="formMode===FormMode.VIEW" :value="user.birthday"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <label>籍贯:</label>
-      <ion-input :disabled="formMode===FormMode.VIEW" :value="user.birthPlace"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <label>手机:</label>
-      <ion-input :disabled="formMode===FormMode.VIEW" :value="user.phone"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <label>微信:</label>
-      <ion-input :disabled="formMode===FormMode.VIEW" :value="user.QQ"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <label>QQ:</label>
-      <ion-input :disabled="formMode===FormMode.VIEW" :value="user.QQ"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <label>邮箱:</label>
-      <ion-input :disabled="formMode===FormMode.VIEW" :value="user.email"></ion-input>
-    </ion-item>
-    <ion-item lines="none">
-      <label>简介:</label>
-      <ion-input :disabled="formMode===FormMode.VIEW" :value="user.resume"></ion-input>
+  <ion-list v-if="user" class="w-full">
+    <ion-item v-for="(item, key) in userWithLabels" :key="key" class="my-4" lines="none">
+      <label class="w-1/5">{{ item.label }}:</label>
+      <ion-input
+        :disabled="formMode === FormMode.VIEW"
+        :value="item.value"
+        class="border border-grey-300 rounded-lg text-center w-4/5"
+      ></ion-input>
     </ion-item>
     <ion-button
-      v-if="formMode===FormMode.VIEW"
+      v-if="formMode === FormMode.VIEW"
       color="primary"
       expand="block"
       @click="toggle"
     >编辑
     </ion-button>
-    <ion-button v-else color="primary" expand="block"
-                @click="toggle"
-    >保存
-    </ion-button>
+    <ion-button v-else color="primary" expand="block" @click="toggle">保存</ion-button>
   </ion-list>
 </template>
 
-<style scoped>
-ion-item {
-  margin: 10px 0;
-  padding: 10px;
-}
-
-label {
-  margin-left: 20px;
-  width: 20%;
-}
-
-ion-input {
-  border: solid 1px grey;
-  border-radius: 10px;
-  text-align: center;
-  width: 80%;
-}
-</style>
+<style scoped></style>
