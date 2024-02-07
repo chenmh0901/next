@@ -27,7 +27,7 @@ export const useEasyToggle = (
 
   const toggle = (draft?: any) => {
     if (draft) {
-      draft.value = val;
+      val.value = draft;
       return;
     }
 
