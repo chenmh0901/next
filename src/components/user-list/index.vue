@@ -45,7 +45,7 @@ const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
       :class="val === 'COL' ? 'w-1/2 p-1' : 'w-full p-1'"
     >
       <ion-card
-        :class="val === 'COL' ? 'home-user-card' : 'flex flex-row'"
+        :class="val === ShowMode.COL ? 'home-user-card' : 'flex flex-row'"
         @click="
           () => {
             userDetail = user;
@@ -53,7 +53,7 @@ const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
           }
         "
       >
-        <div :class="val === 'COL' ? 'h-full p-5' : 'w-1/3 p-5'">
+        <div :class="val === ShowMode.COL ? 'h-full p-5' : 'w-1/3 p-5'">
           <img
             alt="Grapefruit slice atop a pile of other slices"
             src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"

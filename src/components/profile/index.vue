@@ -24,6 +24,7 @@ const user = ref<User>({
   class: '',
   room: '',
   birthPlace: '',
+  birthday: '',
   resume: ''
 } as User);
 </script>
@@ -32,7 +33,7 @@ const user = ref<User>({
   <ion-content>
     <div class="profile-avatar">
       <ion-avatar
-        v-if="val === 'VIEW'"
+        v-if="val === FormMode.VIEW"
         style="width: 150px; height: 150px; --border-radius: 4px"
       >
         <!--<img src="('@/assets/icon.png')" alt="avatar loading" />-->

@@ -1,8 +1,12 @@
 <script lang="ts" setup>
-import { IonInput, IonList, IonItem } from '@ionic/vue';
+import { IonInput, IonItem, IonLabel, IonList } from '@ionic/vue';
 import { User } from '@/types/user';
 import { computed } from 'vue';
-import { PROFILE_FIELDS } from '@/components/profile/components/profile-field';
+import {
+  PROFILE_FIELDS,
+  ProfileFieldType
+} from '@/components/profile/components/profile-field';
+import { format, parseISO } from 'date-fns';
 
 interface IProps {
   user: User;
@@ -17,6 +21,10 @@ enum FormMode {
 
 const props = defineProps<IProps>();
 
+const findField = (k: string) => {
+  return PROFILE_FIELDS.find((field) => field.key == k);
+};
+
 const userWithLabels = computed(() => {
   const u = { ...props.user } as any;
   const keys = Object.keys(u) as Array<keyof User>;
@@ -27,8 +35,9 @@ const userWithLabels = computed(() => {
     }
   });
   return filteredKeys.map((key) => ({
-    label: PROFILE_FIELDS.find((field) => field.key == key)?.label,
-    value: u[key]
+    label: findField(key)?.label,
+    value: u[key],
+    type: findField(key)?.type
   }));
 });
 </script>
@@ -41,15 +50,63 @@ const userWithLabels = computed(() => {
       class="my-4"
       lines="none"
     >
-      <label class="w-1/5">{{ item.label }}: </label>
-      <ion-input
-        :disabled="formMode === 'VIEW'"
-        :value="item.value"
-        class="border border-grey-300 rounded-lg text-center w-4/5"
-      ></ion-input>
+      <template v-if="item.type === ProfileFieldType.DATE">
+        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
+        <ion-input
+          :disabled="formMode === FormMode.VIEW"
+          id="date"
+          :value="item.value"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
+        ></ion-input>
+        <ion-popover trigger="date" size="cover">
+          <ion-datetime
+            presentation="date"
+            locale="zh-GB"
+            :prefer-wheel="true"
+            size="cover"
+            @ionChange="
+              (e) => {
+                item.value = format(parseISO(e.detail.value), 'yyyy-MM-dd');
+              }
+            "
+          ></ion-datetime>
+        </ion-popover>
+      </template>
+      <template v-else-if="item.type === ProfileFieldType.SEX">
+        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
+        <ion-input
+          :disabled="formMode === FormMode.VIEW"
+          :value="item.value"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
+        ></ion-input>
+      </template>
+      <template v-else-if="item.type === ProfileFieldType.CLASS">
+        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
+        <ion-input
+          :disabled="formMode === FormMode.VIEW"
+          :value="item.value"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
+        ></ion-input>
+      </template>
+      <template v-else-if="item.type === ProfileFieldType.ROOM">
+        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
+        <ion-input
+          :disabled="formMode === FormMode.VIEW"
+          :value="item.value"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
+        ></ion-input>
+      </template>
+      <template v-else>
+        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
+        <ion-input
+          :disabled="formMode === FormMode.VIEW"
+          :value="item.value"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
+        ></ion-input>
+      </template>
     </ion-item>
     <ion-button
-      v-if="formMode === 'VIEW'"
+      v-if="formMode === FormMode.VIEW"
       color="primary"
       expand="block"
       @click="toggle"

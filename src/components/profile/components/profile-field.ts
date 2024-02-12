@@ -8,15 +8,18 @@ export enum ProfileFieldType {
   DEFAULT_TEXT,
   TEXTAREA,
   DATE,
+  CLASS,
+  ROOM,
+  SEX,
   NUMBER
 }
 
 export const PROFILE_FIELDS: ProfileField[] = [
   { key: 'name', label: '姓名' },
   { key: 'wechat', label: '微信' },
-  { key: 'sex', label: '性别' },
-  { key: 'class', label: '班级' },
-  { key: 'room', label: '寝室' },
+  { type: ProfileFieldType.SEX, key: 'sex', label: '性别' },
+  { type: ProfileFieldType.CLASS, key: 'class', label: '班级' },
+  { type: ProfileFieldType.ROOM, key: 'room', label: '寝室' },
   { key: 'no', label: '学号' },
   { type: ProfileFieldType.DATE, key: 'birthday', label: '生日' },
   { key: 'birthPlace', label: '籍贯' },
