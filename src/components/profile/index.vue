@@ -10,7 +10,7 @@ enum FormMode {
   VIEW = 'VIEW'
 }
 
-const { val, toggle } = useEasyToggle([FormMode.EDIT, FormMode.VIEW]);
+const { val, toggle } = useEasyToggle([FormMode.VIEW, FormMode.EDIT]);
 
 const user = ref<User>({
   id: 1,
@@ -32,7 +32,7 @@ const user = ref<User>({
   <ion-content>
     <div class="profile-avatar">
       <ion-avatar
-        v-if="val === FormMode.VIEW"
+        v-if="val === 'VIEW'"
         style="width: 150px; height: 150px; --border-radius: 4px"
       >
         <!--<img src="('@/assets/icon.png')" alt="avatar loading" />-->
@@ -45,11 +45,7 @@ const user = ref<User>({
       </ion-avatar>
     </div>
     <div class="profile-info">
-      <profile-form
-        :form-mode="val.value"
-        :toggle="() => toggle()"
-        :user="user"
-      />
+      <profile-form :form-mode="val" :toggle="() => toggle()" :user="user" />
     </div>
   </ion-content>
 </template>
