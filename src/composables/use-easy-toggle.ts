@@ -33,7 +33,7 @@ export const useEasyToggle = (
 
     // find index of current value
     const index = shufflingValues.indexOf(val.value);
-    if (index !== 1 && index !== shufflingValues.length - 1) {
+    if (index === shufflingValues.length - 1) {
       val.value = shufflingValues[0];
       return;
     }

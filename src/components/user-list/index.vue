@@ -2,8 +2,8 @@
 import { IonCard, IonIcon, IonButton } from '@ionic/vue';
 import { copyOutline } from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
-import { computed, Ref, ref } from 'vue';
-import { useToggle } from '@/composables/use-toggle';
+import { computed, ref } from 'vue';
+import { useEasyToggle } from '@/composables/use-easy-toggle';
 
 const users = computed(() => {
   const user = [];
@@ -28,20 +28,25 @@ const users = computed(() => {
 const show = ref(false);
 const userDetail = ref();
 
+enum ShowMode {
+  COL = 'COL',
+  ROW = 'ROW'
+}
+
 //  show mode
-const showModeToggle = useToggle<boolean>(ref(true));
+const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
 </script>
 
 <template>
   <div class="home-users flex flex-wrap">
     <div
       v-for="user in users"
-      :id="user.id"
+      :id="user.id.toString()"
       :key="user.id"
-      :class="showModeToggle.val.value ? 'w-1/2 p-1' : 'w-full p-1'"
+      :class="val === ShowMode.COL ? 'w-1/2 p-1' : 'w-full p-1'"
     >
       <ion-card
-        :class="showModeToggle.val.value ? 'home-user-card' : 'flex flex-row'"
+        :class="val === ShowMode.COL ? 'home-user-card' : 'flex flex-row'"
         @click="
           () => {
             userDetail = user;
@@ -49,7 +54,7 @@ const showModeToggle = useToggle<boolean>(ref(true));
           }
         "
       >
-        <div :class="showModeToggle.val.value ? 'h-full p-5' : 'w-1/3 p-5'">
+        <div :class="val === ShowMode.COL ? 'h-full p-5' : 'w-1/3 p-5'">
           <img
             alt="Grapefruit slice atop a pile of other slices"
             src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
@@ -77,8 +82,7 @@ const showModeToggle = useToggle<boolean>(ref(true));
     :show="show"
     :user="userDetail"
   ></dialog-user-detail>
-  <ion-button class="fixed top-10 right-0" size="small"
-              @click="showModeToggle.toggle()">
+  <ion-button class="fixed top-10 right-0" size="small" @click="toggle()">
     <ion-icon :icon="copyOutline"></ion-icon>
   </ion-button>
 </template>
