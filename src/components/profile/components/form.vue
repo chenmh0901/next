@@ -2,18 +2,12 @@
 import { IonInput, IonItem, IonLabel, IonList } from '@ionic/vue';
 import { User } from '@/types/user';
 import { ref } from 'vue';
-import {
-  PROFILE_FIELDS,
-  ProfileFieldType
-} from '@/components/profile/components/profile-field';
-import DialogModalDetail from '@/components/profile/components/dialog-modal-detail.vue';
+import { PROFILE_FIELDS, ProfileFieldType } from '@/components/profile/type';
+import DialogModalDetail from './components/profile-picker.vue';
 
 interface IProps {
   user: User;
   formMode: FormMode;
-
-  // @TODO 更好的解法
-  toggle: () => void;
 }
 
 enum FormMode {

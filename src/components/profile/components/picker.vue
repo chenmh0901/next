@@ -1,10 +1,7 @@
 <script setup lang="ts">
 import { IonDatetime, IonPicker } from '@ionic/vue';
 import { computed, ref } from 'vue';
-import {
-  PICKER_COLUMNS,
-  ProfileFieldType
-} from '@/components/profile/components/profile-field';
+import { PICKER_COLUMNS, ProfileFieldType } from '@/components/profile/type';
 
 interface IProps {
   type: ProfileFieldType;

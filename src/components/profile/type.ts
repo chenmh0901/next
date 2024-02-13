@@ -1,4 +1,4 @@
-export interface ProfileField {
+export interface Type {
   type?: ProfileFieldType;
   key: string;
   label: string;
@@ -17,17 +17,16 @@ export interface Option {
 export enum ProfileFieldType {
   DEFAULT_TEXT,
   TEXTAREA,
+  OPTIONS,
   DATE,
-  CLASS,
-  SEX,
   NUMBER
 }
 
-export const PROFILE_FIELDS: ProfileField[] = [
+export const PROFILE_FIELDS: Type[] = [
   { key: 'name', label: '姓名' },
   { key: 'wechat', label: '微信' },
-  { type: ProfileFieldType.SEX, key: 'sex', label: '性别' },
-  { type: ProfileFieldType.CLASS, key: 'class', label: '班级' },
+  { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别' },
+  { type: ProfileFieldType.OPTIONS, key: 'class', label: '班级' },
   { key: 'room', label: '寝室' },
   { key: 'no', label: '学号' },
   { type: ProfileFieldType.DATE, key: 'birthday', label: '生日' },
