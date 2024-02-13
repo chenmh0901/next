@@ -4,80 +4,69 @@
       <ion-title>App</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-content class="ion-padding">
-    <ion-button id="open-custom-dialog" expand="block"
-      >Open Custom Dialog</ion-button
+  <ion-content>
+    <ion-item
+      v-for="(item, key) in PROFILE_FIELDS"
+      :key="key"
+      class="my-4"
+      lines="none"
     >
-    <h1 id="dialog">1231</h1>
-    <ion-modal id="example-modal" ref="modal" trigger="dialog">
-      <div class="wrapper">
-        <h1>Dialog header</h1>
-
-        <ion-list lines="none">
-          <ion-item :button="true" :detail="false" @click="dismiss()">
-            <ion-icon :icon="personCircle"></ion-icon>
-            <ion-label>Item 1</ion-label>
-          </ion-item>
-          <ion-item :button="true" :detail="false" @click="dismiss()">
-            <ion-icon :icon="personCircle"></ion-icon>
-            <ion-label>Item 2</ion-label>
-          </ion-item>
-          <ion-item :button="true" :detail="false" @click="dismiss()">
-            <ion-icon :icon="personCircle"></ion-icon>
-            <ion-label>Item 3</ion-label>
-          </ion-item>
-        </ion-list>
-      </div>
-    </ion-modal>
+      <ion-label class="w-1/5">{{ item.label }}:</ion-label>
+      <ion-input
+        class="border border-grey-300 rounded-lg text-center w-4/5"
+        :id="item.type"
+        :value="form[item.key]"
+        @change="
+          (a) => {
+            form[item.key] = a.target.value;
+          }
+        "
+      >
+      </ion-input>
+      <template v-if="item.type">
+        <dialog-modal-detail
+          :type="item.type"
+          :KEY="item.key"
+          :label="item.label"
+          @change="change"
+        ></dialog-modal-detail>
+      </template>
+    </ion-item>
   </ion-content>
-  <ion-footer></ion-footer>
 </template>
 
 <script lang="ts" setup>
 import {
-  IonButton,
-  IonModal,
   IonHeader,
   IonContent,
   IonToolbar,
   IonTitle,
+  IonInput,
   IonItem,
-  IonList,
-  IonLabel,
-  IonIcon
+  IonLabel
 } from '@ionic/vue';
-import { personCircle } from 'ionicons/icons';
+import { PROFILE_FIELDS } from '@/components/profile/components/profile-field';
+import DialogModalDetail from '@/components/profile/components/dialog-modal-detail.vue';
 import { ref } from 'vue';
 
-const modal = ref();
+const form = ref({
+  id: 1,
+  no: '',
+  name: '',
+  admin: true,
+  email: '',
+  wechat: '',
+  QQ: '',
+  phone: '',
+  class: '',
+  room: '',
+  birthPlace: '',
+  birthday: 'asdasdasdsa',
+  resume: ''
+});
 
-const dismiss = () => modal.value.$el.dismiss();
+const change = (val: any, key: string) => {
+  form.value[key] = val;
+};
 </script>
-<style>
-ion-modal#example-modal {
-  --width: fit-content;
-  --min-width: 250px;
-  --height: fit-content;
-  --border-radius: 6px;
-  --box-shadow: 0 28px 48px rgba(0, 0, 0, 0.4);
-}
-
-ion-modal#example-modal h1 {
-  margin: 20px 20px 10px 20px;
-}
-
-ion-modal#example-modal ion-icon {
-  margin-right: 6px;
-
-  width: 48px;
-  height: 48px;
-
-  padding: 4px 0;
-
-  color: #aaaaaa;
-}
-
-ion-modal#example-modal .wrapper {
-  margin-bottom: 10px;
-}
-</style>
+<style scoped></style>

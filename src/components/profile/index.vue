@@ -24,44 +24,36 @@ const user = ref<User>({
   class: '',
   room: '',
   birthPlace: '',
-  birthday: '',
+  birthday: 'asdasdasdsa',
   resume: ''
 } as User);
+
+const refresh = () => {};
 </script>
 
 <template>
   <ion-content>
-    <div class="profile-avatar">
+    <div class="flex justify-center items-center bg-gray-500 h-200">
       <ion-avatar
         v-if="val === FormMode.VIEW"
         style="width: 150px; height: 150px; --border-radius: 4px"
       >
-        <!--<img src="('@/assets/icon.png')" alt="avatar loading" />-->
       </ion-avatar>
       <ion-avatar
         v-else
         style="width: 150px; height: 150px; --border-radius: 4px"
       >
-        <!--<img src="('@/assets/splash.png')" alt="avatar loading" />-->
       </ion-avatar>
     </div>
-    <div class="profile-info">
-      <profile-form :form-mode="val" :toggle="() => toggle()" :user="user" />
+    <div class="flex justify-center">
+      <profile-form
+        :form-mode="val"
+        :toggle="() => toggle()"
+        :user="user"
+        @save="refresh()"
+      />
     </div>
   </ion-content>
 </template>
 
-<style scoped>
-.profile-avatar {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: grey;
-  height: 200px;
-}
-
-.profile-info {
-  display: flex;
-  justify-content: center;
-}
-</style>
+<style scoped></style>

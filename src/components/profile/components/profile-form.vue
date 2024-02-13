@@ -1,16 +1,18 @@
 <script lang="ts" setup>
 import { IonInput, IonItem, IonLabel, IonList } from '@ionic/vue';
 import { User } from '@/types/user';
-import { computed } from 'vue';
+import { ref } from 'vue';
 import {
   PROFILE_FIELDS,
   ProfileFieldType
 } from '@/components/profile/components/profile-field';
-import { format, parseISO } from 'date-fns';
+import DialogModalDetail from '@/components/profile/components/dialog-modal-detail.vue';
 
 interface IProps {
   user: User;
   formMode: FormMode;
+
+  // @TODO 更好的解法
   toggle: () => void;
 }
 
@@ -20,89 +22,59 @@ enum FormMode {
 }
 
 const props = defineProps<IProps>();
+const emit = defineEmits<{
+  (e: 'save'): void;
+}>();
 
-const findField = (k: string) => {
-  return PROFILE_FIELDS.find((field) => field.key == k);
+// shallowClone 浅拷贝
+const form = ref(props.user);
+
+const onSave = () => {
+  props.toggle();
+
+  // 有没有修改
+  try {
+    // await send patch message -> server
+    emit('save');
+  } catch (e) {
+    // error
+  }
 };
 
-const userWithLabels = computed(() => {
-  const u = { ...props.user } as any;
-  const keys = Object.keys(u) as Array<keyof User>;
-  const filteredKeys = keys.filter((k) => k !== 'id' && k !== 'admin');
-  filteredKeys.forEach((k) => {
-    if (!u[k]) {
-      u[k] = '未填写';
-    }
-  });
-  return filteredKeys.map((key) => ({
-    label: findField(key)?.label,
-    value: u[key],
-    type: findField(key)?.type
-  }));
-});
+// change函数是emit val是值 key是索引
+const change = (val: any, key: string) => {
+  form.value[key] = val;
+};
 </script>
 
 <template>
   <ion-list v-if="user" class="w-full">
     <ion-item
-      v-for="(item, key) in userWithLabels"
+      v-for="(item, key) in PROFILE_FIELDS"
       :key="key"
       class="my-4"
       lines="none"
     >
-      <template v-if="item.type === ProfileFieldType.DATE">
-        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
-        <ion-input
-          :disabled="formMode === FormMode.VIEW"
-          id="date"
-          :value="item.value"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
-        ></ion-input>
-        <ion-popover trigger="date" size="cover">
-          <ion-datetime
-            presentation="date"
-            locale="zh-GB"
-            :prefer-wheel="true"
-            size="cover"
-            @ionChange="
-              (e) => {
-                item.value = format(parseISO(e.detail.value), 'yyyy-MM-dd');
-              }
-            "
-          ></ion-datetime>
-        </ion-popover>
-      </template>
-      <template v-else-if="item.type === ProfileFieldType.SEX">
-        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
-        <ion-input
-          :disabled="formMode === FormMode.VIEW"
-          :value="item.value"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
-        ></ion-input>
-      </template>
-      <template v-else-if="item.type === ProfileFieldType.CLASS">
-        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
-        <ion-input
-          :disabled="formMode === FormMode.VIEW"
-          :value="item.value"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
-        ></ion-input>
-      </template>
-      <template v-else-if="item.type === ProfileFieldType.ROOM">
-        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
-        <ion-input
-          :disabled="formMode === FormMode.VIEW"
-          :value="item.value"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
-        ></ion-input>
-      </template>
-      <template v-else>
-        <ion-label class="w-1/5">{{ item.label }}:</ion-label>
-        <ion-input
-          :disabled="formMode === FormMode.VIEW"
-          :value="item.value"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
-        ></ion-input>
+      <ion-label class="w-1/5">{{ item.label }}:</ion-label>
+      <ion-input
+        :disabled="formMode === FormMode.VIEW"
+        :id="item.type"
+        :value="form[item.key]"
+        @change="
+          (a) => {
+            form[item.key] = a.target.value;
+          }
+        "
+        class="border border-grey-300 rounded-lg text-center w-4/5"
+      >
+      </ion-input>
+      <template v-if="item.type">
+        <dialog-modal-detail
+          :type="item.type"
+          :KEY="item.key"
+          :label="item.label"
+          @change="change"
+        ></dialog-modal-detail>
       </template>
     </ion-item>
     <ion-button
@@ -112,7 +84,7 @@ const userWithLabels = computed(() => {
       @click="toggle"
       >编辑
     </ion-button>
-    <ion-button v-else color="primary" expand="block" @click="toggle"
+    <ion-button v-else color="primary" expand="block" @click="onSave"
       >保存
     </ion-button>
   </ion-list>
