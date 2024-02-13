@@ -11,4 +11,5 @@ export type User = {
   room?: string;
   birthPlace?: string;
   resume?: string;
+  [key: string]: any;
 };

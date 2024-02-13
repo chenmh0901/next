@@ -1,17 +1,12 @@
-export interface Type {
+export interface ProfileField {
   type?: ProfileFieldType;
   key: string;
   label: string;
 }
 
-export interface PickerField {
-  type: ProfileFieldType;
-  column: [{ name: string; options: Option[] }];
-}
-
-export interface Option {
-  text: string;
-  value: string;
+export interface ProfilePickerField extends ProfileField {
+  name: string;
+  options: string[];
 }
 
 export enum ProfileFieldType {
@@ -22,7 +17,7 @@ export enum ProfileFieldType {
   NUMBER
 }
 
-export const PROFILE_FIELDS: Type[] = [
+export const PROFILE_FIELDS: ProfileField[] = [
   { key: 'name', label: '姓名' },
   { key: 'wechat', label: '微信' },
   { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别' },
@@ -35,43 +30,4 @@ export const PROFILE_FIELDS: Type[] = [
   { key: 'QQ', label: 'QQ' },
   { key: 'email', label: '邮箱' },
   { type: ProfileFieldType.TEXTAREA, key: 'resume', label: '简介' }
-];
-
-export const PICKER_COLUMNS: PickerField[] = [
-  {
-    type: ProfileFieldType.SEX,
-    column: [
-      {
-        name: 'sex',
-        options: [
-          {
-            text: '男',
-            value: 'Male'
-          },
-          {
-            text: '女',
-            value: 'Female'
-          }
-        ]
-      }
-    ]
-  },
-  {
-    type: ProfileFieldType.CLASS,
-    column: [
-      {
-        name: 'class',
-        options: [
-          {
-            text: '数媒211',
-            value: 'class211'
-          },
-          {
-            text: '数媒212',
-            value: 'class212'
-          }
-        ]
-      }
-    ]
-  }
 ];
