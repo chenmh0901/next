@@ -1,8 +1,8 @@
 <template>
-  <layout-base @toggle-page="(val) => togglePage(val)">
-    <user-list v-if="page == 'USER_LIST'" />
-    <board v-if="page == 'BOARD'" />
-    <profile v-if="page == 'PROFILE'" />
+  <layout-base @toggle-page="toggle">
+    <user-list v-if="val == 'USER_LIST'" />
+    <board v-if="val == 'BOARD'" />
+    <profile v-if="val == 'PROFILE'" />
   </layout-base>
 </template>
 
@@ -11,13 +11,9 @@ import LayoutBase from '@/layouts/layout-base.vue';
 import UserList from '@/components/user-list/index.vue';
 import Board from '@/components/board/index.vue';
 import Profile from '@/components/profile/index.vue';
-import { ref } from 'vue';
+import { useEasyToggle } from '@/composables/use-easy-toggle';
 
-type PAGE = 'USER_LIST' | 'BOARD' | 'PROFILE';
-const page = ref<PAGE>('USER_LIST');
-const togglePage = (p: PAGE) => {
-  page.value = p;
-};
+const { val, toggle } = useEasyToggle(['USER_LIST', 'BOARD', 'PROFILE']);
 </script>
 
 <style scoped></style>
