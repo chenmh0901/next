@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const DEV_URL = 'http://localhost:3000/';
+const DEV_URL = 'http://localhost:8080/';
 
 export interface IHttpOptions<T extends IRequestBody> {
   method: 'post' | 'get' | 'put' | 'delete' | 'patch';

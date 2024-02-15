@@ -2,41 +2,99 @@
 import { IonButton, IonContent, IonInput } from '@ionic/vue';
 import { ref } from 'vue';
 import { pageTo } from '@/router/director';
+import { useEasyToggle } from '@/composables/use-easy-toggle';
+import { useHttp, IHttpOptions } from '@/utils/http';
+import { AuthForm } from '@/views/signin/type';
 
-const username = ref();
-const password = ref();
-const onClick = async () => {
-  if (await validate()) {
-    pageTo('home');
+enum PageMode {
+  SIGNIN = 'login',
+  SIGNUP = 'register'
+}
+
+const form = ref<AuthForm>({} as AuthForm);
+const { val, toggle } = useEasyToggle([PageMode.SIGNIN, PageMode.SIGNUP]);
+
+const auth = async (data: AuthForm) => {
+  const options: IHttpOptions<AuthForm> = {
+    method: 'post',
+    path: 'auth/',
+    data: data
+  };
+  if (val.value === PageMode.SIGNIN) options.path += PageMode.SIGNIN;
+  else options.path += PageMode.SIGNUP;
+  try {
+    const res = await useHttp(options);
+  } catch (e) {
+    console.log('Error', e);
   }
+};
+const onClick = async () => {
+  // if (await validate()) {
+  //   pageTo('home');
+  // }
+  auth(form.value).then((res) => {
+    console.log(res);
+  });
 };
 
 const validate = async () => {
-  if (username.value == 'test' && password.value == 'admin123') {
+  if (form.value.no == 'test' && form.value.password == 'admin123') {
     return true;
   }
   return false;
+};
+
+const ChangeMode = () => {
+  toggle();
+  form.value = {} as AuthForm;
 };
 </script>
 
 <template>
   <ion-content>
     <div class="signin">
-      <h1>登入芸馆💡</h1>
-      <ion-input
-        class="signin-input"
-        :value="username"
-        @ion-input="username = $event.target.value as string"
-        placeholder="输入您的账号"
-      ></ion-input>
-      <ion-input
-        class="signin-input"
-        :value="password"
-        @ion-input="password = $event.target.value as string"
-        placeholder="输入您的密码"
-        type="password"
-      ></ion-input>
-      <ion-button @click="onClick">登录</ion-button>
+      <template v-if="val === PageMode.SIGNIN">
+        <h1>登入芸馆💡</h1>
+        <ion-input
+          class="signin-input"
+          :value="form.no"
+          @ion-input="form.no = $event.target.value as string"
+          placeholder="输入您的账号"
+        ></ion-input>
+        <ion-input
+          class="signin-input"
+          :value="form.password"
+          @ion-input="form.password = $event.target.value as string"
+          placeholder="输入您的密码"
+          type="password"
+        ></ion-input>
+        <ion-button @click="onClick">登录</ion-button>
+        <p>还未有账号?<i @click="ChangeMode()">去注册</i></p>
+      </template>
+      <template v-else>
+        <h1>注册💡</h1>
+        <ion-input
+          class="signin-input"
+          :value="form.no"
+          @ion-input="form.no = $event.target.value as string"
+          placeholder="输入您的学号或者邮箱"
+        ></ion-input>
+        <ion-input
+          class="signin-input"
+          :value="form.name"
+          @ion-input="form.name = $event.target.value as string"
+          placeholder="输入您的姓名"
+        ></ion-input>
+        <ion-input
+          class="signin-input"
+          :value="form.password"
+          @ion-input="form.password = $event.target.value as string"
+          placeholder="输入您的密码"
+          type="password"
+        ></ion-input>
+        <ion-button @click="onClick">注册并登入</ion-button>
+        <p>已有账号?<i @click="ChangeMode()">去登入</i></p>
+      </template>
     </div>
   </ion-content>
 </template>
