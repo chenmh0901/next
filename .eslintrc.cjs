@@ -5,16 +5,16 @@ module.exports = {
     browser: true
   },
   extends: [
-    'plugin:vue/recommended',
+    'plugin:vue/strongly-recommended',
     'plugin:vue/vue3-essential',
     'eslint:recommended',
     '@vue/typescript/recommended',
-    'plugin:vue/recommended'
+    'plugin:vue/recommended',
+    'prettier'
   ],
+  plugins: ['prettier'],
   parserOptions: {
-    parser: "@babel/eslint-parser",
-    requireConfigFile: false,
-    ecmaVersion: 2020
+    parser: '@typescript-eslint/parser'
   },
   rules: {
     'prettier/prettier': 'error',
