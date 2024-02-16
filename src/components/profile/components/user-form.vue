@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IonInput, IonItem, IonLabel, IonList } from '@ionic/vue';
+import { IonList } from '@ionic/vue';
 import { PROFILE_FIELDS, ProfileFieldType } from '@/components/profile/type';
 import { User } from '@/types/user';
 import { ref } from 'vue';

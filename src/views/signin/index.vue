@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { IonButton, IonContent, IonInput } from '@ionic/vue';
-import { ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { pageTo } from '@/router/director';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { useHttp, IHttpOptions } from '@/utils/http';
 import { AuthForm } from '@/views/signin/type';
+import { useAuthStore } from '@/stores/auth';
 
 enum PageMode {
   SIGNIN = 'login',
@@ -14,16 +15,25 @@ enum PageMode {
 const form = ref<AuthForm>({} as AuthForm);
 const { val, toggle } = useEasyToggle([PageMode.SIGNIN, PageMode.SIGNUP]);
 
+const authStore = useAuthStore();
+
 const auth = async (data: AuthForm) => {
   const options: IHttpOptions<AuthForm> = {
     method: 'post',
     path: 'auth/',
     data: data
   };
-  if (val.value === PageMode.SIGNIN) options.path += PageMode.SIGNIN;
-  else options.path += PageMode.SIGNUP;
+  if (val.value === PageMode.SIGNIN) {
+    options.path += PageMode.SIGNIN;
+  }
+
+  if (val.value === PageMode.SIGNUP) {
+    options.path += PageMode.SIGNUP;
+  }
+
   try {
     const res = await useHttp(options);
+    return res.data;
   } catch (e) {
     console.log('Error', e);
   }
@@ -33,7 +43,9 @@ const onClick = async () => {
   //   pageTo('home');
   // }
   auth(form.value).then((res) => {
-    console.log(res);
+    if (res?.token) {
+      authStore.setToken(res.token);
+    }
   });
 };
 
@@ -48,6 +60,12 @@ const ChangeMode = () => {
   toggle();
   form.value = {} as AuthForm;
 };
+
+onBeforeMount(() => {
+  authStore.getToken().then((val) => {
+    if (val?.length > 0) pageTo('home');
+  });
+});
 </script>
 
 <template>
