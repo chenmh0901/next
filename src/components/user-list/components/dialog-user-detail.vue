@@ -13,11 +13,11 @@ const props = defineProps<IProps>();
 </script>
 
 <template>
-  <ion-popover :is-open="props.show" @didDismiss="close">
-    <div class="w-[200px] h-[400px] ">
-      <detail-show :user="props.user"></detail-show>
+  <IonPopover :is-open="props.show" @didDismiss="close">
+    <div class="w-[200px] h-[400px]">
+      <DetailShow :user="props.user"></DetailShow>
     </div>
-  </ion-popover>
+  </IonPopover>
 </template>
 
 <style scoped></style>

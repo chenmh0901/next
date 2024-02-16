@@ -44,7 +44,7 @@ const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
       :key="user.id"
       :class="val === 'COL' ? 'w-1/2 p-1' : 'w-full p-1'"
     >
-      <ion-card
+      <IonCard
         :class="val === ShowMode.COL ? 'home-user-card' : 'flex flex-row'"
         @click="
           () => {
@@ -73,17 +73,17 @@ const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
           <ion-card-subtitle> {{ user.no }}</ion-card-subtitle>
           <ion-card-subtitle> {{ user.class }}</ion-card-subtitle>
         </div>
-      </ion-card>
+      </IonCard>
     </div>
+    <IonButton class="fixed top-10 right-0" size="small" @click="toggle()">
+      <IonIcon :icon="copyOutline"></IonIcon>
+    </IonButton>
+    <DialogUserDetail
+      :close="() => (show = false)"
+      :show="show"
+      :user="userDetail"
+    ></DialogUserDetail>
   </div>
-  <dialog-user-detail
-    :close="() => (show = false)"
-    :show="show"
-    :user="userDetail"
-  ></dialog-user-detail>
-  <ion-button class="fixed top-10 right-0" size="small" @click="toggle()">
-    <ion-icon :icon="copyOutline"></ion-icon>
-  </ion-button>
 </template>
 
 <style scoped></style>

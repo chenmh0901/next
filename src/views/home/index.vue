@@ -1,9 +1,9 @@
 <template>
-  <layout-base @toggle-page="toggle">
-    <user-list v-if="val == 'USER_LIST'" />
-    <board v-if="val == 'BOARD'" />
-    <profile v-if="val == 'PROFILE'" />
-  </layout-base>
+  <LayoutBase @toggle-page="toggle">
+    <UserList v-if="val == 'USER_LIST'" />
+    <Board v-if="val == 'BOARD'" />
+    <Profile v-if="val == 'PROFILE'" />
+  </LayoutBase>
 </template>
 
 <script setup lang="ts">

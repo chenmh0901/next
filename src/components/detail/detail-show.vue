@@ -19,13 +19,13 @@ const user = computed(() => {
 
 <template>
   <div v-if="user">
-    <ion-input label="姓名" :value="user.name" disabled></ion-input>
-    <ion-input label="微信" :value="user.wechat" disabled></ion-input>
-    <ion-input label="QQ" :value="user.QQ" disabled></ion-input>
-    <ion-input label="手机" :value="user.phone" disabled></ion-input>
-    <ion-input label="班级" :value="user.class" disabled></ion-input>
-    <ion-input label="寝室号" :value="user.room" disabled></ion-input>
-    <ion-input label="籍贯" :value="user.birthPlace" disabled></ion-input>
+    <IonInput label="姓名" :value="user.name" disabled></IonInput>
+    <IonInput label="微信" :value="user.wechat" disabled></IonInput>
+    <IonInput label="QQ" :value="user.QQ" disabled></IonInput>
+    <IonInput label="手机" :value="user.phone" disabled></IonInput>
+    <IonInput label="班级" :value="user.class" disabled></IonInput>
+    <IonInput label="寝室号" :value="user.room" disabled></IonInput>
+    <IonInput label="籍贯" :value="user.birthPlace" disabled></IonInput>
   </div>
 </template>
 

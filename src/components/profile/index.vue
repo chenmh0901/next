@@ -19,7 +19,7 @@ const user = ref<User>({
   <div class="profile">
     <div class="profile__header">个人信息</div>
     <div class="profile__content">
-      <user-form :user="user" :mode="mode" />
+      <UserForm :user="user" :mode="mode" />
       <ion-button color="danger" @click="mode = 'VIEW'"
         >[DEBUG] 查看
       </ion-button>

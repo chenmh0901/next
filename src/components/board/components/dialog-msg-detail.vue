@@ -12,9 +12,9 @@ const props = defineProps<IProps>();
 </script>
 
 <template>
-  <ion-popover :is-open="props.show" class="" size="auto" @did-dismiss="close">
-    <msg-card :msg="props.msg"></msg-card>
-  </ion-popover>
+  <IonPopover :is-open="props.show" class="" size="auto" @did-dismiss="close">
+    <MsgCard :msg="props.msg"></MsgCard>
+  </IonPopover>
 </template>
 
 <style scoped></style>
