@@ -73,9 +73,9 @@ const ChangeMode = () => {
 };
 
 onBeforeMount(() => {
-  // authStore.getToken().then((val) => {
-  //   if (val?.length > 0) pageTo('home');
-  // });
+  authStore.getToken().then((val) => {
+    if (val?.length > 0) pageTo('home');
+  });
 });
 </script>
 
