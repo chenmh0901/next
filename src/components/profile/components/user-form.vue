@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IonInput, IonItem, IonLabel, IonList } from '@ionic/vue';
+import { IonList } from '@ionic/vue';
 import { PROFILE_FIELDS, ProfileFieldType } from '@/components/profile/type';
 import { User } from '@/types/user';
 import { ref } from 'vue';
@@ -33,8 +33,8 @@ const onSave = () => {
 </script>
 
 <template>
-  <ion-list v-if="user" class="w-full">
-    <user-form-item
+  <IonList v-if="user" class="w-full">
+    <UserFormItem
       v-for="field in PROFILE_FIELDS"
       :key="field.key"
       :mode="mode"
@@ -45,7 +45,7 @@ const onSave = () => {
     <ion-button color="primary" expand="block" @click="onSave"
       >保存
     </ion-button>
-  </ion-list>
+  </IonList>
 </template>
 
 <style scoped></style>

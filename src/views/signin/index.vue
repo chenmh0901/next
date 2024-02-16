@@ -20,25 +20,25 @@ const validate = async () => {
 </script>
 
 <template>
-  <ion-content>
+  <IonContent>
     <div class="signin">
       <h1>登入芸馆💡</h1>
-      <ion-input
+      <IonInput
         class="signin-input"
         :value="username"
-        @ion-input="username = $event.target.value as string"
         placeholder="输入您的账号"
-      ></ion-input>
-      <ion-input
+        @ion-input="username = $event.target.value as string"
+      ></IonInput>
+      <IonInput
         class="signin-input"
         :value="password"
-        @ion-input="password = $event.target.value as string"
         placeholder="输入您的密码"
         type="password"
-      ></ion-input>
-      <ion-button @click="onClick">登录</ion-button>
+        @ion-input="password = $event.target.value as string"
+      ></IonInput>
+      <IonButton @click="onClick">登录</IonButton>
     </div>
-  </ion-content>
+  </IonContent>
 </template>
 
 <style scoped>

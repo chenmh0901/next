@@ -31,7 +31,7 @@ const msgDetail = ref();
 
 <template>
   <div class="home-users flex flex-wrap">
-    <ion-card
+    <IonCard
       v-for="msg in msgs"
       :key="msg.id"
       @click="
@@ -66,13 +66,13 @@ const msgDetail = ref();
           发布时间：{{ msg.date }}
         </ion-card-subtitle>
       </div>
-    </ion-card>
+    </IonCard>
+    <DialogMsgCard
+      :close="() => (show = false)"
+      :msg="msgDetail"
+      :show="show"
+    ></DialogMsgCard>
   </div>
-  <dialog-msg-card
-    :close="() => (show = false)"
-    :msg="msgDetail"
-    :show="show"
-  ></dialog-msg-card>
 </template>
 
 <style scoped></style>

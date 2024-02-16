@@ -18,32 +18,32 @@ type PAGE = 'USER_LIST' | 'BOARD' | 'PROFILE';
 </script>
 
 <template>
-  <ion-page>
-    <ion-header>
-      <ion-toolbar>
-        <ion-title>搜索框</ion-title>
-      </ion-toolbar>
-    </ion-header>
-    <ion-content :fullscreen="true" class="layout-base-content">
+  <IonPage>
+    <IonHeader>
+      <IonToolbar>
+        <IonTitle>搜索框</IonTitle>
+      </IonToolbar>
+    </IonHeader>
+    <IonContent :fullscreen="true" class="layout-base-content">
       <slot></slot>
-    </ion-content>
+    </IonContent>
     <div class="h-20"></div>
-    <ion-footer class="h-20 absolute bottom-0">
-      <ion-toolbar>
+    <IonFooter class="h-20 absolute bottom-0">
+      <IonToolbar>
         <ion-buttons class="flex flex-row justify-around h-20">
           <ion-button @click="emit('toggle-page', 'USER_LIST')">
-            <ion-icon slot="icon-only" :icon="homeOutline"></ion-icon>
+            <IonIcon slot="icon-only" :icon="homeOutline"></IonIcon>
           </ion-button>
           <ion-button @click="emit('toggle-page', 'BOARD')">
-            <ion-icon slot="icon-only" :icon="newspaperOutline"></ion-icon>
+            <IonIcon slot="icon-only" :icon="newspaperOutline"></IonIcon>
           </ion-button>
           <ion-button @click="emit('toggle-page', 'PROFILE')">
-            <ion-icon slot="icon-only" :icon="personOutline"></ion-icon>
+            <IonIcon slot="icon-only" :icon="personOutline"></IonIcon>
           </ion-button>
         </ion-buttons>
-      </ion-toolbar>
-    </ion-footer>
-  </ion-page>
+      </IonToolbar>
+    </IonFooter>
+  </IonPage>
 </template>
 
 <style scoped></style>

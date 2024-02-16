@@ -29,8 +29,14 @@ const pickerBtns = [
 </script>
 
 <template>
-  <ion-button :id="label">{{ label }}</ion-button>
-  <ion-picker :trigger="label" :columns="pickerColumns" :buttons="pickerBtns" />
+  <div>
+    <IonButton :id="label">{{ label }}</IonButton>
+    <IonPicker
+      :trigger="label"
+      :columns="pickerColumns"
+      :buttons="pickerBtns"
+    />
+  </div>
 </template>
 
 <style scoped></style>

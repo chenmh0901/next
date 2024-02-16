@@ -65,58 +65,58 @@ const submit = async () => {
 </script>
 
 <template>
-  <ion-content v-if="form">
-    <ion-input
+  <IonContent v-if="form">
+    <IonInput
       placeholder="输入您的姓名"
       label="姓名"
       :value="form.name"
-      @ion-input="form.name = $event.target.value as string"
       :clear-input="true"
-    ></ion-input>
-    <ion-input
+      @ion-input="form.name = $event.target.value as string"
+    ></IonInput>
+    <IonInput
       placeholder="输入您的微信"
       label="微信"
       :value="form.wechat"
-      @ion-input="form.wechat = $event.target.value as string"
       :clear-input="true"
-    ></ion-input>
-    <ion-input
+      @ion-input="form.wechat = $event.target.value as string"
+    ></IonInput>
+    <IonInput
       placeholder="输入您的QQ"
       label="QQ"
       :value="form.QQ"
-      @ion-input="form.QQ = $event.target.value as string"
       :clear-input="true"
-    ></ion-input>
-    <ion-input
+      @ion-input="form.QQ = $event.target.value as string"
+    ></IonInput>
+    <IonInput
       placeholder="输入您的手机"
       label="手机"
       :value="form.phone"
-      @ion-input="form.phone = $event.target.value as string"
       :clear-input="true"
-    ></ion-input>
-    <ion-input
+      @ion-input="form.phone = $event.target.value as string"
+    ></IonInput>
+    <IonInput
       placeholder="输入您的班级"
       label="班级"
       :value="form.class"
-      @ion-input="form.class = $event.target.value as string"
       :clear-input="true"
-    ></ion-input>
-    <ion-input
+      @ion-input="form.class = $event.target.value as string"
+    ></IonInput>
+    <IonInput
       placeholder="输入您的寝室号"
       label="寝室号"
       :value="form.room"
-      @ion-input="form.room = $event.target.value as string"
       :clear-input="true"
-    ></ion-input>
-    <ion-input
+      @ion-input="form.room = $event.target.value as string"
+    ></IonInput>
+    <IonInput
       placeholder="输入您的籍贯"
       label="籍贯"
       :value="form.birthPlace"
-      @ion-input="form.birthPlace = $event.target.value as string"
       :clear-input="true"
-    ></ion-input>
-    <ion-button shape="round" @click="submit">加入芸馆</ion-button>
-  </ion-content>
+      @ion-input="form.birthPlace = $event.target.value as string"
+    ></IonInput>
+    <IonButton shape="round" @click="submit">加入芸馆</IonButton>
+  </IonContent>
 </template>
 
 <style scoped></style>
