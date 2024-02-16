@@ -3,9 +3,11 @@ import { IonButton, IonContent, IonInput } from '@ionic/vue';
 import { onBeforeMount, ref } from 'vue';
 import { pageTo } from '@/router/director';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
-import { useHttp, IHttpOptions } from '@/utils/http';
+import { IHttpOptions, useHttp } from '@/utils/http';
 import { AuthForm } from '@/views/signin/type';
 import { useAuthStore } from '@/stores/auth';
+import { toast } from '@/utils/toast';
+import { validate } from '@/views/signin/validator';
 
 enum PageMode {
   SIGNIN = 'login',
@@ -17,43 +19,52 @@ const { val, toggle } = useEasyToggle([PageMode.SIGNIN, PageMode.SIGNUP]);
 
 const authStore = useAuthStore();
 
+const register = async (data: AuthForm) => {
+  const options: IHttpOptions<AuthForm> = {
+    method: 'post',
+    path: 'auth/' + PageMode.SIGNUP,
+    data: data
+  };
+  try {
+    await useHttp(options);
+    return await auth({ no: data.no, password: data.password });
+  } catch (e) {
+    await toast(e.response.data.toString());
+  }
+};
 const auth = async (data: AuthForm) => {
   const options: IHttpOptions<AuthForm> = {
     method: 'post',
-    path: 'auth/',
+    path: 'auth/' + PageMode.SIGNIN,
     data: data
   };
-  if (val.value === PageMode.SIGNIN) {
-    options.path += PageMode.SIGNIN;
-  }
-
-  if (val.value === PageMode.SIGNUP) {
-    options.path += PageMode.SIGNUP;
-  }
-
   try {
     const res = await useHttp(options);
     return res.data;
   } catch (e) {
-    console.log('Error', e);
+    await toast(e.response.data.toString());
   }
 };
 const onClick = async () => {
-  // if (await validate()) {
-  //   pageTo('home');
-  // }
-  auth(form.value).then((res) => {
-    if (res?.token) {
-      authStore.setToken(res.token);
-    }
-  });
-};
-
-const validate = async () => {
-  if (form.value.no == 'test' && form.value.password == 'admin123') {
-    return true;
+  if (!(await validate(form.value, val.value))) return;
+  if (val.value === PageMode.SIGNUP) {
+    /**
+     * TODO 注册 || 登入
+     */
+    register(form.value).then((r) => {
+      if (r?.token) {
+        authStore.setToken(r.token);
+        pageTo('home');
+      }
+    });
+  } else {
+    auth(form.value).then((r) => {
+      if (r?.token) {
+        authStore.setToken(r.token);
+        pageTo('home');
+      }
+    });
   }
-  return false;
 };
 
 const ChangeMode = () => {
@@ -62,9 +73,9 @@ const ChangeMode = () => {
 };
 
 onBeforeMount(() => {
-  authStore.getToken().then((val) => {
-    if (val?.length > 0) pageTo('home');
-  });
+  // authStore.getToken().then((val) => {
+  //   if (val?.length > 0) pageTo('home');
+  // });
 });
 </script>
 
