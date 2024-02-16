@@ -2,5 +2,5 @@
 @tailwind components;
 @tailwind utilities;
 ion-popover {
-    --width: 300px;
+  --width: 300px;
 }
