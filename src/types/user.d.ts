@@ -31,4 +31,6 @@ export type User = {
    */
   selfResume?: string;
   adminResume?: string;
+
+  [key: string]: string | number | boolean | undefined | null;
 };

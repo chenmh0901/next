@@ -25,7 +25,7 @@ const form = ref(props.user);
 const onSave = () => {
   try {
     // await send patch message -> server
-    emit('update');
+    emit('update', form.value);
   } catch (e) {
     // error
   }
@@ -40,9 +40,18 @@ const onSave = () => {
       :mode="mode"
       :type="field.type ?? ProfileFieldType.DEFAULT_TEXT"
       :label="field.label"
-      :value="form[field.key]"
+      :value="(form[field.key] as string) ?? '未填写'"
+      @change="
+        (v) => {
+          form[field.key] = v;
+        }
+      "
     />
-    <ion-button color="primary" expand="block" @click="onSave"
+    <ion-button
+      v-if="mode == 'EDIT'"
+      color="primary"
+      expand="block"
+      @click="onSave"
       >保存
     </ion-button>
   </IonList>
