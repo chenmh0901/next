@@ -38,7 +38,7 @@ onMounted(() => {
 });
 
 // 提交
-const patchUserInfo = async (userNo: string) => {
+const patchUserInfo = async (userNo: number) => {
   // TODO validate
   if (!validateDetailForm(form.value)) return;
 
@@ -59,7 +59,9 @@ const patchUserInfo = async (userNo: string) => {
   });
 };
 const submit = async () => {
-  if (!form.value?.no) return;
+  if (!form.value?.no) {
+    return;
+  }
   await patchUserInfo(form.value?.no);
 };
 </script>
