@@ -2,7 +2,7 @@
 import { IonCard, IonIcon, IonButton } from '@ionic/vue';
 import { copyOutline } from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
-import { computed, onBeforeMount, ref } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';

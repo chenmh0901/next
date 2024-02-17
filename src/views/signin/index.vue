@@ -80,52 +80,52 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <ion-content>
+  <IonContent>
     <div class="signin">
       <template v-if="val === PageMode.SIGNIN">
         <h1>登入芸馆💡</h1>
-        <ion-input
+        <IonInput
           class="signin-input"
           :value="form.no"
-          @ion-input="form.no = $event.target.value as string"
           placeholder="输入您的账号"
-        ></ion-input>
-        <ion-input
+          @ion-input="form.no = $event.target.value as string"
+        ></IonInput>
+        <IonInput
           class="signin-input"
           :value="form.password"
-          @ion-input="form.password = $event.target.value as string"
           placeholder="输入您的密码"
           type="password"
-        ></ion-input>
-        <ion-button @click="onClick">登录</ion-button>
+          @ion-input="form.password = $event.target.value as string"
+        ></IonInput>
+        <IonButton @click="onClick">登录</IonButton>
         <p>还未有账号?<i @click="ChangeMode()">去注册</i></p>
       </template>
       <template v-else>
         <h1>注册💡</h1>
-        <ion-input
+        <IonInput
           class="signin-input"
           :value="form.no"
-          @ion-input="form.no = $event.target.value as string"
           placeholder="输入您的学号或者邮箱"
-        ></ion-input>
-        <ion-input
+          @ion-input="form.no = $event.target.value as string"
+        ></IonInput>
+        <IonInput
           class="signin-input"
           :value="form.name"
-          @ion-input="form.name = $event.target.value as string"
           placeholder="输入您的姓名"
-        ></ion-input>
-        <ion-input
+          @ion-input="form.name = $event.target.value as string"
+        ></IonInput>
+        <IonInput
           class="signin-input"
           :value="form.password"
-          @ion-input="form.password = $event.target.value as string"
           placeholder="输入您的密码"
           type="password"
-        ></ion-input>
-        <ion-button @click="onClick">注册并登入</ion-button>
+          @ion-input="form.password = $event.target.value as string"
+        ></IonInput>
+        <IonButton @click="onClick">注册并登入</IonButton>
         <p>已有账号?<i @click="ChangeMode()">去登入</i></p>
       </template>
     </div>
-  </ion-content>
+  </IonContent>
 </template>
 
 <style scoped>
