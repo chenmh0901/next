@@ -40,11 +40,13 @@ const emit = defineEmits<{
           v-if="label == '性别'"
           :values="['男', '女']"
           label="性别"
+          @select="(v) => emit('change', v)"
         />
         <UserFormOptions
           v-else-if="label == '班级'"
           :values="['数媒211', '数媒212']"
           label="班级"
+          @select="(v) => emit('change', v)"
         />
       </template>
       <template v-else-if="type == ProfileFieldType.DATE"></template>

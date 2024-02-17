@@ -1,7 +1,8 @@
 <script lang="ts" setup>
 import UserForm from '@/components/profile/components/user-form.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
+import { IHttpOptions, useHttp } from '@/utils/http';
 
 enum UserFormMode {
   EDIT = 'EDIT',
@@ -9,9 +10,29 @@ enum UserFormMode {
 }
 
 const mode = ref<UserFormMode>('VIEW');
-const user = ref<User>({
-  name: '张',
-  age: 18
+const user = ref<User>();
+
+const fetchUserInfo = async () => {
+  const option: IHttpOptions<any> = {
+    path: 'user/me',
+    method: 'get'
+  };
+  return await useHttp(option);
+};
+
+const patchUserInfo = async (data: User) => {
+  const option: IHttpOptions<any> = {
+    path: 'user/',
+    method: 'patch',
+    data: data
+  };
+  return await useHttp(option);
+};
+
+onMounted(() => {
+  fetchUserInfo().then((r) => {
+    user.value = r.data as User;
+  });
 });
 </script>
 
@@ -19,7 +40,19 @@ const user = ref<User>({
   <div class="profile">
     <div class="profile__header">个人信息</div>
     <div class="profile__content">
-      <UserForm :user="user" :mode="mode" />
+      <UserForm
+        v-if="!!user"
+        :user="user"
+        :mode="mode"
+        @update="
+          (v) => {
+            mode = 'VIEW';
+            if (v) {
+              patchUserInfo(v);
+            }
+          }
+        "
+      />
       <ion-button color="danger" @click="mode = 'VIEW'"
         >[DEBUG] 查看
       </ion-button>
