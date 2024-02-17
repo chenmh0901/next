@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IonInput, IonItem, IonLabel, IonList } from '@ionic/vue';
+import { IonList } from '@ionic/vue';
 import { PROFILE_FIELDS, ProfileFieldType } from '@/components/profile/type';
 import { User } from '@/types/user';
 import { ref } from 'vue';
@@ -25,7 +25,7 @@ const form = ref(props.user);
 const onSave = () => {
   try {
     // await send patch message -> server
-    emit('update');
+    emit('update', form.value);
   } catch (e) {
     // error
   }
@@ -33,19 +33,28 @@ const onSave = () => {
 </script>
 
 <template>
-  <ion-list v-if="user" class="w-full">
-    <user-form-item
+  <IonList v-if="user" class="w-full">
+    <UserFormItem
       v-for="field in PROFILE_FIELDS"
       :key="field.key"
       :mode="mode"
       :type="field.type ?? ProfileFieldType.DEFAULT_TEXT"
       :label="field.label"
-      :value="form[field.key]"
+      :value="(form[field.key] as string) ?? '未填写'"
+      @change="
+        (v) => {
+          form[field.key] = v;
+        }
+      "
     />
-    <ion-button color="primary" expand="block" @click="onSave"
+    <ion-button
+      v-if="mode == 'EDIT'"
+      color="primary"
+      expand="block"
+      @click="onSave"
       >保存
     </ion-button>
-  </ion-list>
+  </IonList>
 </template>
 
 <style scoped></style>

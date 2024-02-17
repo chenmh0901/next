@@ -1,15 +1,36 @@
 export type User = {
+  /**
+   * 个人序列
+   */
   id: number;
-  no: string;
+  no: number;
   name: string;
+  /**
+   * auth
+   */
   admin: boolean;
+  /**
+   * 联系方式
+   */
   email?: string;
   wechat?: string;
-  QQ?: string;
+  qq?: string;
   phone?: string;
-  class?: string;
-  room?: string;
+  /**
+   * 寝室班级号
+   */
+  className?: string;
+  roomName?: string;
+  /**
+   * 地址
+   */
   birthPlace?: string;
-  resume?: string;
-  [key: string]: any;
+  address?: string;
+  /**
+   * 自我和管理员留言
+   */
+  selfResume?: string;
+  adminResume?: string;
+
+  [key: string]: string | number | undefined | null;
 };
