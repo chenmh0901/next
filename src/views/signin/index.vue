@@ -29,7 +29,7 @@ const register = async (data: AuthForm) => {
     await useHttp(options);
     return await auth({ no: data.no, password: data.password });
   } catch (e) {
-    await toast(e.response.data.toString());
+    await toast('注册失败');
   }
 };
 const auth = async (data: AuthForm) => {
@@ -42,15 +42,12 @@ const auth = async (data: AuthForm) => {
     const res = await useHttp(options);
     return res.data;
   } catch (e) {
-    await toast(e.response.data.toString());
+    await toast('登录失败');
   }
 };
 const onClick = async () => {
   if (!(await validate(form.value, val.value))) return;
   if (val.value === PageMode.SIGNUP) {
-    /**
-     * TODO 注册 || 登入
-     */
     register(form.value).then((r) => {
       if (r?.token) {
         authStore.setToken(r.token);
