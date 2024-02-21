@@ -9,7 +9,7 @@ enum UserFormMode {
   VIEW = 'VIEW'
 }
 
-const mode = ref<UserFormMode>('VIEW');
+const mode = ref<UserFormMode>(UserFormMode.VIEW);
 const user = ref<User>();
 
 const fetchUserInfo = async () => {
@@ -46,17 +46,17 @@ onMounted(() => {
         :mode="mode"
         @update="
           (v) => {
-            mode = 'VIEW';
+            mode = UserFormMode.VIEW;
             if (v) {
               patchUserInfo(v);
             }
           }
         "
       />
-      <ion-button color="danger" @click="mode = 'VIEW'"
+      <ion-button color="danger" @click="mode = UserFormMode.VIEW"
         >[DEBUG] 查看
       </ion-button>
-      <ion-button color="danger" @click="mode = 'EDIT'"
+      <ion-button color="danger" @click="mode = UserFormMode.EDIT"
         >[DEBUG] 编辑
       </ion-button>
     </div>
