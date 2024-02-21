@@ -1,7 +1,7 @@
 import { pickerController } from '@ionic/vue';
 import { ref } from 'vue';
 
-export const usePicker = (defaultValue: string, values: any[]) => {
+export const usePicker = (values: any[], defaultValue: string) => {
   const picked = ref<string>(defaultValue);
   const name = Math.random().toString();
   const handler = (val: any) => {
