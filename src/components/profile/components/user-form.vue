@@ -40,7 +40,7 @@ const onSave = () => {
       :mode="mode"
       :type="field.type ?? ProfileFieldType.DEFAULT_TEXT"
       :label="field.label"
-      :value="(form[field.key] as string) ?? '未填写'"
+      :value="form[field.key] as string"
       @change="
         (v) => {
           form[field.key] = v;
