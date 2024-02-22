@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { IonCard, IonIcon, IonButton, ToggleCustomEvent } from '@ionic/vue';
-import { copyOutline } from 'ionicons/icons';
+import { IonCard } from '@ionic/vue';
+import ThemeToggle from '@/components/theme-toggle/index.vue';
 import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
 import { onBeforeMount, ref } from 'vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
@@ -16,7 +16,7 @@ enum ShowMode {
 }
 
 //  show mode
-const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
+const { val } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
 
 const users = ref<User[]>([]);
 const fetchUsers = async () => {
@@ -33,22 +33,12 @@ const fetchUsers = async () => {
 onBeforeMount(() => {
   fetchUsers();
 });
-
-const toggleDarkTheme = (shouldAdd: any) => {
-  document.body.classList.toggle('dark', shouldAdd);
-};
-
-const toggleChange = () => {
-  const darkMode = document.body.classList.contains('dark');
-  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-  document.body.classList.add('dark ');
-  console.log(prefersDark);
-  toggleDarkTheme(!darkMode);
-};
 </script>
 
 <template>
   <div class="home-users flex flex-wrap">
+    <ThemeToggle />
+
     <div
       v-for="user in users"
       :key="user.id"
@@ -85,13 +75,7 @@ const toggleChange = () => {
         </div>
       </IonCard>
     </div>
-    <IonButton
-      class="fixed top-15 right-0"
-      size="small"
-      @click="toggleChange()"
-    >
-      <IonIcon :icon="copyOutline"></IonIcon>
-    </IonButton>
+
     <DialogUserDetail
       :close="() => (show = false)"
       :show="show"
