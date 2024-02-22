@@ -1,6 +1,6 @@
 <script lang="ts" setup>
-import { IonCard } from '@ionic/vue';
-import ThemeToggle from '@/components/theme-toggle/index.vue';
+import { IonCard, IonIcon, IonButton } from '@ionic/vue';
+import { copyOutline } from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
 import { onBeforeMount, ref } from 'vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
@@ -16,7 +16,7 @@ enum ShowMode {
 }
 
 //  show mode
-const { val } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
+const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
 
 const users = ref<User[]>([]);
 const fetchUsers = async () => {
@@ -37,8 +37,6 @@ onBeforeMount(() => {
 
 <template>
   <div class="home-users flex flex-wrap">
-    <ThemeToggle />
-
     <div
       v-for="user in users"
       :key="user.id"
@@ -75,7 +73,9 @@ onBeforeMount(() => {
         </div>
       </IonCard>
     </div>
-
+    <IonButton class="fixed top-15 right-0" size="small" @click="toggle()">
+      <IonIcon :icon="copyOutline"></IonIcon>
+    </IonButton>
     <DialogUserDetail
       :close="() => (show = false)"
       :show="show"
