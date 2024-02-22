@@ -5,20 +5,31 @@ import {
   IonLabel,
   IonItem,
   IonTextarea,
-  IonButton
+  IonButton,
+  IonList
 } from '@ionic/vue';
 import { ref } from 'vue';
 import { toast } from '@/utils/toast';
 import { MessageType } from '@/components/board/type';
+import { IHttpOptions, useHttp } from '@/utils/http';
 
 const form = ref<MessageType>({
-  userId: '',
   content: ''
 });
 
-const publish = () => {
-  toast('发布成功');
-  modalController.dismiss();
+const publish = async () => {
+  const option: IHttpOptions<MessageType> = {
+    path: 'message/',
+    method: 'post',
+    data: form.value
+  };
+  /**
+   * @description: 删除发布者字段 （userId不能使用）
+   */
+  delete form.value.userId;
+  await useHttp(option);
+  await toast('发布成功');
+  await modalController.dismiss();
 };
 
 const close = () => {
