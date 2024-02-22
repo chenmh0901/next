@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IonCard, IonIcon, IonButton } from '@ionic/vue';
+import { IonCard, IonIcon, IonButton, ToggleCustomEvent } from '@ionic/vue';
 import { copyOutline } from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
 import { onBeforeMount, ref } from 'vue';
@@ -33,6 +33,18 @@ const fetchUsers = async () => {
 onBeforeMount(() => {
   fetchUsers();
 });
+
+const toggleDarkTheme = (shouldAdd: any) => {
+  document.body.classList.toggle('dark', shouldAdd);
+};
+
+const toggleChange = () => {
+  const darkMode = document.body.classList.contains('dark');
+  const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+  document.body.classList.add('dark ');
+  console.log(prefersDark);
+  toggleDarkTheme(!darkMode);
+};
 </script>
 
 <template>
@@ -73,7 +85,11 @@ onBeforeMount(() => {
         </div>
       </IonCard>
     </div>
-    <IonButton class="fixed top-10 right-0" size="small" @click="toggle()">
+    <IonButton
+      class="fixed top-15 right-0"
+      size="small"
+      @click="toggleChange()"
+    >
       <IonIcon :icon="copyOutline"></IonIcon>
     </IonButton>
     <DialogUserDetail
