@@ -1,7 +1,6 @@
 <script lang="ts" setup>
-import { IonCard } from '@ionic/vue';
-import { computed, ref } from 'vue';
-import DialogMsgCard from '@/components/board/components/dialog-msg-detail.vue';
+import { computed } from 'vue';
+import MessageList from '@/components/board/components/message-list.vue';
 
 const msgs = computed(() => {
   const msg = [];
@@ -9,10 +8,7 @@ const msgs = computed(() => {
     msg.push({
       id: i + 1,
       userId: 1210204146,
-      name: '陈明浩',
-      date: '2024/2/5',
-      type: '通知',
-      title: '各位同学，紧急通知！紧急通知！',
+      time: '2024/2/5',
       content:
         '我可以发广告吗？\n' +
         '后端实习薪资 400～500/天.\n' +
@@ -25,54 +21,10 @@ const msgs = computed(() => {
   }
   return msg;
 });
-const show = ref(false);
-const msgDetail = ref();
 </script>
 
 <template>
-  <div class="home-users flex flex-wrap">
-    <IonCard
-      v-for="msg in msgs"
-      :key="msg.id"
-      @click="
-        () => {
-          msgDetail = msg.content;
-          show = true;
-        }
-      "
-    >
-      <div class="w-1/3 h-1/3 p-5">
-        <img
-          alt="Grapefruit slice atop a pile of other slices"
-          src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"
-          style="
-            border-radius: 20px;
-            width: 100%;
-            height: 100%;
-            box-shadow:
-              rgba(0, 0, 0, 0.2) 0 4px 1px -2px,
-              rgba(0, 0, 0, 0.14) 0 3px 2px 0,
-              rgba(0, 0, 0, 0.12) 0 2px 5px 0;
-          "
-        />
-      </div>
-      <div class="flex flex-col justify-center p-5">
-        <ion-card-title class="mb-2">{{ msg.type }}</ion-card-title>
-        <ion-card-subtitle style="font-size: 1rem">
-          {{ msg.name }}
-        </ion-card-subtitle>
-        <ion-card-content class="p-0">{{ msg.title }}</ion-card-content>
-        <ion-card-subtitle class="ml-20">
-          发布时间：{{ msg.date }}
-        </ion-card-subtitle>
-      </div>
-    </IonCard>
-    <DialogMsgCard
-      :close="() => (show = false)"
-      :msg="msgDetail"
-      :show="show"
-    ></DialogMsgCard>
-  </div>
+  <MessageList :msgs="msgs" />
 </template>
 
 <style scoped></style>
