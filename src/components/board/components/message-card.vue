@@ -19,7 +19,7 @@ defineProps<IProps>();
   <IonCard>
     <IonCardHeader>
       <IonCardSubtitle>发布时间：{{ msg?.time }}</IonCardSubtitle>
-      <IonCardTitle>{{ msg?.userId }}</IonCardTitle>
+      <IonCardTitle>{{ msg?.userId ?? 'userId invalid' }}</IonCardTitle>
     </IonCardHeader>
     <IonCardContent>{{ msg?.content }}</IonCardContent>
   </IonCard>
