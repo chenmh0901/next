@@ -18,17 +18,24 @@ const fetchMessages = async () => {
   };
   return await useHttp(option);
 };
-onBeforeMount(() => {
-  fetchMessages().then((r) => {
-    msgs.value = r.data as MessageType[];
-  });
-});
+
+const refresh = async () => {
+  const { data } = await fetchMessages();
+  msgs.value = data as MessageType[];
+};
+
+const publish = async () => {
+  await open();
+  console.log('publish');
+};
+
+onBeforeMount(() => refresh());
 </script>
 
 <template>
   <div v-if="msgs?.length">
     <MessageList :msgs="msgs" />
-    <IonButton class="absolute top-12 right-3 rounded-full" @click="open">
+    <IonButton class="absolute top-12 right-3 rounded-full" @click="publish">
       <IonIcon :icon="add"></IonIcon>
     </IonButton>
   </div>

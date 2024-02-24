@@ -1,12 +1,17 @@
 import { modalController } from '@ionic/vue';
 
 export const useModal = (component: any) => {
-  const open = () => {
-    modalController
-      .create({
+  const open = async () => {
+    try {
+      const modal = await modalController.create({
         component
-      })
-      .then((m) => m.present());
+      });
+      await modal.present(); // 打开弹窗
+      return true;
+    } catch (e) {
+      console.error('Error', e);
+      return false;
+    }
   };
 
   return {
