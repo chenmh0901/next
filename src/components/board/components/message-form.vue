@@ -29,11 +29,11 @@ const publish = async () => {
   delete form.value.userId;
   await useHttp(option);
   await toast('发布成功');
-  await modalController.dismiss();
+  await modalController.dismiss(true);
 };
 
 const close = () => {
-  modalController.dismiss();
+  modalController.dismiss(false);
 };
 </script>
 

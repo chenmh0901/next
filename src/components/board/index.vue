@@ -25,8 +25,10 @@ const refresh = async () => {
 };
 
 const publish = async () => {
-  await open();
-  console.log('publish');
+  const data = await open();
+  if (data) {
+    await refresh();
+  }
 };
 
 onBeforeMount(() => refresh());
