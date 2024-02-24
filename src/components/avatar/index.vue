@@ -2,7 +2,7 @@
 import { IonAvatar, IonImg } from '@ionic/vue';
 
 interface IProps {
-  src: string;
+  src?: string;
 }
 
 defineProps<IProps>();
