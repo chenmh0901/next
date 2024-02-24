@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { IonAvatar } from '@ionic/vue';
-import { useCamera } from '@/composables/use-camara';
+import { useCamera } from '@/utils/camara';
 
 const { open } = useCamera();
 </script>
