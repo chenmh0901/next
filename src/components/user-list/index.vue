@@ -62,7 +62,7 @@ onBeforeMount(() => {
         </div>
       </IonCard>
     </div>
-    <IonButton class="fixed top-10 right-0" size="small" @click="toggle()">
+    <IonButton class="fixed top-15 right-0" size="small" @click="toggle()">
       <IonIcon :icon="copyOutline"></IonIcon>
     </IonButton>
     <DialogUserDetail

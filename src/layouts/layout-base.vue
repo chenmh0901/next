@@ -6,9 +6,13 @@ import {
   IonTitle,
   IonToolbar,
   IonPage,
-  IonIcon
+  IonIcon,
+  IonTabBar,
+  IonTabButton,
+  IonLabel
 } from '@ionic/vue';
 import { homeOutline, newspaperOutline, personOutline } from 'ionicons/icons';
+import ThemeToggle from '@/components/theme-toggle/index.vue';
 
 const emit = defineEmits<{
   (e: 'toggle-page', val: PAGE): void;
@@ -22,6 +26,7 @@ type PAGE = 'USER_LIST' | 'BOARD' | 'PROFILE';
     <IonHeader>
       <IonToolbar>
         <IonTitle>搜索框</IonTitle>
+        <ThemeToggle class="mr-3" />
       </IonToolbar>
     </IonHeader>
     <IonContent :fullscreen="true" class="layout-base-content">
@@ -30,17 +35,20 @@ type PAGE = 'USER_LIST' | 'BOARD' | 'PROFILE';
     <div class="h-20"></div>
     <IonFooter class="h-20 absolute bottom-0">
       <IonToolbar>
-        <ion-buttons class="flex flex-row justify-around h-20">
-          <ion-button @click="emit('toggle-page', 'USER_LIST')">
-            <IonIcon slot="icon-only" :icon="homeOutline"></IonIcon>
-          </ion-button>
-          <ion-button @click="emit('toggle-page', 'BOARD')">
-            <IonIcon slot="icon-only" :icon="newspaperOutline"></IonIcon>
-          </ion-button>
-          <ion-button @click="emit('toggle-page', 'PROFILE')">
-            <IonIcon slot="icon-only" :icon="personOutline"></IonIcon>
-          </ion-button>
-        </ion-buttons>
+        <IonTabBar class="h-20">
+          <IonTabButton @click="emit('toggle-page', 'USER_LIST')">
+            <IonIcon :icon="homeOutline"></IonIcon>
+            <IonLabel>主页</IonLabel>
+          </IonTabButton>
+          <IonTabButton @click="emit('toggle-page', 'BOARD')">
+            <IonIcon :icon="newspaperOutline"></IonIcon>
+            <IonLabel>通知</IonLabel>
+          </IonTabButton>
+          <IonTabButton @click="emit('toggle-page', 'PROFILE')">
+            <IonIcon :icon="personOutline"></IonIcon>
+            <IonLabel>我</IonLabel>
+          </IonTabButton>
+        </IonTabBar>
       </IonToolbar>
     </IonFooter>
   </IonPage>
