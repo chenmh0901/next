@@ -26,9 +26,9 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div v-if="!!msgs">
+  <div v-if="msgs?.length">
     <MessageList :msgs="msgs" />
-    <IonButton class="fixed bottom-15 right-3 rounded-full" @click="open">
+    <IonButton class="absolute top-12 right-3 rounded-full" @click="open">
       <IonIcon :icon="add"></IonIcon>
     </IonButton>
   </div>

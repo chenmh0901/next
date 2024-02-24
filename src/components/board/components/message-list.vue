@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import MessageCard from '@/components/board/components/message-card.vue';
+import { MessageType } from '@/components/board/type';
 
 interface IProps {
-  msgs: any[];
+  msgs: MessageType[];
 }
 
 defineProps<IProps>();
