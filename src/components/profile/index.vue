@@ -3,6 +3,7 @@ import UserForm from '@/components/profile/components/user-form.vue';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
+import Avatar from '@/components/avatar/index.vue';
 
 enum UserFormMode {
   EDIT = 'EDIT',
@@ -40,6 +41,7 @@ onMounted(() => {
   <div class="profile">
     <div class="profile__header">个人信息</div>
     <div class="profile__content">
+      <Avatar />
       <UserForm
         v-if="!!user"
         :user="user"
