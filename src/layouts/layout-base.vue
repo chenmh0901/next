@@ -23,7 +23,7 @@ type PAGE = 'USER_LIST' | 'BOARD' | 'PROFILE';
     <IonHeader>
       <IonToolbar>
         <IonTitle>搜索框</IonTitle>
-        <ThemeToggle />
+        <ThemeToggle class="mr-3" />
       </IonToolbar>
     </IonHeader>
     <IonContent :fullscreen="true" class="layout-base-content">
