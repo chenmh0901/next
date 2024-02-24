@@ -36,5 +36,5 @@ export type User = {
 };
 export type UserPhoto = {
   filepath: string;
-  webviewPath?: string;
+  webviewPath: string;
 };

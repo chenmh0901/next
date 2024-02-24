@@ -1,14 +1,14 @@
 <script lang="ts" setup>
-import { IonAvatar } from '@ionic/vue';
-import { useCamera } from '@/utils/camara';
+import { IonAvatar, IonImg } from '@ionic/vue';
 
-const { open } = useCamera();
+interface IProps {
+  src: string;
+}
+
+defineProps<IProps>();
 </script>
 <template>
-  <IonAvatar class="w-[80px] h-[80px]" @click="open">
-    <img
-      alt="Silhouette of a person's head"
-      src="https://ionicframework.com/docs/img/demos/avatar.svg"
-    />
+  <IonAvatar class="w-[80px] h-[80px]">
+    <IonImg alt="photo uploading" :src="src" />
   </IonAvatar>
 </template>
