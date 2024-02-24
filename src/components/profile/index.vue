@@ -3,13 +3,15 @@ import UserForm from '@/components/profile/components/user-form.vue';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
+import Avatar from '@/components/avatar/index.vue';
+import { useCamera } from '@/utils/camara';
 
 enum UserFormMode {
   EDIT = 'EDIT',
   VIEW = 'VIEW'
 }
 
-const mode = ref<UserFormMode>('VIEW');
+const mode = ref<UserFormMode>(UserFormMode.VIEW);
 const user = ref<User>();
 
 const fetchUserInfo = async () => {
@@ -28,7 +30,7 @@ const patchUserInfo = async (data: User) => {
   };
   return await useHttp(option);
 };
-
+const { photo, take } = useCamera();
 onMounted(() => {
   fetchUserInfo().then((r) => {
     user.value = r.data as User;
@@ -40,23 +42,25 @@ onMounted(() => {
   <div class="profile">
     <div class="profile__header">个人信息</div>
     <div class="profile__content">
+      <Avatar :src="photo.webviewPath" />
+      <IonButton @click="take">[DEBUG] 上传照片</IonButton>
       <UserForm
         v-if="!!user"
         :user="user"
         :mode="mode"
         @update="
           (v) => {
-            mode = 'VIEW';
+            mode = UserFormMode.VIEW;
             if (v) {
               patchUserInfo(v);
             }
           }
         "
       />
-      <ion-button color="danger" @click="mode = 'VIEW'"
+      <ion-button color="danger" @click="mode = UserFormMode.VIEW"
         >[DEBUG] 查看
       </ion-button>
-      <ion-button color="danger" @click="mode = 'EDIT'"
+      <ion-button color="danger" @click="mode = UserFormMode.EDIT"
         >[DEBUG] 编辑
       </ion-button>
     </div>

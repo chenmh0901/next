@@ -4,6 +4,7 @@ import { PROFILE_FIELDS, ProfileFieldType } from '@/components/profile/type';
 import { User } from '@/types/user';
 import { ref } from 'vue';
 import UserFormItem from '@/components/profile/components/user-form-item.vue';
+import { toast } from '@/utils/toast';
 
 enum UserFormMode {
   EDIT = 'EDIT',
@@ -25,6 +26,7 @@ const form = ref(props.user);
 const onSave = () => {
   try {
     // await send patch message -> server
+    toast('保存成功');
     emit('update', form.value);
   } catch (e) {
     // error
@@ -40,7 +42,7 @@ const onSave = () => {
       :mode="mode"
       :type="field.type ?? ProfileFieldType.DEFAULT_TEXT"
       :label="field.label"
-      :value="(form[field.key] as string) ?? '未填写'"
+      :value="form[field.key] as string"
       @change="
         (v) => {
           form[field.key] = v;
