@@ -17,3 +17,7 @@ make sure configurations above has been setup.
 
 1. run `npx cap open android`
 2. run `pnpm build:android` **(need Android Studio)**
+
+## Build Android Debug
+
+cd android && ./gradlew assembleDebug
