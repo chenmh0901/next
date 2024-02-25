@@ -1,10 +1,11 @@
 <script lang="ts" setup>
+import { IonButton } from '@ionic/vue';
 import UserForm from '@/components/profile/user-form.vue';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import Avatar from '@/components/avatar/index.vue';
-import { useCamera } from '@/utils/camara';
+import { useCamera } from '@/composables/use-camara';
 
 enum UserFormMode {
   EDIT = 'EDIT',
@@ -23,27 +24,35 @@ const fetchUserInfo = async () => {
 };
 
 const patchUserInfo = async (data: User) => {
-  const option: IHttpOptions<any> = {
+  const option: IHttpOptions<User> = {
     path: 'user/',
     method: 'patch',
     data: data
   };
   return await useHttp(option);
 };
-const { photo, take } = useCamera();
-onMounted(() => {
-  fetchUserInfo().then((r) => {
-    user.value = r.data as User;
-  });
-});
+
+const { photo, takePhoto } = useCamera();
+const refresh = async () => {
+  const { data } = await fetchUserInfo();
+  user.value = data as User;
+};
+onMounted(() => refresh());
 </script>
 
 <template>
   <div class="profile">
     <div class="profile__header">个人信息</div>
     <div class="profile__content">
-      <Avatar :src="photo.webviewPath" />
-      <IonButton @click="take">[DEBUG] 上传照片</IonButton>
+      <div class="profile__avatar">
+        <Avatar :src="photo.webviewPath" />
+        <IonButton
+          v-if="mode == UserFormMode.EDIT"
+          size="small"
+          @click="takePhoto"
+          >上传照片
+        </IonButton>
+      </div>
       <UserForm
         v-if="!!user"
         :user="user"
@@ -57,12 +66,12 @@ onMounted(() => {
           }
         "
       />
-      <ion-button color="danger" @click="mode = UserFormMode.VIEW"
+      <IonButton color="danger" @click="mode = UserFormMode.VIEW"
         >[DEBUG] 查看
-      </ion-button>
-      <ion-button color="danger" @click="mode = UserFormMode.EDIT"
+      </IonButton>
+      <IonButton color="danger" @click="mode = UserFormMode.EDIT"
         >[DEBUG] 编辑
-      </ion-button>
+      </IonButton>
     </div>
   </div>
 </template>
@@ -78,5 +87,9 @@ onMounted(() => {
 
 .profile__content {
   @apply flex flex-col items-center w-[90%];
+}
+
+.profile__avatar {
+  @apply flex flex-col items-center;
 }
 </style>
