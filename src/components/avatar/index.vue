@@ -5,7 +5,9 @@ interface IProps {
   src?: string;
 }
 
-defineProps<IProps>();
+const props = defineProps<IProps>();
+
+const src = props.src ?? 'https://ionicframework.com/docs/img/demos/avatar.svg';
 </script>
 <template>
   <IonAvatar class="w-[80px] h-[80px]">
