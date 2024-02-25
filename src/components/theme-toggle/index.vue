@@ -1,25 +1,31 @@
 <script setup lang="ts">
-import { IonToggle } from '@ionic/vue';
-import { ref } from 'vue';
+import { IonIcon } from '@ionic/vue';
+import { sunnyOutline, moonOutline } from 'ionicons/icons';
+import { useEasyToggle } from '@/composables/use-easy-toggle';
 
-const toggle = ref();
+const { val, toggle } = useEasyToggle(['light', 'dark']);
 
 // 切换主题
-function toggleTheme(val: any) {
-  const checked = val?.detail?.checked;
+function toggleTheme() {
+  const checked = val.value == 'light';
+  toggle();
   document.body.classList.toggle('dark', checked);
-  document.body.classList.toggle('light', !checked);
 }
 </script>
 
 <template>
-  <IonToggle
-    id="themeToggle"
-    ref="toggle"
-    slot="end"
-    size="small"
-    @ion-change="toggleTheme"
-  ></IonToggle>
+  <IonButtons slot="end" class="theme__toggle">
+    <IonButton v-if="val == 'dark'" @click="toggleTheme">
+      <IonIcon :icon="sunnyOutline" class="w-full h-full" />
+    </IonButton>
+    <IonButton v-else @click="toggleTheme">
+      <IonIcon :icon="moonOutline" class="w-full h-full" />
+    </IonButton>
+  </IonButtons>
 </template>
 
-<style scoped></style>
+<style scoped>
+.theme__toggle {
+  @apply w-[25px] h-[25px] border;
+}
+</style>
