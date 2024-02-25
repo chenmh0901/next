@@ -1,15 +1,14 @@
 <script lang="ts" setup>
 import { IonList } from '@ionic/vue';
-import { PROFILE_FIELDS, ProfileFieldType } from '@/components/profile/type';
+import {
+  PROFILE_FIELDS,
+  ProfileFieldType,
+  UserFormMode
+} from '@/components/profile/type';
 import { User } from '@/types/user';
 import { ref } from 'vue';
 import UserFormItem from '@/components/profile/user-form-item.vue';
 import { toast } from '@/utils/toast';
-
-enum UserFormMode {
-  EDIT = 'EDIT',
-  VIEW = 'VIEW'
-}
 
 interface IProps {
   user: User;
@@ -30,6 +29,7 @@ const onSave = () => {
     emit('update', form.value);
   } catch (e) {
     // error
+    console.error('Error', e);
   }
 };
 </script>
@@ -50,7 +50,7 @@ const onSave = () => {
       "
     />
     <ion-button
-      v-if="mode == 'EDIT'"
+      v-if="mode.type == 'EDIT'"
       color="primary"
       expand="block"
       @click="onSave"

@@ -35,3 +35,8 @@ export const PROFILE_FIELDS: ProfileField[] = [
   { key: 'address', label: '地址' },
   { type: ProfileFieldType.TEXTAREA, key: 'selfResume', label: '简介' }
 ];
+
+export interface UserFormMode {
+  type: 'EDIT' | 'READ';
+  placeholder: string;
+}

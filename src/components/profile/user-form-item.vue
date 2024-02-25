@@ -1,13 +1,7 @@
 <script setup lang="ts">
-import { ProfileFieldType } from '@/components/profile/type';
+import { ProfileFieldType, UserFormMode } from '@/components/profile/type';
 import { IonInput, IonItem, IonLabel } from '@ionic/vue';
-import { ref } from 'vue';
 import { usePicker } from '@/composables/use-picker';
-
-enum UserFormMode {
-  EDIT = 'EDIT',
-  VIEW = 'VIEW'
-}
 
 interface IProps {
   type: ProfileFieldType;
@@ -21,8 +15,7 @@ const emit = defineEmits<{
   (e: 'change', val?: string): void;
 }>();
 
-const inputPlaceholder = ref('未填写');
-const optionPlaceholder = ref('请选择');
+const optionPlaceholder = '请选择';
 const { picked, open } = usePicker(['数媒211', '数媒212'], props.value);
 
 const onClick = () => {
@@ -35,13 +28,13 @@ const onClick = () => {
   <IonItem class="my-4" lines="none">
     <IonLabel class="w-1/5">{{ label }}:</IonLabel>
 
-    <ion-text v-if="mode === UserFormMode.VIEW"
-      >{{ value ?? inputPlaceholder }}
+    <ion-text v-if="mode.type === 'READ'"
+      >{{ value ?? mode.placeholder }}
     </ion-text>
     <template v-else>
       <template v-if="type == ProfileFieldType.DEFAULT_TEXT">
         <IonInput
-          :placeholder="inputPlaceholder"
+          :placeholder="mode.placeholder"
           :value="value"
           class="border border-grey-300 rounded-lg text-center w-4/5"
           @change="(e) => emit('change', e.target.value)"

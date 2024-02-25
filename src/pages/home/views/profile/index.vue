@@ -6,13 +6,9 @@ import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import Avatar from '@/components/avatar/index.vue';
 import { useCamera } from '@/composables/use-camara';
+import { UserFormMode } from '@/components/profile/type';
 
-enum UserFormMode {
-  EDIT = 'EDIT',
-  VIEW = 'VIEW'
-}
-
-const mode = ref<UserFormMode>(UserFormMode.VIEW);
+const mode = ref<UserFormMode>({ type: 'READ', placeholder: '未填写' });
 const user = ref<User>();
 
 const fetchUserInfo = async () => {
@@ -42,14 +38,10 @@ onMounted(() => refresh());
 
 <template>
   <div class="profile">
-    <div class="profile__header">个人信息</div>
     <div class="profile__content">
       <div class="profile__avatar">
         <Avatar :src="photo.webviewPath" />
-        <IonButton
-          v-if="mode == UserFormMode.EDIT"
-          size="small"
-          @click="takePhoto"
+        <IonButton v-if="mode?.type == 'EDIT'" size="small" @click="takePhoto"
           >上传照片
         </IonButton>
       </div>
@@ -59,18 +51,24 @@ onMounted(() => refresh());
         :mode="mode"
         @update="
           (v) => {
-            mode = UserFormMode.VIEW;
+            mode.type = 'READ';
             if (v) {
               patchUserInfo(v);
             }
           }
         "
       />
-      <IonButton color="danger" @click="mode = UserFormMode.VIEW"
-        >[DEBUG] 查看
+      <IonButton
+        v-if="mode?.type == 'READ'"
+        class="profile__btn"
+        @click="mode.type = 'EDIT'"
+        >编辑
       </IonButton>
-      <IonButton color="danger" @click="mode = UserFormMode.EDIT"
-        >[DEBUG] 编辑
+      <IonButton
+        v-if="mode?.type == 'EDIT'"
+        class="profile__btn"
+        @click="mode.type = 'READ'"
+        >退出
       </IonButton>
     </div>
   </div>
@@ -81,15 +79,15 @@ onMounted(() => refresh());
   @apply flex flex-col items-center;
 }
 
-.profile__header {
-  @apply h-20 text-2xl flex flex-col items-center justify-center;
-}
-
 .profile__content {
   @apply flex flex-col items-center w-[90%];
 }
 
 .profile__avatar {
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center mt-5;
+}
+
+.profile__btn {
+  @apply w-full;
 }
 </style>
