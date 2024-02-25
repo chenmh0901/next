@@ -43,6 +43,7 @@ onBeforeMount(() => {
       :key="user.id"
       :mode="val"
       :user="user"
+      :class="val === ShowMode.COL ? 'w-1/2 -mb-2' : 'w-full -mb-2'"
       @click="
         () => {
           userDetail = user;

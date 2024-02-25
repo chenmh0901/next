@@ -17,7 +17,7 @@ defineProps<IProps>();
 </script>
 
 <template>
-  <div :class="mode === ShowMode.COL ? 'w-1/2 -mb-8' : 'w-full -mb-8'">
+  <div>
     <IonCard
       :class="mode === ShowMode.COL ? 'home-user-card' : 'flex flex-row'"
     >
