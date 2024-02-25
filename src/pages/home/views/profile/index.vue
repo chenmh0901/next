@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import UserForm from '@/components/profile/components/user-form.vue';
+import UserForm from '@/components/profile/user-form.vue';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';

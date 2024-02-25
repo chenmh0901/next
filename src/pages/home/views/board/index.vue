@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { IonButton, IonIcon } from '@ionic/vue';
 import { onBeforeMount, ref } from 'vue';
-import MessageList from '@/components/board/components/message-list.vue';
+import MessageList from '@/components/board/message-list.vue';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { MessageType } from '@/components/board/type';
-import MessageForm from '@/components/board/components/message-form.vue';
+import MessageForm from '@/components/board/message-form.vue';
 import { useModal } from '@/composables/use-modal';
 import { add } from 'ionicons/icons';
 

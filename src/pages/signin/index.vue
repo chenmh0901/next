@@ -4,10 +4,10 @@ import { onBeforeMount, ref } from 'vue';
 import { pageTo } from '@/router/director';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
-import { AuthForm } from '@/views/signin/type';
+import { AuthForm } from '@/pages/signin/type';
 import { useAuthStore } from '@/stores/auth';
 import { toast } from '@/utils/toast';
-import { validate } from '@/views/signin/validator';
+import { validate } from '@/pages/signin/validator';
 
 enum PageMode {
   SIGNIN = 'login',

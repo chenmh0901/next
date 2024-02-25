@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IonCard, IonIcon, IonButton } from '@ionic/vue';
 import { copyOutline } from 'ionicons/icons';
-import DialogUserDetail from '@/components/user-list/components/dialog-user-detail.vue';
+import DialogUserDetail from '@/components/user-list/dialog-user-detail.vue';
 import Avatar from '@/components/avatar/index.vue';
 import { onBeforeMount, ref } from 'vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';

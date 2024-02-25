@@ -3,7 +3,7 @@ import { IonList } from '@ionic/vue';
 import { PROFILE_FIELDS, ProfileFieldType } from '@/components/profile/type';
 import { User } from '@/types/user';
 import { ref } from 'vue';
-import UserFormItem from '@/components/profile/components/user-form-item.vue';
+import UserFormItem from '@/components/profile/user-form-item.vue';
 import { toast } from '@/utils/toast';
 
 enum UserFormMode {
