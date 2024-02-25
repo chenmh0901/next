@@ -1,12 +1,12 @@
 <script lang="ts" setup>
-import { IonCard, IonIcon, IonButton } from '@ionic/vue';
+import { IonIcon, IonButton } from '@ionic/vue';
 import { copyOutline } from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/dialog-user-detail.vue';
-import Avatar from '@/components/avatar/index.vue';
 import { onBeforeMount, ref } from 'vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
+import UserCard from '@/components/user-list/user-card.vue';
 
 const show = ref(false);
 const userDetail = ref();
@@ -37,31 +37,19 @@ onBeforeMount(() => {
 </script>
 
 <template>
-  <div class="home-users flex flex-wrap">
-    <div
+  <div v-if="users?.length" class="home-users flex flex-wrap">
+    <UserCard
       v-for="user in users"
       :key="user.id"
-      :class="val === 'COL' ? 'w-1/2 p-1' : 'w-full p-1'"
-    >
-      <IonCard
-        :class="val === ShowMode.COL ? 'home-user-card' : 'flex flex-row'"
-        @click="
-          () => {
-            userDetail = user;
-            show = true;
-          }
-        "
-      >
-        <div :class="val === ShowMode.COL ? 'h-full p-5' : 'w-1/3 p-5'">
-          <Avatar />
-        </div>
-        <div class="flex flex-col justify-center p-5">
-          <ion-card-title class="mb-2">{{ user.name }}</ion-card-title>
-          <ion-card-subtitle> {{ user.no }}</ion-card-subtitle>
-          <ion-card-subtitle> {{ user.className }}</ion-card-subtitle>
-        </div>
-      </IonCard>
-    </div>
+      :mode="val"
+      :user="user"
+      @click="
+        () => {
+          userDetail = user;
+          show = true;
+        }
+      "
+    />
     <IonButton class="fixed top-15 right-0" size="small" @click="toggle()">
       <IonIcon :icon="copyOutline"></IonIcon>
     </IonButton>
