@@ -14,11 +14,13 @@ import { MessageType } from '@/components/board/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { useAlert } from '@/composables/use-alert';
 
-const form = ref<MessageType>({
-  content: ''
-});
-const { userChoice, alert } = useAlert('发布通知', '确定发布吗？');
+const form = ref<MessageType>({} as MessageType);
+const { userChoice, alert } = useAlert('发布提示', '确定发布吗？');
 const onClick = async () => {
+  if (!form.value.content || !form.value.userId) {
+    await toast('发布者和内容不能为空');
+    return;
+  }
   await alert();
   if (userChoice.value) {
     await publish();
@@ -30,13 +32,17 @@ const publish = async () => {
     method: 'post',
     data: form.value
   };
-  /**
-   * @description: 删除发布者字段 （userId不能使用）
-   */
-  delete form.value.userId;
-  await useHttp(option);
-  await toast('发布成功');
-  await modalController.dismiss(true);
+  try {
+    /**
+     * @description: 删除发布者字段 （userId不能使用）
+     */
+    delete form.value.userId;
+    await useHttp(option);
+    await toast('发布成功');
+    await modalController.dismiss(true);
+  } catch (e) {
+    await toast('发布失败');
+  }
 };
 const close = () => {
   modalController.dismiss(false);
