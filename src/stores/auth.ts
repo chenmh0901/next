@@ -5,10 +5,7 @@ export const useAuthStore = () => {
 
   const setToken = async (t: string) => {
     const s = await storage.create();
-
-    s.create().then((s) => {
-      s.set('token', t);
-    });
+    await s.set('token', t);
   };
 
   const getToken = async () => {
@@ -16,5 +13,11 @@ export const useAuthStore = () => {
 
     return s.get('token');
   };
-  return { setToken, getToken };
+
+  const removeToken = async () => {
+    const s = await storage.create();
+    await s.set('token', null);
+  };
+
+  return { setToken, getToken, removeToken };
 };

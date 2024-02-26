@@ -1,5 +1,5 @@
 <template>
-  <LayoutBase @toggle-page="toggle">
+  <LayoutBase :page="val" @toggle-page="toggle">
     <UserList v-if="val == 'USER_LIST'" />
     <Board v-if="val == 'BOARD'" />
     <Profile v-if="val == 'PROFILE'" />
