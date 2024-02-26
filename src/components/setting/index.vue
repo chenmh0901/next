@@ -2,11 +2,16 @@
 import { Icon } from '@iconify/vue';
 import { useAuthStore } from '@/stores/auth';
 import { pageTo } from '@/router/director';
+import { useAlert } from '@/composables/use-alert';
 
 const { removeToken } = useAuthStore();
+const { userChoice, alert } = useAlert('提示', '确认退出登录吗？');
 const onClick = async () => {
-  await removeToken();
-  pageTo('signin');
+  await alert();
+  if (userChoice.value) {
+    await removeToken();
+    pageTo('signin');
+  }
 };
 </script>
 

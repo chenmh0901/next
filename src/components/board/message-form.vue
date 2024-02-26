@@ -12,11 +12,18 @@ import { ref } from 'vue';
 import { toast } from '@/utils/toast';
 import { MessageType } from '@/components/board/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
+import { useAlert } from '@/composables/use-alert';
 
 const form = ref<MessageType>({
   content: ''
 });
-
+const { userChoice, alert } = useAlert('发布通知', '确定发布吗？');
+const onClick = async () => {
+  await alert();
+  if (userChoice.value) {
+    await publish();
+  }
+};
 const publish = async () => {
   const option: IHttpOptions<MessageType> = {
     path: 'message/',
@@ -31,7 +38,6 @@ const publish = async () => {
   await toast('发布成功');
   await modalController.dismiss(true);
 };
-
 const close = () => {
   modalController.dismiss(false);
 };
@@ -69,7 +75,7 @@ const close = () => {
       </IonList>
       <IonButtons class="flex flex-row justify-around">
         <IonButton class="w-1/3" color="light" @click="close">关闭</IonButton>
-        <IonButton class="w-1/3" @click="publish">发布</IonButton>
+        <IonButton class="w-1/3" @click="onClick">发布</IonButton>
       </IonButtons>
     </div>
   </div>
