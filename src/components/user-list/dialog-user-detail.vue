@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import DetailShow from '@/components/detail/detail-show.vue';
+import DetailShow from '@/components/user-list/user-detail.vue';
 import { User } from '@/types/user';
 import { IonPopover } from '@ionic/vue';
 
@@ -14,7 +14,7 @@ const props = defineProps<IProps>();
 
 <template>
   <IonPopover :is-open="props.show" @didDismiss="close">
-    <div class="w-[200px] h-[400px]">
+    <div>
       <DetailShow :user="props.user"></DetailShow>
     </div>
   </IonPopover>
