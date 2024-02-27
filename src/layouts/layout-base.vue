@@ -13,7 +13,7 @@ import {
 } from '@ionic/vue';
 import { homeOutline, newspaperOutline, personOutline } from 'ionicons/icons';
 import ThemeToggle from '@/components/theme-toggle/index.vue';
-import Setting from '@/components/setting/index.vue';
+import ExitBtn from '@/components/exit-btn/index.vue';
 
 interface IProps {
   page: PAGE;
@@ -32,7 +32,7 @@ type PAGE = 'USER_LIST' | 'BOARD' | 'PROFILE';
     <IonHeader>
       <IonToolbar>
         <IonTitle>搜索框</IonTitle>
-        <Setting v-if="page == 'PROFILE'" class="mr-3" />
+        <ExitBtn v-if="page == 'PROFILE'" class="mr-3" />
         <ThemeToggle v-else class="mr-3" />
       </IonToolbar>
     </IonHeader>
