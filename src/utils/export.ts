@@ -1,7 +1,6 @@
 import { User } from '@/types/user';
 
 export const exportToCsv = (filename: string, users: User[]) => {
-  // 提取字段名，这取决于 User 接口的结构
   const headers = [
     'id',
     'no',
@@ -19,10 +18,8 @@ export const exportToCsv = (filename: string, users: User[]) => {
     'adminResume'
   ];
 
-  // 提取每个用户的数据
   const rows = users.map((user) => headers.map((header) => user[header]));
 
-  // 添加 BOM 和 CSV 格式
   const csvContent =
     '\uFEFF' + [headers, ...rows].map((row) => row.join(',')).join('\n');
 
@@ -30,7 +27,6 @@ export const exportToCsv = (filename: string, users: User[]) => {
   const link = document.createElement('a');
 
   if (link.download !== undefined) {
-    // 特性检查
     const url = URL.createObjectURL(blob);
 
     link.setAttribute('href', url);

@@ -17,7 +17,6 @@ interface IProps {
 const props = defineProps<IProps>();
 
 const onclick = () => {
-  console.log('导出数据');
   exportToCsv('user.csv', [props.user]);
 };
 </script>
