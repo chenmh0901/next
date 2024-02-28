@@ -5,9 +5,21 @@ export interface ProfileField {
 }
 
 export interface ProfilePickerField extends ProfileField {
-  name: string;
   options: string[];
 }
+
+export const PICKER_OPTIONS: ProfilePickerField[] = [
+  {
+    key: 'sex',
+    label: '性别',
+    options: ['男', '女']
+  },
+  {
+    key: 'className',
+    label: '班级',
+    options: ['数媒211', '数媒212']
+  }
+];
 
 export enum ProfileFieldType {
   DEFAULT_TEXT,
@@ -19,24 +31,21 @@ export enum ProfileFieldType {
 
 export const PROFILE_FIELDS: ProfileField[] = [
   { key: 'name', label: '姓名' },
-  { key: 'wechat', label: '微信' },
-  /**
-   * 以下字段暂时不需要 后端还未有字段
-   */
-  // { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别' },
-  // { type: ProfileFieldType.DATE, key: 'birthday', label: '生日' },
-  { type: ProfileFieldType.OPTIONS, key: 'className', label: '班级' },
-  { key: 'roomName', label: '寝室' },
   { key: 'no', label: '学号' },
+  { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别' },
+  { type: ProfileFieldType.DATE, key: 'birthday', label: '生日' },
+  { key: 'email', label: '邮箱' },
+  { key: 'wechat', label: '微信' },
+  { key: 'qq', label: 'QQ' },
   { key: 'birthPlace', label: '籍贯' },
   { key: 'phone', label: '手机' },
-  { key: 'qq', label: 'QQ' },
-  { key: 'email', label: '邮箱' },
+  { type: ProfileFieldType.OPTIONS, key: 'className', label: '班级' },
+  { key: 'roomName', label: '寝室' },
   { key: 'address', label: '地址' },
   { type: ProfileFieldType.TEXTAREA, key: 'selfResume', label: '简介' }
 ];
 
 export interface UserFormMode {
   type: 'EDIT' | 'READ';
-  placeholder: string;
+  placeholder?: string;
 }
