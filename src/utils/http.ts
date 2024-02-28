@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
+import { User } from '@/types/user';
 
 const DEV_URL = 'http://119.12.173.244:8080/';
 const authStore = useAuthStore();
@@ -8,6 +9,10 @@ export interface IHttpOptions<T extends IRequestBody> {
   method: 'post' | 'get' | 'put' | 'delete' | 'patch';
   path: string;
   data?: T;
+}
+
+export interface IUserResponse {
+  data: User;
 }
 
 interface IRequestBody {

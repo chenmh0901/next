@@ -8,7 +8,7 @@ export type User = {
   /**
    * auth
    */
-  admin: boolean;
+  isAdmin: boolean;
   /**
    * 联系方式
    */

@@ -3,11 +3,12 @@ import { IonButton, IonContent, IonInput } from '@ionic/vue';
 import { onBeforeMount, ref } from 'vue';
 import { pageTo } from '@/router/director';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
-import { IHttpOptions, useHttp } from '@/utils/http';
+import { IHttpOptions, IUserResponse, useHttp } from '@/utils/http';
 import { AuthForm } from '@/pages/signin/type';
 import { useAuthStore } from '@/stores/auth';
 import { toast } from '@/utils/toast';
 import { validate } from '@/pages/signin/validator';
+import { useUserStore } from '@/stores/user';
 
 enum PageMode {
   SIGNIN = 'login',
@@ -18,7 +19,7 @@ const form = ref<AuthForm>({} as AuthForm);
 const { val, toggle } = useEasyToggle([PageMode.SIGNIN, PageMode.SIGNUP]);
 
 const authStore = useAuthStore();
-
+const userStore = useUserStore();
 const register = async (data: AuthForm) => {
   const options: IHttpOptions<AuthForm> = {
     method: 'post',
@@ -39,26 +40,37 @@ const auth = async (data: AuthForm) => {
     data: data
   };
   try {
-    const res = await useHttp(options);
+    const res = (await useHttp(options)) as IUserResponse;
     return res.data;
   } catch (e) {
     await toast('登录失败');
   }
+};
+const getUserAndSetInStore = async () => {
+  const option: IHttpOptions<[]> = {
+    path: 'user/me',
+    method: 'get'
+  };
+  const user = (await useHttp(option)) as IUserResponse;
+  await userStore.setUser(user.data);
+};
+const redirectWithToken = async (t: string) => {
+  await authStore.setToken(t);
+  await getUserAndSetInStore();
+  pageTo('home');
 };
 const onClick = async () => {
   if (!(await validate(form.value, val.value))) return;
   if (val.value === PageMode.SIGNUP) {
     register(form.value).then((r) => {
       if (r?.token) {
-        authStore.setToken(r.token);
-        pageTo('home');
+        redirectWithToken(r.token as string);
       }
     });
   } else {
     auth(form.value).then((r) => {
       if (r?.token) {
-        authStore.setToken(r.token);
-        pageTo('home');
+        redirectWithToken(r.token as string);
       }
     });
   }
@@ -71,7 +83,7 @@ const ChangeMode = () => {
 
 onBeforeMount(() => {
   authStore.getToken().then((val) => {
-    if (val?.length > 0) pageTo('home');
+    if (val?.length) pageTo('home');
   });
 });
 </script>
