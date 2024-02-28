@@ -33,6 +33,15 @@ const refresh = async () => {
   const { data } = await fetchUserInfo();
   user.value = data as User;
 };
+const handleUpdate = (v: User) => {
+  mode.value.type = 'READ';
+  if (v) {
+    patchUserInfo(v);
+  }
+};
+const handleQuit = (v: UserFormMode) => {
+  mode.value.type = v.type;
+};
 onMounted(() => refresh());
 </script>
 
@@ -49,19 +58,8 @@ onMounted(() => refresh());
         v-if="!!user"
         :user="user"
         :mode="mode"
-        @update="
-          (v) => {
-            mode.type = 'READ';
-            if (v) {
-              patchUserInfo(v);
-            }
-          }
-        "
-        @quit="
-          (v) => {
-            mode.type = v.type;
-          }
-        "
+        @update="handleUpdate"
+        @quit="handleQuit"
       />
       <IonButton
         v-if="mode?.type == 'READ'"
