@@ -5,6 +5,7 @@ import { IonPopover } from '@ionic/vue';
 
 interface IProps {
   user: User;
+  isAdmin: boolean;
   show: boolean;
   close: () => void;
 }
@@ -15,7 +16,7 @@ const props = defineProps<IProps>();
 <template>
   <IonPopover :is-open="props.show" @didDismiss="close">
     <div>
-      <DetailShow :user="props.user"></DetailShow>
+      <DetailShow :user="props.user" :is-admin="isAdmin"></DetailShow>
     </div>
   </IonPopover>
 </template>

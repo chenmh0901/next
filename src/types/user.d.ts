@@ -34,7 +34,3 @@ export type User = {
 
   [key: string]: string | number | undefined | null;
 };
-export type UserPhoto = {
-  filepath: string;
-  webviewPath: string;
-};

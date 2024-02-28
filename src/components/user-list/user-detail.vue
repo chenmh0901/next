@@ -1,22 +1,22 @@
 <script setup lang="ts">
 import { IonItem } from '@ionic/vue';
 import { User } from '@/types/user';
-import { computed, defineProps } from 'vue';
+import { computed } from 'vue';
 import { Icon } from '@iconify/vue';
 
 interface IProps {
   user: User;
+  isAdmin: boolean;
 }
 
 const props = defineProps<IProps>();
-
 const user = computed(() => {
   const u = { ...props.user } as any;
   const keys = Object.keys(u) as Array<keyof User>;
   keys.forEach((k) => {
     if (!u[k]) u[k] = '未填写';
   });
-  return u;
+  return u as User;
 });
 </script>
 
@@ -47,13 +47,19 @@ const user = computed(() => {
       QQ：{{ user?.qq }}
     </IonItem>
     <IonItem>
-      <Icon icon="mdi:address-marker-outline" />
-      地址：{{ user?.address }}
+      <Icon icon="mdi:comment-outline" />
+      简介：{{ user?.selfResume }}
     </IonItem>
-    <IonItem>
-      <Icon icon="mingcute:birthday-2-line" />
-      生日：{{ user?.birthday }}
-    </IonItem>
+    <template v-if="isAdmin">
+      <IonItem>
+        <Icon icon="mdi:address-marker-outline" />
+        地址：{{ user?.address }}
+      </IonItem>
+      <IonItem>
+        <Icon icon="icon-park-outline:comment" />
+        留言：{{ user?.adminResume }}
+      </IonItem>
+    </template>
   </div>
 </template>
 

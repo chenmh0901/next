@@ -7,6 +7,7 @@ import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
 import UserCard from '@/components/user-list/user-card.vue';
+import { useUserStore } from '@/stores/user';
 
 const show = ref(false);
 const userDetail = ref();
@@ -20,6 +21,8 @@ enum ShowMode {
 const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
 
 const users = ref<User[]>([]);
+const userStore = useUserStore();
+const isAdmin = ref<boolean>(false);
 const fetchUsers = async () => {
   const options: IHttpOptions<any> = {
     path: 'user/',
@@ -31,8 +34,9 @@ const fetchUsers = async () => {
   });
 };
 
-onBeforeMount(() => {
-  fetchUsers();
+onBeforeMount(async () => {
+  await fetchUsers();
+  isAdmin.value = await userStore.isAdmin();
 });
 </script>
 
@@ -58,6 +62,7 @@ onBeforeMount(() => {
       :close="() => (show = false)"
       :show="show"
       :user="userDetail"
+      :is-admin="isAdmin"
     ></DialogUserDetail>
   </div>
 </template>
