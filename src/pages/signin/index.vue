@@ -114,7 +114,7 @@ onBeforeMount(() => {
         <IonInput
           class="signin-input"
           :value="form.no"
-          placeholder="输入您的学号或者邮箱"
+          placeholder="输入您的学号"
           @ion-input="form.no = $event.target.value as string"
         ></IonInput>
         <IonInput
