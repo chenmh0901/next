@@ -8,6 +8,7 @@ import MessageForm from '@/components/board/message-form.vue';
 import { useModal } from '@/composables/use-modal';
 import { add } from 'ionicons/icons';
 import { format } from 'date-fns';
+import { useUserStore } from '@/stores/user';
 
 const rawMsgs = ref<MessageType[]>();
 const { open } = useModal(MessageForm);
@@ -33,7 +34,8 @@ const fetchMessages = async () => {
   };
   return await useHttp(option);
 };
-
+const userStore = useUserStore();
+const isAdmin = ref<boolean>();
 const refresh = async () => {
   const { data } = await fetchMessages();
   rawMsgs.value = data as MessageType[];
@@ -46,13 +48,20 @@ const publish = async () => {
   }
 };
 
-onBeforeMount(() => refresh());
+onBeforeMount(async () => {
+  await refresh();
+  isAdmin.value = await userStore.isAdmin();
+});
 </script>
 
 <template>
   <div v-if="msgs?.length">
     <MessageList :msgs="msgs" />
-    <IonButton class="absolute top-12 right-3 rounded-full" @click="publish">
+    <IonButton
+      v-if="isAdmin"
+      class="absolute top-12 right-3 rounded-full"
+      @click="publish"
+    >
       <IonIcon :icon="add"></IonIcon>
     </IonButton>
   </div>

@@ -12,7 +12,7 @@ const mode = ref<UserFormMode>({ type: 'READ', placeholder: '未填写' });
 const user = ref<User>();
 
 const fetchUserInfo = async () => {
-  const option: IHttpOptions<any> = {
+  const option: IHttpOptions<[]> = {
     path: 'user/me',
     method: 'get'
   };

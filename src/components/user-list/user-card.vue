@@ -36,7 +36,9 @@ const onclick = () => {
         <ion-card-subtitle> {{ user.no }}</ion-card-subtitle>
         <ion-card-subtitle> {{ user.className }}</ion-card-subtitle>
       </div>
-      <IonButton size="small" @click.stop="onclick">导出数据</IonButton>
+      <IonButton v-if="user.isAdmin" size="small" @click.stop="onclick"
+        >导出数据
+      </IonButton>
     </IonCard>
   </div>
 </template>

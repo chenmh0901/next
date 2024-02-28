@@ -12,9 +12,9 @@ export const useUserStore = () => {
     const s = await storage.create();
     return await s.get('user');
   };
-  const getIsAdmin = async () => {
+  const isAdmin = async () => {
     const u = (await getUser()) as User;
     return u.isAdmin;
   };
-  return { getUser, setUser, getIsAdmin };
+  return { getUser, setUser, isAdmin };
 };
