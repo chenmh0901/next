@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { IonCard, IonButton } from '@ionic/vue';
+import { IonCard } from '@ionic/vue';
 import Avatar from '@/components/avatar/index.vue';
 import { User } from '@/types/user';
-import { exportToCsv } from '@/utils/export';
 
 enum ShowMode {
   COL = 'COL',
@@ -14,11 +13,7 @@ interface IProps {
   user: User;
 }
 
-const props = defineProps<IProps>();
-
-const onclick = () => {
-  exportToCsv('user.csv', [props.user]);
-};
+defineProps<IProps>();
 </script>
 
 <template>
@@ -36,9 +31,6 @@ const onclick = () => {
         <ion-card-subtitle> {{ user.no }}</ion-card-subtitle>
         <ion-card-subtitle> {{ user.className }}</ion-card-subtitle>
       </div>
-      <IonButton v-if="user.isAdmin" size="small" @click.stop="onclick"
-        >导出数据
-      </IonButton>
     </IonCard>
   </div>
 </template>
