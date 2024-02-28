@@ -57,18 +57,17 @@ onMounted(() => refresh());
             }
           }
         "
+        @quit="
+          (v) => {
+            mode.type = v.type;
+          }
+        "
       />
       <IonButton
         v-if="mode?.type == 'READ'"
         class="profile__btn"
         @click="mode.type = 'EDIT'"
         >编辑
-      </IonButton>
-      <IonButton
-        v-if="mode?.type == 'EDIT'"
-        class="profile__btn"
-        @click="mode.type = 'READ'"
-        >退出
       </IonButton>
     </div>
   </div>

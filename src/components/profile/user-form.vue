@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IonList } from '@ionic/vue';
+import { IonButton, IonList } from '@ionic/vue';
 import {
   PROFILE_FIELDS,
   ProfileFieldType,
@@ -18,6 +18,7 @@ interface IProps {
 const props = defineProps<IProps>();
 const emit = defineEmits<{
   (e: 'update', val?: User): void;
+  (e: 'quit', val: UserFormMode): void;
 }>();
 
 const form = ref(props.user);
@@ -31,6 +32,9 @@ const onSave = () => {
     // error
     console.error('Error', e);
   }
+};
+const quit = () => {
+  emit('quit', { type: 'READ' });
 };
 </script>
 
@@ -49,13 +53,10 @@ const onSave = () => {
         }
       "
     />
-    <ion-button
-      v-if="mode.type == 'EDIT'"
-      color="primary"
-      expand="block"
-      @click="onSave"
-      >保存
-    </ion-button>
+    <template v-if="mode.type == 'EDIT'">
+      <IonButton expand="block" @click="onSave">保存</IonButton>
+      <IonButton expand="block" @click="quit">退出</IonButton>
+    </template>
   </IonList>
 </template>
 

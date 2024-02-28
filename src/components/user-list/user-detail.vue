@@ -27,6 +27,10 @@ const user = computed(() => {
       姓名：{{ user?.name }}
     </IonItem>
     <IonItem>
+      <Icon icon="ic:outline-class" />
+      班级：{{ user?.className }}
+    </IonItem>
+    <IonItem>
       <Icon icon="cil:room" />
       寝室：{{ user?.roomName }}
     </IonItem>

@@ -1,5 +1,9 @@
 <script setup lang="ts">
-import { ProfileFieldType, UserFormMode } from '@/components/profile/type';
+import {
+  PICKER_OPTIONS,
+  ProfileFieldType,
+  UserFormMode
+} from '@/components/profile/type';
 import { IonInput, IonItem, IonLabel } from '@ionic/vue';
 import { usePicker } from '@/composables/use-picker';
 
@@ -16,11 +20,13 @@ const emit = defineEmits<{
 }>();
 
 const optionPlaceholder = '请选择';
-const { picked, open } = usePicker(['数媒211', '数媒212'], props.value);
+const options =
+  PICKER_OPTIONS.find((i) => i.label == props.label)?.options || [];
+const { picked, open } = usePicker(options, props.value);
 
-const onClick = () => {
-  open();
-  emit('change', picked.value);
+const onClick = async () => {
+  await open();
+  if (picked.value) emit('change', picked.value);
 };
 </script>
 
