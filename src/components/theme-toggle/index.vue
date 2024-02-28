@@ -14,7 +14,7 @@ function toggleTheme() {
 </script>
 
 <template>
-  <IonButtons slot="end" class="theme__toggle">
+  <IonButtons slot="end" class="theme-toggle">
     <IonButton v-if="val == 'dark'" @click="toggleTheme">
       <IonIcon :icon="sunnyOutline" class="w-full h-full" />
     </IonButton>
@@ -25,7 +25,7 @@ function toggleTheme() {
 </template>
 
 <style scoped>
-.theme__toggle {
-  @apply w-[25px] h-[25px] border;
+.theme-toggle {
+  @apply w-[25px] h-[25px];
 }
 </style>

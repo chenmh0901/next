@@ -19,20 +19,29 @@ defineProps<IProps>();
 <template>
   <div>
     <IonCard
-      :class="
-        mode === ShowMode.COL ? 'flex flex-col items-center' : 'flex flex-row'
-      "
+      class="user-card"
+      :class="mode === ShowMode.COL ? 'flex-col items-center' : 'flex-row'"
     >
-      <div :class="mode === ShowMode.COL ? 'h-full mt-2' : 'w-1/3 p-5'">
-        <Avatar />
+      <!-- AVATAR -->
+      <img
+        v-if="mode === ShowMode.COL"
+        alt="Silhouette of mountains"
+        class="w-full aspect-square object-cover"
+        :src="`https://ionicframework.com/docs/img/demos/avatar.svg`"
+      />
+      <div v-else>
+        <Avatar :size="70" />
       </div>
-      <div class="flex flex-col justify-center p-5">
-        <ion-card-title class="mb-2">{{ user.name }}</ion-card-title>
-        <ion-card-subtitle> {{ user.no }}</ion-card-subtitle>
-        <ion-card-subtitle> {{ user.className }}</ion-card-subtitle>
+
+      <div class="p-2 text-lg">
+        {{ user.name }}
       </div>
     </IonCard>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.user-card {
+  @apply flex m-1.5 shadow-xl;
+}
+</style>

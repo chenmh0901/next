@@ -8,9 +8,23 @@ import Avatar from '@/components/avatar/index.vue';
 import { useCamera } from '@/composables/use-camara';
 import { UserFormMode } from '@/components/profile/type';
 
-const mode = ref<UserFormMode>({ type: 'READ', placeholder: '未填写' });
-const user = ref<User>();
+// about view and view model
+const mode = ref<UserFormMode>(UserFormMode.READ);
+const handleUpdate = (v: User) => {
+  mode.value = UserFormMode.READ;
+  if (v) {
+    patchUserInfo(v);
+  }
+};
+const handleQuit = () => {
+  mode.value = UserFormMode.READ;
+};
 
+// avatar
+const { photo, takePhoto } = useCamera();
+
+// user-form data
+const user = ref<User>();
 const fetchUserInfo = async () => {
   const option: IHttpOptions<[]> = {
     path: 'user/me',
@@ -27,44 +41,38 @@ const patchUserInfo = async (data: User) => {
   };
   return await useHttp(option);
 };
-
-const { photo, takePhoto } = useCamera();
 const refresh = async () => {
   const { data } = await fetchUserInfo();
   user.value = data as User;
 };
-const handleUpdate = (v: User) => {
-  mode.value.type = 'READ';
-  if (v) {
-    patchUserInfo(v);
-  }
-};
-const handleQuit = (v: UserFormMode) => {
-  mode.value.type = v.type;
-};
-onMounted(() => refresh());
+onMounted(refresh);
 </script>
 
 <template>
   <div class="profile">
     <div class="profile__content">
-      <div class="profile__avatar">
+      <div class="profile__avatar mb-2">
         <Avatar :src="photo.webviewPath" />
-        <IonButton v-if="mode?.type == 'EDIT'" size="small" @click="takePhoto"
+        <IonButton
+          v-if="mode == UserFormMode.EDIT"
+          size="small"
+          @click="takePhoto"
           >上传照片
         </IonButton>
       </div>
       <UserForm
-        v-if="!!user"
+        v-if="user"
+        class="mb-2"
         :user="user"
         :mode="mode"
         @update="handleUpdate"
-        @quit="handleQuit"
+        @cancel="handleQuit"
       />
+
       <IonButton
-        v-if="mode?.type == 'READ'"
-        class="profile__btn"
-        @click="mode.type = 'EDIT'"
+        v-if="mode == UserFormMode.READ"
+        class="default-action-btn"
+        @click="mode = UserFormMode.EDIT"
         >编辑
       </IonButton>
     </div>
@@ -82,9 +90,5 @@ onMounted(() => refresh());
 
 .profile__avatar {
   @apply flex flex-col items-center mt-5;
-}
-
-.profile__btn {
-  @apply w-full;
 }
 </style>

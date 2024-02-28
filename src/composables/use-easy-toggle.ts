@@ -21,11 +21,11 @@ export const useEasyToggle = (
   shufflingValues: any[],
   options?: EasyToggleOptions
 ) => {
-  const val = ref(
+  const val: Ref = ref(
     options?.default ?? options?.source.value ?? shufflingValues[0]
   );
 
-  const toggle = (draft?: any) => {
+  const _toggle = (draft?: any) => {
     if (draft) {
       val.value = draft;
       return;
@@ -42,8 +42,13 @@ export const useEasyToggle = (
     val.value = shufflingValues[index + 1];
   };
 
+  const to = (draft: any) => {
+    val.value = draft;
+  };
+
   return {
     val,
-    toggle
+    to,
+    toggle: () => _toggle()
   };
 };

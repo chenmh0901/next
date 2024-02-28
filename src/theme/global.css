@@ -12,3 +12,7 @@ ion-popover {
 .alert .alert-message {
   @apply text-base;
 }
+
+.default-action-btn {
+  @apply w-[34vw] mb-[170px];
+}

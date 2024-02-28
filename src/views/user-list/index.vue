@@ -2,7 +2,7 @@
 import { IonIcon, IonButton } from '@ionic/vue';
 import { copyOutline } from 'ionicons/icons';
 import DialogUserDetail from '@/components/user-list/dialog-user-detail.vue';
-import { onBeforeMount, ref } from 'vue';
+import { watch, onBeforeMount, ref, StyleValue } from 'vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
@@ -17,8 +17,27 @@ enum ShowMode {
   ROW = 'ROW'
 }
 
-//  show mode
+// view toggle
 const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
+const topPosStyle = ref<StyleValue>();
+watch(
+  val,
+  (val) => {
+    topPosStyle.value =
+      val == ShowMode.COL
+        ? {
+            top: '50px',
+            right: '20px'
+          }
+        : {
+            top: '80px',
+            right: '-5px'
+          };
+  },
+  {
+    immediate: true
+  }
+);
 
 const users = ref<User[]>([]);
 const userStore = useUserStore();
@@ -34,6 +53,11 @@ const fetchUsers = async () => {
   });
 };
 
+const open = (user: User) => {
+  userDetail.value = user;
+  show.value = true;
+};
+
 onBeforeMount(async () => {
   await fetchUsers();
   isAdmin.value = await userStore.isAdmin();
@@ -41,30 +65,36 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div v-if="users?.length" class="home-users flex flex-wrap">
+  <ul v-if="users?.length" class="user-list flex flex-wrap">
     <UserCard
       v-for="user in users"
       :key="user.id"
       :mode="val"
       :user="user"
-      :class="val === ShowMode.COL ? 'w-1/2 -mb-2' : 'w-full -mb-2'"
-      @click="
-        () => {
-          userDetail = user;
-          show = true;
-        }
-      "
+      :class="val === ShowMode.COL ? 'w-1/3' : 'w-full'"
+      @click="open"
     />
-    <IonButton class="fixed top-15 right-0" size="small" @click="toggle()">
-      <IonIcon :icon="copyOutline"></IonIcon>
+    <IonButton
+      :style="topPosStyle"
+      class="user-list__drag-box"
+      size="small"
+      @click="toggle"
+    >
+      <IonIcon :icon="copyOutline" />
     </IonButton>
+
     <DialogUserDetail
       :close="() => (show = false)"
       :show="show"
       :user="userDetail"
       :is-admin="isAdmin"
-    ></DialogUserDetail>
-  </div>
+    />
+  </ul>
 </template>
 
-<style scoped></style>
+<style scoped>
+.user-list__drag-box {
+  @apply fixed w-[40px] h-[30px];
+  transition: all 0.4s ease;
+}
+</style>
