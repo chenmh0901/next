@@ -6,6 +6,12 @@ export type User = {
   no: number;
   name: string;
   /**
+   *个人信息
+   */
+  sex: string;
+  birthday: string;
+  avatar: Uint8Array;
+  /**
    * auth
    */
   isAdmin: boolean;
