@@ -17,7 +17,7 @@ interface IProps {
 
 const props = defineProps<IProps>();
 const emit = defineEmits<{
-  (e: 'update', val?: User): void;
+  (e: 'update', val: User): void;
   (e: 'quit', val: UserFormMode): void;
 }>();
 
