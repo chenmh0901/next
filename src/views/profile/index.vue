@@ -5,7 +5,6 @@ import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { UserFormMode } from '@/components/user-form/type';
-import { arrayBuffer } from 'node:stream/consumers';
 import AvatarUpload from '@/components/avatar-upload/index.vue';
 
 // about view and view model
