@@ -1,4 +1,4 @@
-import { AuthForm } from '@/views/signin/type';
+import { AuthForm } from '@/pages/signin/type';
 import { toast } from '@/utils/toast';
 
 enum PageMode {

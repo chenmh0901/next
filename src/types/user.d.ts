@@ -6,9 +6,15 @@ export type User = {
   no: number;
   name: string;
   /**
+   *个人信息
+   */
+  sex: string;
+  birthday: string;
+  avatar: Uint8Array;
+  /**
    * auth
    */
-  admin: boolean;
+  isAdmin: boolean;
   /**
    * 联系方式
    */
@@ -33,8 +39,4 @@ export type User = {
   adminResume?: string;
 
   [key: string]: string | number | undefined | null;
-};
-export type UserPhoto = {
-  filepath: string;
-  webviewPath: string;
 };

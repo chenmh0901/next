@@ -4,3 +4,15 @@
 ion-popover {
   --width: 300px;
 }
+
+.alert .alert-title {
+  @apply text-lg;
+}
+
+.alert .alert-message {
+  @apply text-base;
+}
+
+.default-action-btn {
+  @apply w-[34vw] mb-[170px];
+}
