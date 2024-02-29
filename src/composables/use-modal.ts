@@ -1,7 +1,7 @@
 import { modalController } from '@ionic/vue';
 
-export const useModal = (component: any) => {
-  const open = async () => {
+export const useModal = () => {
+  const open = async (component: any) => {
     try {
       // open modal
       const modal = await modalController.create({

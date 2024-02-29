@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 import { useUserStore } from '@/stores/user';
 
 const rawMsgs = ref<MessageType[]>();
-const { open } = useModal(MessageForm);
+const { open } = useModal();
 const msgs = computed(() => {
   return rawMsgs.value
     ?.map((msg) => {
@@ -42,7 +42,7 @@ const refresh = async () => {
 };
 
 const publish = async () => {
-  const data = await open();
+  const data = await open(MessageForm);
   if (data) {
     await refresh();
   }

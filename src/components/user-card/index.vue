@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { IonCard } from '@ionic/vue';
 import Avatar from '@/components/avatar/index.vue';
-import { User } from '@/types/user';
 
 enum ShowMode {
   COL = 'COL',
