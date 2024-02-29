@@ -5,6 +5,7 @@ import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { UserFormMode } from '@/components/user-form/type';
+import { arrayBuffer } from 'node:stream/consumers';
 
 // about view and view model
 const mode = ref<UserFormMode>(UserFormMode.READ);
@@ -22,13 +23,19 @@ const handleCancel = () => {
 const user = ref<User>();
 const avatar = ref<string>('1');
 const fetchUserInfo = async () => {
-  const option: IHttpOptions<[]> = {
+  const option: IHttpOptions<User> = {
     path: 'user/me',
     method: 'get'
   };
   return await useHttp(option);
 };
-
+const fetchUserAvatar = async () => {
+  const option: IHttpOptions<any> = {
+    path: 'user/1/avatar',
+    method: 'get'
+  };
+  return await useHttp(option);
+};
 const patchUserInfo = async (data: User) => {
   const option: IHttpOptions<User> = {
     path: 'user/',
@@ -39,6 +46,9 @@ const patchUserInfo = async (data: User) => {
 };
 const refresh = async () => {
   const { data } = await fetchUserInfo();
+  const r = await fetchUserAvatar();
+  const blob = new Blob([r.data], { type: 'image/jpeg' });
+  console.log(r.data);
   user.value = data as User;
 };
 onMounted(refresh);
