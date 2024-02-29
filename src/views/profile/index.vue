@@ -5,7 +5,6 @@ import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import Avatar from '@/components/avatar/index.vue';
-import { useCamera } from '@/composables/use-camara';
 import { UserFormMode } from '@/components/profile/type';
 
 // about view and view model
@@ -19,9 +18,6 @@ const handleUpdate = (v: User) => {
 const handleQuit = () => {
   mode.value = UserFormMode.READ;
 };
-
-// avatar
-const { photo, takePhoto } = useCamera();
 
 // user-form data
 const user = ref<User>();
@@ -51,15 +47,7 @@ onMounted(refresh);
 <template>
   <div class="profile">
     <div class="profile__content">
-      <div class="profile__avatar mb-2">
-        <Avatar :src="photo.webviewPath" />
-        <IonButton
-          v-if="mode == UserFormMode.EDIT"
-          size="small"
-          @click="takePhoto"
-          >上传照片
-        </IonButton>
-      </div>
+      <Avatar class="profile__avatar mb-2 mt-2" :mode="UserFormMode.READ" />
       <UserForm
         v-if="user"
         class="mb-2"
@@ -86,9 +74,5 @@ onMounted(refresh);
 
 .profile__content {
   @apply flex flex-col items-center w-[90%];
-}
-
-.profile__avatar {
-  @apply flex flex-col items-center mt-5;
 }
 </style>

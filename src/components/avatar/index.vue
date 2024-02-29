@@ -1,10 +1,12 @@
 <script lang="ts" setup>
 import { IonAvatar, IonImg } from '@ionic/vue';
 import { computed } from 'vue';
+import { UserFormMode } from '@/components/profile/type';
 
 interface IProps {
   src?: string;
   size?: number | string;
+  mode?: UserFormMode;
 }
 
 const props = defineProps<IProps>();
@@ -15,9 +17,12 @@ const sizeStyle = computed(() => {
     height: `${props.size ?? 80}px`
   };
 });
+const onClick = () => {
+  console.log(1);
+};
 </script>
 <template>
-  <IonAvatar :style="sizeStyle">
+  <IonAvatar :style="sizeStyle" @click="onClick">
     <IonImg
       alt="photo uploading"
       :src="src || 'https://ionicframework.com/docs/img/demos/avatar.svg'"
