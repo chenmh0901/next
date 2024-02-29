@@ -1,11 +1,11 @@
 <script lang="ts" setup>
 import { IonButton } from '@ionic/vue';
-import UserDetailForm from '@/components/profile/user-form.vue';
+import UserForm from '@/components/user-form/user-form.vue';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import Avatar from '@/components/avatar/index.vue';
-import { UserFormMode } from '@/components/profile/type';
+import { UserFormMode } from '@/components/user-form/type';
 
 // about view and view model
 const mode = ref<UserFormMode>(UserFormMode.READ);
@@ -57,7 +57,7 @@ onMounted(refresh);
         :mode="mode"
         @update="handleAvatarClick"
       />
-      <UserDetailForm
+      <UserForm
         v-if="user"
         class="mb-2"
         :user="user"

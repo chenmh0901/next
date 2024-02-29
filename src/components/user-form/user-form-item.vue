@@ -5,7 +5,7 @@ import {
   ProfileField,
   ProfileFieldType,
   UserFormMode
-} from '@/components/profile/type';
+} from '@/components/user-form/type';
 import { IonInput, IonItem, IonLabel } from '@ionic/vue';
 import { usePicker } from '@/composables/use-picker';
 import { Icon } from '@iconify/vue';

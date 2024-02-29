@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { IonAvatar, IonImg } from '@ionic/vue';
 import { computed } from 'vue';
-import { UserFormMode } from '@/components/profile/type';
+import { UserFormMode } from '@/components/user-form/type';
 import { useCamera } from '@/composables/use-camara';
 
 interface IProps {
