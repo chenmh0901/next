@@ -6,9 +6,9 @@ const uploadEl = ref();
 const upload = async () => {
   if (uploadEl.value?.files.length > 0) {
     const file = uploadEl.value.files[0];
+    console.log(uploadEl.value.files);
     const data = new FormData();
     data.append('file', file);
-
     const config = {
       method: 'post',
       url: 'http://localhost:8080/user/1/avatar',
