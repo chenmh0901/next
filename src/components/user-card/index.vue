@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { IonCard } from '@ionic/vue';
 import Avatar from '@/components/avatar/index.vue';
+import { User } from '@/types/user';
 
 enum ShowMode {
   COL = 'COL',
@@ -9,10 +10,11 @@ enum ShowMode {
 
 interface IProps {
   mode: ShowMode;
-  name: string;
+  user: User;
 }
 
-defineProps<IProps>();
+const props = defineProps<IProps>();
+const src = `http://localhost:8080/user/${props.user.id}/avatar`;
 </script>
 
 <template>
@@ -26,14 +28,14 @@ defineProps<IProps>();
         v-if="mode === ShowMode.COL"
         alt="Silhouette of mountains"
         class="w-full aspect-square object-cover"
-        :src="`https://ionicframework.com/docs/img/demos/avatar.svg`"
+        :src="src"
       />
       <div v-else>
-        <Avatar :size="70" />
+        <Avatar :src="src" :size="70" />
       </div>
 
       <div class="p-2 text-lg">
-        {{ name }}
+        {{ user.name }}
       </div>
     </IonCard>
   </div>

@@ -72,7 +72,7 @@ onBeforeMount(async () => {
       v-for="user in users"
       :key="user.id"
       :mode="val"
-      :name="user.name"
+      :user="user"
       :class="val === ShowMode.COL ? 'w-1/3' : 'w-full'"
       @click="onClick(user)"
     />
