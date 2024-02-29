@@ -6,6 +6,7 @@ import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { UserFormMode } from '@/components/user-form/type';
 import { arrayBuffer } from 'node:stream/consumers';
+import AvatarUpload from '@/components/avatar-upload/index.vue';
 
 // about view and view model
 const mode = ref<UserFormMode>(UserFormMode.READ);
@@ -57,6 +58,7 @@ onMounted(refresh);
 <template>
   <div class="profile">
     <div class="profile__content">
+      <AvatarUpload />
       <UserForm
         v-if="user && avatar"
         class="mb-2"
