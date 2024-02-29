@@ -1,7 +1,8 @@
 <script lang="ts" setup>
-import DetailShow from '@/components/user-list/user-detail.vue';
 import { User } from '@/types/user';
 import { IonPopover } from '@ionic/vue';
+import UserForm from '@/components/user-form/user-form.vue';
+import { UserFormMode } from '@/components/user-form/type';
 
 interface IProps {
   user: User;
@@ -15,9 +16,11 @@ const props = defineProps<IProps>();
 
 <template>
   <IonPopover :is-open="props.show" @didDismiss="close">
-    <div>
-      <DetailShow :user="props.user" :is-admin="isAdmin"></DetailShow>
-    </div>
+    <UserForm
+      :user="props.user"
+      :is-admin="isAdmin"
+      :mode="UserFormMode.READ"
+    />
   </IonPopover>
 </template>
 

@@ -70,9 +70,9 @@ onBeforeMount(async () => {
       v-for="user in users"
       :key="user.id"
       :mode="val"
-      :user="user"
+      :name="user.name"
       :class="val === ShowMode.COL ? 'w-1/3' : 'w-full'"
-      @click="open"
+      @click="open(user)"
     />
     <IonButton
       :style="topPosStyle"

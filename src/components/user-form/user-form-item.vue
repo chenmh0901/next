@@ -47,9 +47,7 @@ const onClick = async () => {
     </IonLabel>
 
     <!-- TEXT OR INPUT -->
-    <ion-text v-if="mode === UserFormMode.READ"
-      >{{ value ?? '未填写' }}
-    </ion-text>
+    <ion-text v-if="mode === UserFormMode.READ">{{ value ?? '无' }} </ion-text>
     <template v-else>
       <template
         v-if="field.type == ProfileFieldType.DEFAULT_TEXT || !field.type"

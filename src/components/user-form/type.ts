@@ -42,10 +42,15 @@ export const PROFILE_FIELDS: ProfileField[] = [
     label: '姓名',
     iconifyName: 'material-symbols:person-outline'
   },
-  { key: 'no', label: '学号' },
+  { key: 'no', label: '学号', iconifyName: 'ant-design:idcard-outlined' },
   { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别' },
-  { type: ProfileFieldType.DATE, key: 'birthday', label: '生日' },
-  { key: 'email', label: '邮箱' },
+  {
+    type: ProfileFieldType.DATE,
+    key: 'birthday',
+    label: '生日',
+    iconifyName: 'mingcute:birthday-2-line'
+  },
+  { key: 'email', label: '邮箱', iconifyName: 'ic:outline-email' },
   { key: 'wechat', label: '微信', iconifyName: 'mingcute:wechat-line' },
   { key: 'qq', label: 'QQ', iconifyName: 'ri:qq-line' },
   { key: 'birthPlace', label: '籍贯', iconifyName: 'tdesign:address-book' },

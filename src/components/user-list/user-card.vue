@@ -10,7 +10,7 @@ enum ShowMode {
 
 interface IProps {
   mode: ShowMode;
-  user: User;
+  name: string;
 }
 
 defineProps<IProps>();
@@ -34,7 +34,7 @@ defineProps<IProps>();
       </div>
 
       <div class="p-2 text-lg">
-        {{ user.name }}
+        {{ name }}
       </div>
     </IonCard>
   </div>
