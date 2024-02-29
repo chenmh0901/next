@@ -10,37 +10,34 @@ import Avatar from '@/components/avatar/index.vue';
 
 interface IProps {
   user: User;
-  avatar: string;
   mode: UserFormMode;
 }
 
 const props = defineProps<IProps>();
 const emit = defineEmits<{
-  (e: 'update', val: User): void;
+  (e: 'update', val: { form: User; avatarUrl: string }): void;
   (e: 'cancel'): void;
 }>();
+const AVATAR_URL = `http://localhost:8080/user/${props.user.id}/avatar`;
 
 const form = ref<User>(clone(props.user));
-const avatar = ref<string>(clone(props.avatar));
-
+const avatarUrl = ref<string>(clone(AVATAR_URL));
 const onSave = () => {
   try {
     toast('保存成功');
-    emit('update', form.value);
+    emit('update', { form: form.value, avatarUrl: avatarUrl.value });
   } catch (e) {
     console.error('Error', e);
   }
 };
 const onCancel = () => {
   form.value = clone(props.user);
-  avatar.value = clone(props.avatar);
+  avatarUrl.value = clone(AVATAR_URL);
   emit('cancel');
 };
 // handle avatar click
-const handleAvatarClick = (v: string) => {
-  if (avatar.value) {
-    avatar.value = v;
-  }
+const handleAvatarClick = async (v: string) => {
+  avatarUrl.value = v;
 };
 </script>
 
@@ -48,7 +45,7 @@ const handleAvatarClick = (v: string) => {
   <IonList v-if="user" class="user-form">
     <div class="user-form__avatar mb-2 mt-2 flex justify-center">
       <Avatar
-        :src="avatar"
+        :src="avatarUrl"
         :mode="mode"
         :size="90"
         @update="handleAvatarClick"
