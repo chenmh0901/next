@@ -1,6 +1,6 @@
 <script lang="ts" setup>
 import { IonButton } from '@ionic/vue';
-import UserForm from '@/components/profile/user-form.vue';
+import UserDetailForm from '@/components/profile/user-form.vue';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
@@ -41,14 +41,23 @@ const refresh = async () => {
   const { data } = await fetchUserInfo();
   user.value = data as User;
 };
+
+const handleAvatarClick = (v: string) => {
+  console.log(v);
+};
+
 onMounted(refresh);
 </script>
 
 <template>
   <div class="profile">
     <div class="profile__content">
-      <Avatar class="profile__avatar mb-2 mt-2" :mode="UserFormMode.READ" />
-      <UserForm
+      <Avatar
+        class="profile__avatar mb-2 mt-2"
+        :mode="mode"
+        @update="handleAvatarClick"
+      />
+      <UserDetailForm
         v-if="user"
         class="mb-2"
         :user="user"

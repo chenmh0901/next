@@ -2,6 +2,7 @@
 import { IonAvatar, IonImg } from '@ionic/vue';
 import { computed } from 'vue';
 import { UserFormMode } from '@/components/profile/type';
+import { useCamera } from '@/composables/use-camara';
 
 interface IProps {
   src?: string;
@@ -10,15 +11,24 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
-
+const emit = defineEmits<{
+  (e: 'update', val: string): void;
+}>();
+// avatar size style
 const sizeStyle = computed(() => {
   return {
     width: `${props.size ?? 80}px`,
     height: `${props.size ?? 80}px`
   };
 });
-const onClick = () => {
-  console.log(1);
+
+//upload photo
+const { photo, takePhoto } = useCamera();
+const onClick = async () => {
+  if (props.mode == UserFormMode.EDIT) {
+    await takePhoto();
+    emit('update', photo.value.webviewPath);
+  }
 };
 </script>
 <template>
