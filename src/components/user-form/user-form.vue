@@ -6,9 +6,11 @@ import UserFormItem from '@/components/user-form/user-form-item.vue';
 import { toast } from '@/utils/toast';
 import { clone } from 'lodash';
 import { ref } from 'vue';
+import Avatar from '@/components/avatar/index.vue';
 
 interface IProps {
   user: User;
+  avatar: string;
   mode: UserFormMode;
 }
 
@@ -19,6 +21,7 @@ const emit = defineEmits<{
 }>();
 
 const form = ref<User>(clone(props.user));
+const avatar = ref<string>(clone(props.avatar));
 
 const onSave = () => {
   try {
@@ -30,12 +33,27 @@ const onSave = () => {
 };
 const onCancel = () => {
   form.value = clone(props.user);
+  avatar.value = clone(props.avatar);
   emit('cancel');
+};
+// handle avatar click
+const handleAvatarClick = (v: string) => {
+  if (avatar.value) {
+    avatar.value = v;
+  }
 };
 </script>
 
 <template>
   <IonList v-if="user" class="user-form">
+    <div class="user-form__avatar mb-2 mt-2 flex justify-center">
+      <Avatar
+        :src="avatar"
+        :mode="mode"
+        :size="90"
+        @update="handleAvatarClick"
+      />
+    </div>
     <UserFormItem
       v-for="field in PROFILE_FIELDS"
       :key="field.key"

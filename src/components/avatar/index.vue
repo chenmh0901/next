@@ -33,9 +33,14 @@ const onClick = async () => {
 };
 </script>
 <template>
-  <IonAvatar :style="sizeStyle" @click="onClick">
-    <IonImg v-if="src" :src="src" />
-    <Icon v-if="mode == UserFormMode.EDIT" icon="mingcute:add-fill" />
+  <IonAvatar v-if="mode == UserFormMode.READ" :style="sizeStyle">
+    <IonImg
+      :src="src || 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+    />
+  </IonAvatar>
+  <IonAvatar v-else :style="sizeStyle" @click="onClick">
+    <Icon v-if="!src" icon="mingcute:add-fill" />
+    <IonImg v-else :src="src" />
   </IonAvatar>
 </template>
 

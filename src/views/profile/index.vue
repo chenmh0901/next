@@ -4,23 +4,23 @@ import UserForm from '@/components/user-form/user-form.vue';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
-import Avatar from '@/components/avatar/index.vue';
 import { UserFormMode } from '@/components/user-form/type';
 
 // about view and view model
 const mode = ref<UserFormMode>(UserFormMode.READ);
-const handleUpdate = (v: User) => {
+const handleUpdate = (u: User) => {
   mode.value = UserFormMode.READ;
-  if (v) {
-    patchUserInfo(v);
+  if (u) {
+    patchUserInfo(u);
   }
 };
-const handleQuit = () => {
+const handleCancel = () => {
   mode.value = UserFormMode.READ;
 };
 
 // user-form data
 const user = ref<User>();
+const avatar = ref<string>('1');
 const fetchUserInfo = async () => {
   const option: IHttpOptions<[]> = {
     path: 'user/me',
@@ -41,31 +41,21 @@ const refresh = async () => {
   const { data } = await fetchUserInfo();
   user.value = data as User;
 };
-
-const handleAvatarClick = (v: string) => {
-  console.log(v);
-};
-
 onMounted(refresh);
 </script>
 
 <template>
   <div class="profile">
     <div class="profile__content">
-      <Avatar
-        class="profile__avatar mb-2 mt-2"
-        :mode="mode"
-        @update="handleAvatarClick"
-      />
       <UserForm
-        v-if="user"
+        v-if="user && avatar"
         class="mb-2"
         :user="user"
+        :avatar="avatar"
         :mode="mode"
         @update="handleUpdate"
-        @cancel="handleQuit"
+        @cancel="handleCancel"
       />
-
       <IonButton
         v-if="mode == UserFormMode.READ"
         class="default-action-btn"
@@ -83,5 +73,9 @@ onMounted(refresh);
 
 .profile__content {
   @apply flex flex-col items-center w-[90%];
+}
+
+.profile__avatar {
+  @apply mb-2 mt-2;
 }
 </style>

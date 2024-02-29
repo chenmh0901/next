@@ -12,7 +12,6 @@ import { Icon } from '@iconify/vue';
 
 interface IProps {
   mode: UserFormMode;
-
   field: ProfileField;
   value: string;
 }
@@ -47,7 +46,7 @@ const onClick = async () => {
     </IonLabel>
 
     <!-- TEXT OR INPUT -->
-    <ion-text v-if="mode === UserFormMode.READ">{{ value ?? '无' }} </ion-text>
+    <ion-text v-if="mode === UserFormMode.READ">{{ value ?? '无' }}</ion-text>
     <template v-else>
       <template
         v-if="field.type == ProfileFieldType.DEFAULT_TEXT || !field.type"
