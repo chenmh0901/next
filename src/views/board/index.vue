@@ -11,7 +11,6 @@ import { format } from 'date-fns';
 import { useUserStore } from '@/stores/user';
 
 const rawMsgs = ref<MessageType[]>();
-const { open } = useModal();
 const msgs = computed(() => {
   return rawMsgs.value
     ?.map((msg) => {
