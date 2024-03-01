@@ -16,6 +16,7 @@ import { useAlert } from '@/composables/use-alert';
 import { User } from '@/types/user';
 
 const form = ref<MessageType>({} as MessageType);
+const no = ref();
 //onClick open alert
 const { userChoice, alert } = useAlert('发布提示', '确定发布吗？');
 const onClick = async () => {
@@ -64,7 +65,7 @@ const fetchUserByToken = async () => {
 const fetchAuthorNo = async () => {
   const { data } = await fetchUserByToken();
   user.value = data;
-  form.value.userId = user.value.no;
+  no.value = user.value.no;
 };
 onMounted(fetchAuthorNo);
 </script>
@@ -79,10 +80,9 @@ onMounted(fetchAuthorNo);
         <IonItem lines="none" class="my-4">
           <IonLabel class="w-1/5">发布者:</IonLabel>
           <IonInput
-            :value="form?.userId"
-            placeholder="请输入学号"
+            :value="no"
             class="border border-grey-300 rounded-lg text-center w-4/5"
-            @change="form.userId = $event.target.value"
+            disabled
           ></IonInput>
         </IonItem>
         <IonItem lines="none">
