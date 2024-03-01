@@ -1,6 +1,10 @@
 import { Camera, CameraResultType } from '@capacitor/camera';
-import { UserPhoto } from '@/types/user';
 import { ref } from 'vue';
+
+interface UserPhoto {
+  filepath: string;
+  webviewPath: string;
+}
 
 export const useCamera = () => {
   const photo = ref<UserPhoto>({

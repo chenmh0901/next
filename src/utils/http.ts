@@ -2,12 +2,13 @@ import axios from 'axios';
 import { useAuthStore } from '@/stores/auth';
 import { User } from '@/types/user';
 
-const DEV_URL = 'http://119.12.173.244:8080/';
+const DEV_URL = 'http://localhost:8080/';
 const authStore = useAuthStore();
 
 export interface IHttpOptions<T extends IRequestBody> {
   method: 'post' | 'get' | 'put' | 'delete' | 'patch';
   path: string;
+  contentType?: string;
   data?: T;
 }
 
@@ -30,7 +31,7 @@ export const useHttp = async <R extends IResponseBody>(
     method: options.method,
     url: DEV_URL + options.path,
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': options.contentType ?? 'application/json',
       Authorization: `Bearer ` + (await authStore.getToken())
     },
     data: options.data

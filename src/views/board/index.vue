@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 import { useUserStore } from '@/stores/user';
 
 const rawMsgs = ref<MessageType[]>();
-
+const { open } = useModal();
 const msgs = computed(() => {
   return rawMsgs.value
     ?.map((msg) => {
@@ -48,6 +48,7 @@ const publish = async () => {
     await refresh();
   }
 };
+
 onBeforeMount(async () => {
   await refresh();
   isAdmin.value = await userStore.isAdmin();

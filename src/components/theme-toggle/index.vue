@@ -2,6 +2,7 @@
 import { IonIcon } from '@ionic/vue';
 import { sunnyOutline, moonOutline } from 'ionicons/icons';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
+import { onMounted } from 'vue';
 
 const { val, toggle } = useEasyToggle(['light', 'dark']);
 
@@ -11,6 +12,11 @@ function toggleTheme() {
   toggle();
   document.body.classList.toggle('dark', checked);
 }
+
+const getTheme = () => {
+  val.value = document.body.classList.contains('dark') ? 'dark' : 'light';
+};
+onMounted(getTheme);
 </script>
 
 <template>

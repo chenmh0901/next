@@ -13,7 +13,8 @@ interface IProps {
   user: User;
 }
 
-defineProps<IProps>();
+const props = defineProps<IProps>();
+const src = `http://localhost:8080/user/${props.user.id}/avatar`;
 </script>
 
 <template>
@@ -27,10 +28,10 @@ defineProps<IProps>();
         v-if="mode === ShowMode.COL"
         alt="Silhouette of mountains"
         class="w-full aspect-square object-cover"
-        :src="`https://ionicframework.com/docs/img/demos/avatar.svg`"
+        :src="src"
       />
       <div v-else>
-        <Avatar :size="70" />
+        <Avatar :src="src" :size="70" />
       </div>
 
       <div class="p-2 text-lg">

@@ -1,16 +1,15 @@
 <script lang="ts" setup>
 import { IonIcon, IonButton } from '@ionic/vue';
 import { copyOutline } from 'ionicons/icons';
-import DialogUserDetail from '@/components/user-list/dialog-user-detail.vue';
 import { watch, onBeforeMount, ref, StyleValue } from 'vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
-import UserCard from '@/components/user-list/user-card.vue';
+import UserCard from '@/components/user-card/index.vue';
 import { useUserStore } from '@/stores/user';
-
-const show = ref(false);
-const userDetail = ref();
+import { usePopover } from '@/composables/use-popover';
+import UserForm from '@/components/user-form/user-form.vue';
+import { UserFormMode } from '@/components/user-form/type';
 
 enum ShowMode {
   COL = 'COL',
@@ -38,7 +37,7 @@ watch(
     immediate: true
   }
 );
-
+// users
 const users = ref<User[]>([]);
 const userStore = useUserStore();
 const isAdmin = ref<boolean>(false);
@@ -54,10 +53,13 @@ const fetchUsers = async () => {
     console.error(e);
   }
 };
-
-const open = (user: User) => {
-  userDetail.value = user;
-  show.value = true;
+// open dialog
+const { open } = usePopover();
+const onClick = (user: User) => {
+  open(UserForm, {
+    user,
+    mode: UserFormMode.READ
+  });
 };
 onBeforeMount(async () => {
   await fetchUsers();
@@ -73,7 +75,7 @@ onBeforeMount(async () => {
       :mode="val"
       :user="user"
       :class="val === ShowMode.COL ? 'w-1/3' : 'w-full'"
-      @click="open"
+      @click="onClick(user)"
     />
     <IonButton
       :style="topPosStyle"
@@ -83,13 +85,6 @@ onBeforeMount(async () => {
     >
       <IonIcon :icon="copyOutline" />
     </IonButton>
-
-    <DialogUserDetail
-      :close="() => (show = false)"
-      :show="show"
-      :user="userDetail"
-      :is-admin="isAdmin"
-    />
   </ul>
 </template>
 
