@@ -54,16 +54,25 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div v-if="msgs?.length && msgs.length > 0">
-    <MessageList :msgs="msgs" />
-    <IonButton
-      v-if="isAdmin"
-      class="absolute top-12 right-3 rounded-full"
-      @click="publish"
-    >
-      <IonIcon :icon="add"></IonIcon>
-    </IonButton>
+  <div class="border__content">
+    <div v-if="msgs?.length && msgs.length > 0">
+      <MessageList :msgs="msgs" />
+    </div>
+    <div>
+      <IonButton
+        v-if="!isAdmin"
+        class="message__add-btn"
+        size="small"
+        @click="publish"
+      >
+        <IonIcon :icon="add"></IonIcon>
+      </IonButton>
+    </div>
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.message__add-btn {
+  @apply fixed top-9 right-3 w-[40px] h-[30px];
+}
+</style>
