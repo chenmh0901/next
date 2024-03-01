@@ -8,45 +8,65 @@ import {
   IonButton,
   IonList
 } from '@ionic/vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { toast } from '@/utils/toast';
 import { MessageType } from '@/components/board/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { useAlert } from '@/composables/use-alert';
+import { User } from '@/types/user';
 
 const form = ref<MessageType>({} as MessageType);
+//onClick open alert
 const { userChoice, alert } = useAlert('发布提示', '确定发布吗？');
 const onClick = async () => {
-  if (!form.value.content || !form.value.userId) {
-    await toast('发布者和内容不能为空');
-    return;
-  }
-  await alert();
-  if (userChoice.value) {
-    await publish();
+  if (form.value) {
+    if (!form.value.content) {
+      await toast('内容不能为空');
+      return;
+    }
+    await alert();
+    if (userChoice.value) {
+      await publish();
+    }
   }
 };
+//publish message
 const publish = async () => {
-  const option: IHttpOptions<MessageType> = {
-    path: 'message/',
-    method: 'post',
-    data: form.value
-  };
-  try {
-    /**
-     * @description: 删除发布者字段 （userId不能使用）
-     */
-    delete form.value.userId;
-    await useHttp(option);
-    await toast('发布成功');
-    await modalController.dismiss(true);
-  } catch (e) {
-    await toast('发布失败');
+  if (user.value && form.value) {
+    form.value.userId = user.value.id;
+    const option: IHttpOptions<MessageType> = {
+      path: 'message/',
+      method: 'post',
+      data: form.value
+    };
+    try {
+      await useHttp(option);
+      await toast('发布成功');
+      await modalController.dismiss(true);
+    } catch (e) {
+      await toast('发布失败');
+    }
   }
 };
 const close = () => {
   modalController.dismiss(false);
 };
+
+//fetch author no by token
+const user = ref<User>();
+const fetchUserByToken = async () => {
+  const option: IHttpOptions<any> = {
+    path: 'user/me',
+    method: 'get'
+  };
+  return await useHttp<User>(option);
+};
+const fetchAuthorNo = async () => {
+  const { data } = await fetchUserByToken();
+  user.value = data;
+  form.value.userId = user.value.no;
+};
+onMounted(fetchAuthorNo);
 </script>
 
 <template>
@@ -60,7 +80,7 @@ const close = () => {
           <IonLabel class="w-1/5">发布者:</IonLabel>
           <IonInput
             :value="form?.userId"
-            placeholder="请输入姓名"
+            placeholder="请输入学号"
             class="border border-grey-300 rounded-lg text-center w-4/5"
             @change="form.userId = $event.target.value"
           ></IonInput>

@@ -11,7 +11,7 @@ import { format } from 'date-fns';
 import { useUserStore } from '@/stores/user';
 
 const rawMsgs = ref<MessageType[]>();
-const { open } = useModal(MessageForm);
+
 const msgs = computed(() => {
   return rawMsgs.value
     ?.map((msg) => {
@@ -40,9 +40,10 @@ const refresh = async () => {
   const { data } = await fetchMessages();
   rawMsgs.value = data;
 };
-
+// onClick open modal and publish message
+const { open } = useModal();
 const publish = async () => {
-  const data = await open();
+  const data = await open(MessageForm);
   if (data) {
     await refresh();
   }
@@ -55,19 +56,17 @@ onBeforeMount(async () => {
 
 <template>
   <div class="border__content">
-    <div v-if="msgs?.length && msgs.length > 0">
+    <div v-if="msgs?.length && msgs.length > 0" class="border__msgs-list">
       <MessageList :msgs="msgs" />
     </div>
-    <div>
-      <IonButton
-        v-if="!isAdmin"
-        class="message__add-btn"
-        size="small"
-        @click="publish"
-      >
-        <IonIcon :icon="add"></IonIcon>
-      </IonButton>
-    </div>
+    <IonButton
+      v-if="!isAdmin"
+      class="message__add-btn"
+      size="small"
+      @click="publish"
+    >
+      <IonIcon :icon="add"></IonIcon>
+    </IonButton>
   </div>
 </template>
 
