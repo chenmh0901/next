@@ -32,13 +32,13 @@ const fetchMessages = async () => {
     path: 'message/',
     method: 'get'
   };
-  return await useHttp(option);
+  return await useHttp<MessageType[]>(option);
 };
 const userStore = useUserStore();
 const isAdmin = ref<boolean>();
 const refresh = async () => {
   const { data } = await fetchMessages();
-  rawMsgs.value = data as MessageType[];
+  rawMsgs.value = data;
 };
 
 const publish = async () => {
@@ -47,7 +47,6 @@ const publish = async () => {
     await refresh();
   }
 };
-
 onBeforeMount(async () => {
   await refresh();
   isAdmin.value = await userStore.isAdmin();
@@ -55,7 +54,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div v-if="msgs?.length">
+  <div v-if="msgs?.length && msgs.length > 0">
     <MessageList :msgs="msgs" />
     <IonButton
       v-if="isAdmin"
