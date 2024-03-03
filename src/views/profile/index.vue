@@ -7,14 +7,13 @@ import { IHttpOptions, useHttp } from '@/utils/http';
 import { UserFormMode } from '@/components/user-form/type';
 import { uploadAvatar } from '@/utils/upload-avatar';
 import AvatarUpload from '@/components/avatar-upload/index.vue';
-import Avatar from '@/components/avatar/index.vue';
 
 // about view and view model
 const mode = ref<UserFormMode>(UserFormMode.READ);
 const handleUpdate = (val: { form: User; avatarUrl: string }) => {
   mode.value = UserFormMode.READ;
   patchUserInfo(val.form);
-  patchUserAvatar(val.avatarUrl);
+  patchUserAvatar(val.avatarUrl); // @TODO 去掉这里的逻辑
 };
 const handleCancel = () => {
   mode.value = UserFormMode.READ;

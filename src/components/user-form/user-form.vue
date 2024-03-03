@@ -38,6 +38,7 @@ const onCancel = () => {
 };
 
 // handle avatar click
+// @TODO 不需要 avatarUrl 也不需要 emit 出去这个
 const handleAvatarClick = async (v: string) => {
   avatarUrl.value = v;
 };
