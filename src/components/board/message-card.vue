@@ -7,21 +7,34 @@ import {
   IonCardContent
 } from '@ionic/vue';
 import { MessageType } from '@/components/board/type';
+import { onMounted, ref } from 'vue';
+import { User } from '@/types/user';
+import { IHttpOptions, useHttp } from '@/utils/http';
 
 interface IProps {
   msg: MessageType;
 }
 
-defineProps<IProps>();
+const props = defineProps<IProps>();
+const name = ref();
+const getUserName = async () => {
+  const options: IHttpOptions<any> = {
+    path: `user/${props.msg.userId}`,
+    method: 'get'
+  };
+  const { data } = await useHttp<User>(options);
+  name.value = data.name;
+};
+onMounted(getUserName);
 </script>
 
 <template>
   <IonCard>
     <IonCardHeader>
       <IonCardSubtitle>发布时间: {{ msg?.time }}</IonCardSubtitle>
-      <IonCardTitle>{{ msg?.userId ?? 'userId invalid' }}</IonCardTitle>
+      <IonCardTitle>{{ name }}</IonCardTitle>
     </IonCardHeader>
-    <IonCardContent>{{ msg?.content }}</IonCardContent>
+    <IonCardContent class="truncate ...">{{ msg?.content }}</IonCardContent>
   </IonCard>
 </template>
 

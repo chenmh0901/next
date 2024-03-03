@@ -11,7 +11,6 @@ import { format } from 'date-fns';
 import { useUserStore } from '@/stores/user';
 
 const rawMsgs = ref<MessageType[]>();
-const { open } = useModal();
 const msgs = computed(() => {
   return rawMsgs.value
     ?.map((msg) => {
@@ -32,15 +31,16 @@ const fetchMessages = async () => {
     path: 'message/',
     method: 'get'
   };
-  return await useHttp(option);
+  return await useHttp<MessageType[]>(option);
 };
 const userStore = useUserStore();
 const isAdmin = ref<boolean>();
 const refresh = async () => {
   const { data } = await fetchMessages();
-  rawMsgs.value = data as MessageType[];
+  rawMsgs.value = data;
 };
-
+// onClick open modal and publish message
+const { open } = useModal();
 const publish = async () => {
   const data = await open(MessageForm);
   if (data) {
@@ -55,11 +55,14 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div v-if="msgs?.length">
-    <MessageList :msgs="msgs" />
+  <div>
+    <div v-if="msgs?.length && msgs.length > 0">
+      <MessageList :msgs="msgs" />
+    </div>
     <IonButton
-      v-if="isAdmin"
-      class="absolute top-12 right-3 rounded-full"
+      v-if="!isAdmin"
+      class="message-add-btn"
+      size="small"
       @click="publish"
     >
       <IonIcon :icon="add"></IonIcon>
@@ -67,4 +70,8 @@ onBeforeMount(async () => {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.message-add-btn {
+  @apply fixed top-9 right-3 w-[40px] h-[30px];
+}
+</style>

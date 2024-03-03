@@ -42,14 +42,16 @@ const users = ref<User[]>([]);
 const userStore = useUserStore();
 const isAdmin = ref<boolean>(false);
 const fetchUsers = async () => {
-  const options: IHttpOptions<any> = {
-    path: 'user/',
-    method: 'get'
-  };
-  const res = await useHttp(options);
-  res.data.map((item: User) => {
-    users.value.push(item);
-  });
+  try {
+    const options: IHttpOptions<any> = {
+      path: 'user/',
+      method: 'get'
+    };
+    const { data } = await useHttp<User[]>(options);
+    users.value = data;
+  } catch (e) {
+    console.error(e);
+  }
 };
 // open dialog
 const { open } = usePopover();
@@ -59,7 +61,6 @@ const onClick = (user: User) => {
     mode: UserFormMode.READ
   });
 };
-
 onBeforeMount(async () => {
   await fetchUsers();
   isAdmin.value = await userStore.isAdmin();
@@ -67,7 +68,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <ul v-if="users?.length" class="user-list flex flex-wrap">
+  <ul v-if="users?.length && users.length > 0" class="user-list flex flex-wrap">
     <UserCard
       v-for="user in users"
       :key="user.id"
