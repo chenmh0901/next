@@ -1,21 +1,17 @@
 <script lang="ts" setup>
 import { IonAvatar, IonImg } from '@ionic/vue';
-import { computed } from 'vue';
-import { UserFormMode } from '@/components/user-form/type';
-import { useCamera } from '@/composables/use-camara';
+import { computed, ref } from 'vue';
 import { Icon } from '@iconify/vue';
 
 interface IProps {
   src?: string;
   size?: number | string;
-  mode?: UserFormMode;
+  plain?: boolean;
 }
 
 const props = defineProps<IProps>();
-const emit = defineEmits<{
-  (e: 'update', val: string): void;
-}>();
-// avatar size style
+
+// avatar style
 const sizeStyle = computed(() => {
   return {
     width: `${props.size ?? 80}px`,
@@ -23,28 +19,28 @@ const sizeStyle = computed(() => {
   };
 });
 
-//handleClick
-const { photo, takePhoto } = useCamera();
-const onClick = async () => {
-  if (props.mode == UserFormMode.EDIT) {
-    await takePhoto();
-    emit('update', photo.value.webviewPath);
-  }
-};
-//avatar fallback
-const onError=()=>{
-  console.log('error');
-}
+// const { url, takePhoto } = useCamera();
+// const onClick = async () => {
+//   if (props.editable) {
+//     await takePhoto();
+//     if (url.value) {
+//       emit('update', url.value);
+//     }
+//   }
+// };
+
+const loaded = ref(false);
 </script>
 <template>
-  <IonAvatar v-if="mode == UserFormMode.READ" :style="sizeStyle">
-    <IonImg
-      :src="src"
-      alt="onError"
-      :on-ion-error="onError"
+  <template v-if="plain">
+    <img :src="src" alt="" @load="loaded = true" />
+    <img
+      v-if="!loaded"
+      src="https://ionicframework.com/docs/img/demos/avatar.svg"
+      alt=""
     />
-  </IonAvatar>
-  <IonAvatar v-else :style="sizeStyle" @click="onClick">
+  </template>
+  <IonAvatar v-else :style="sizeStyle">
     <Icon v-if="!src" icon="mingcute:add-fill" />
     <IonImg v-else :src="src" />
   </IonAvatar>

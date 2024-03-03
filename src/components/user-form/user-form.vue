@@ -18,6 +18,7 @@ const emit = defineEmits<{
   (e: 'update', val: { form: User; avatarUrl: string }): void;
   (e: 'cancel'): void;
 }>();
+
 const AVATAR_URL = `http://119.12.173.244:8080/user/${props.user.id}/avatar`;
 
 const form = ref<User>(clone(props.user));
@@ -35,6 +36,7 @@ const onCancel = () => {
   avatarUrl.value = clone(AVATAR_URL);
   emit('cancel');
 };
+
 // handle avatar click
 const handleAvatarClick = async (v: string) => {
   avatarUrl.value = v;
@@ -46,8 +48,8 @@ const handleAvatarClick = async (v: string) => {
     <div class="user-form__avatar mb-2 mt-2 flex justify-center">
       <Avatar
         :src="avatarUrl"
-        :mode="mode"
         :size="90"
+        :editable="mode == UserFormMode.EDIT"
         @update="handleAvatarClick"
       />
     </div>

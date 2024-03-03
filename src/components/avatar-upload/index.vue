@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import axios from 'axios';
+import { uploadAvatar } from '@/utils/upload-avatar';
 
 const uploadEl = ref();
 const upload = async () => {
+  /**
+   * @TODO get me -> 获取自己 userID
+   */
+  // await getSelf();
   if (uploadEl.value?.files.length > 0) {
-    const file = uploadEl.value.files[0];
-    console.log(uploadEl.value.files);
-    const data = new FormData();
-    data.append('file', file);
-    const config = {
-      method: 'post',
-      url: 'http://localhost:8080/user/1/avatar',
-      data: data
-    };
     try {
-      const response = await axios.request(config);
-      console.log(JSON.stringify(response.data));
+      const file = uploadEl.value.files[0];
+      await uploadAvatar(file, 'user/2/avatar', 'multipart/form-data');
+      // @TODO 告诉外面上传成功 emit
     } catch (error) {
       console.log(error);
     }
@@ -27,8 +23,7 @@ const upload = async () => {
 <template>
   <div>
     <input ref="uploadEl" type="file" style="display: none" @change="upload" />
-    <ion-button @click="uploadEl.click()">Select File</ion-button>
-    <ion-button @click="upload">Upload</ion-button>
+    <slot :upload="() => uploadEl.click()" />
   </div>
 </template>
 

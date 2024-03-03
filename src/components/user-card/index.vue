@@ -15,7 +15,8 @@ interface IProps {
 
 const props = defineProps<IProps>();
 const src = `http://119.12.173.244:8080/user/${props.user.id}/avatar`;
-</script>`
+</script>
+`
 
 <template>
   <div>
@@ -23,10 +24,7 @@ const src = `http://119.12.173.244:8080/user/${props.user.id}/avatar`;
       class="user-card"
       :class="mode === ShowMode.COL ? 'flex-col items-center' : 'flex-row'"
     >
-      <!-- AVATAR -->
-
-        <Avatar :src="src" :size="70" />
-
+      <Avatar :src="src" :size="70" plain />
       <div class="p-2 text-lg">
         {{ user.name }}
       </div>
