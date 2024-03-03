@@ -1,22 +1,37 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { uploadAvatar } from '@/utils/upload-avatar';
-
+import { IHttpOptions, useHttp } from '@/utils/http';
+import { User } from '@/types/user';
+const emit = defineEmits<{
+  (e: 'uploaded', val: boolean): void;
+}>();
 const uploadEl = ref();
 const upload = async () => {
-  /**
-   * @TODO get me -> 获取自己 userID
-   */
-  // await getSelf();
+  const id = await getSelfId();
   if (uploadEl.value?.files.length > 0) {
     try {
       const file = uploadEl.value.files[0];
-      await uploadAvatar(file, 'user/2/avatar', 'multipart/form-data');
-      // @TODO 告诉外面上传成功 emit
+      const uploaded = await uploadAvatar(
+        file,
+        `user/${id}/avatar`,
+        'multipart/form-data'
+      );
+      if (uploaded) {
+        emit('uploaded', uploaded);
+      }
     } catch (error) {
-      console.log(error);
+      console.log('avatar-upload', error);
     }
   }
+};
+const getSelfId = async () => {
+  const options: IHttpOptions<any> = {
+    path: 'user/me',
+    method: 'get'
+  };
+  const { data } = await useHttp<User>(options);
+  return data.id;
 };
 </script>
 

@@ -1,0 +1,42 @@
+<script setup lang="ts">
+import { IonAvatar } from '@ionic/vue';
+import { computed } from 'vue';
+import AvatarImg from './avatar-img.vue';
+import { User } from '@/types/user';
+interface IProps {
+  user: User;
+  size?: number | string;
+  plain?: boolean;
+}
+const props = defineProps<IProps>();
+const avatarUrl = computed(() => {
+  if (props.user.avatar) {
+    return `http://119.12.173.244:8080/user/${props.user.id}/avatar`;
+  }
+  return '';
+});
+// avatar style
+const sizeStyle = computed(() => {
+  return {
+    width: `${props.size ?? 70}px`,
+    height: `${props.size ?? 70}px`
+  };
+});
+</script>
+
+<template>
+  <div v-if="plain">
+    <AvatarImg :src="avatarUrl" />
+  </div>
+  <IonAvatar v-else :style="sizeStyle">
+    <AvatarImg :src="avatarUrl" />
+  </IonAvatar>
+</template>
+
+<style scoped>
+ion-avatar {
+  @apply shadow-2xl;
+  --border-radius: 8px;
+  box-shadow: 0 1px 5px 0 var(--ion-color-primary);
+}
+</style>

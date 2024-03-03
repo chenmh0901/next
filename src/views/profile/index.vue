@@ -5,15 +5,13 @@ import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { UserFormMode } from '@/components/user-form/type';
-import { uploadAvatar } from '@/utils/upload-avatar';
 import AvatarUpload from '@/components/avatar-upload/index.vue';
 
 // about view and view model
 const mode = ref<UserFormMode>(UserFormMode.READ);
-const handleUpdate = (val: { form: User; avatarUrl: string }) => {
+const handleUpdate = (val: User) => {
   mode.value = UserFormMode.READ;
-  patchUserInfo(val.form);
-  patchUserAvatar(val.avatarUrl); // @TODO 去掉这里的逻辑
+  patchUserInfo(val);
 };
 const handleCancel = () => {
   mode.value = UserFormMode.READ;
@@ -35,16 +33,6 @@ const patchUserInfo = async (data: User) => {
     data: data
   };
   return await useHttp(option);
-};
-
-//patch avatar
-const patchUserAvatar = async (url: string) => {
-  if (user.value?.id) {
-    const blob = await fetch(url).then((r) => r.blob());
-    const path = 'user/' + user.value.id + '/avatar';
-    const contentType = 'multipart/form-data';
-    await uploadAvatar(blob, path, contentType);
-  }
 };
 const refresh = async () => {
   const { data } = await fetchUserInfo();

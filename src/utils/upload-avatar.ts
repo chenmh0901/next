@@ -7,7 +7,6 @@ export const uploadAvatar = async (
 ) => {
   const data = new FormData();
   data.append('file', val);
-
   const options: IHttpOptions<any> = {
     method: 'post',
     path,
@@ -15,9 +14,10 @@ export const uploadAvatar = async (
     contentType
   };
   try {
-    const { data } = await useHttp(options);
-    console.log(data);
+    await useHttp(options);
+    return true;
   } catch (error) {
-    console.log(error);
+    console.log('uploadAvatar', error);
+    return null;
   }
 };
