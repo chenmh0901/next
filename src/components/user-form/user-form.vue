@@ -18,7 +18,7 @@ const emit = defineEmits<{
   (e: 'update', val: { form: User; avatarUrl: string }): void;
   (e: 'cancel'): void;
 }>();
-const AVATAR_URL = `http://localhost:8080/user/${props.user.id}/avatar`;
+const AVATAR_URL = `http://119.12.173.244:8080/user/${props.user.id}/avatar`;
 
 const form = ref<User>(clone(props.user));
 const avatarUrl = ref<string>(clone(AVATAR_URL));

@@ -31,11 +31,17 @@ const onClick = async () => {
     emit('update', photo.value.webviewPath);
   }
 };
+//avatar fallback
+const onError=()=>{
+  console.log('error');
+}
 </script>
 <template>
   <IonAvatar v-if="mode == UserFormMode.READ" :style="sizeStyle">
     <IonImg
-      :src="src || 'https://ionicframework.com/docs/img/demos/avatar.svg'"
+      :src="src"
+      alt="onError"
+      :on-ion-error="onError"
     />
   </IonAvatar>
   <IonAvatar v-else :style="sizeStyle" @click="onClick">

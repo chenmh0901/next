@@ -14,8 +14,8 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
-const src = `http://localhost:8080/user/${props.user.id}/avatar`;
-</script>
+const src = `http://119.12.173.244:8080/user/${props.user.id}/avatar`;
+</script>`
 
 <template>
   <div>
@@ -24,15 +24,8 @@ const src = `http://localhost:8080/user/${props.user.id}/avatar`;
       :class="mode === ShowMode.COL ? 'flex-col items-center' : 'flex-row'"
     >
       <!-- AVATAR -->
-      <img
-        v-if="mode === ShowMode.COL"
-        alt="Silhouette of mountains"
-        class="w-full aspect-square object-cover"
-        :src="src"
-      />
-      <div v-else>
+
         <Avatar :src="src" :size="70" />
-      </div>
 
       <div class="p-2 text-lg">
         {{ user.name }}
