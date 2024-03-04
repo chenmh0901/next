@@ -32,6 +32,9 @@ jobs:
         with:
           version: '8'
 
+      - name: install dependencies
+        run: pnpm install
+
       - name: make ./gradlew command executable
         run: cd android && chmod +x ./gradlew && cd ..
 
