@@ -32,17 +32,14 @@ jobs:
         with:
           version: '8'
 
-      - name: cap sync
-        run: npx cap copy android && npx cap update android
-
-      - name: change crlf to lf
-        run: sudo apt update && sudo apt install dos2unix && cd android && dos2unix ./gradlew && cd ..
-
       - name: make ./gradlew command executable
         run: cd android && chmod +x ./gradlew && cd ..
 
       - name: build ionic
         run: ionic build --prod
+
+      - name: cap sync
+        run: npx cap copy android && npx cap update android
 
       - name: generate
         run: cd android && ./gradlew assembleDebug && cd ..
