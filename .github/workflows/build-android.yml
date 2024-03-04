@@ -3,8 +3,8 @@ name: Build Android APK
 on: [push, pull_request]
 
 jobs:
-  prepare_tools:
-    name: prepare
+  build-testing:
+    name: build
     runs-on: ubuntu-latest
     steps:
       - name: fetch source code
