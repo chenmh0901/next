@@ -25,9 +25,7 @@ const sizeStyle = computed(() => {
 </script>
 
 <template>
-  <div v-if="plain">
-    <AvatarImg :src="avatarUrl" />
-  </div>
+  <AvatarImg v-if="plain" :src="avatarUrl" />
   <IonAvatar v-else :style="sizeStyle">
     <AvatarImg :src="avatarUrl" />
   </IonAvatar>

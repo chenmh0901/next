@@ -32,5 +32,6 @@ const isError = ref(false);
 <style scoped>
 .avatar-img {
   @apply aspect-square;
+  object-fit: contain;
 }
 </style>
