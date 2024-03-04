@@ -74,7 +74,7 @@ onBeforeMount(async () => {
       :key="user.id"
       :mode="val"
       :user="user"
-      :class="val === ShowMode.COL ? 'w-1/3' : 'w-full'"
+      :class="val === ShowMode.COL ? 'w-1/3 p-1.5' : 'w-full p-1'"
       @click="onClick(user)"
     />
     <IonButton
