@@ -52,10 +52,8 @@ const onCancel = () => {
       "
     />
     <footer v-if="mode == UserFormMode.EDIT" class="mt-2 flex justify-evenly">
-      <IonButton class="default-action-btn" color="medium" @click="onCancel"
-        >退出
-      </IonButton>
-      <IonButton class="default-action-btn" @click="onSave">保存</IonButton>
+      <IonButton color="medium" @click="onCancel">退出 </IonButton>
+      <IonButton @click="onSave">保存</IonButton>
     </footer>
   </IonList>
 </template>

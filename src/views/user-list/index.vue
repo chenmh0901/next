@@ -68,7 +68,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <ul v-if="users?.length && users.length > 0" class="user-list flex flex-wrap">
+  <ul v-if="users?.length && users.length > 0" class="flex flex-wrap">
     <UserCard
       v-for="user in users"
       :key="user.id"
