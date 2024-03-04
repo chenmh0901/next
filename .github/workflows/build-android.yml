@@ -1,0 +1,49 @@
+name: Build Android APK
+
+on: [push, pull_request]
+
+jobs:
+  prepare_tools:
+    name: prepare
+    runs-on: ubuntu-latest
+    steps:
+      - name: fetch source code
+        uses: actions/checkout@v2
+
+      - name: install java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+
+      - name: install android sdk
+        uses: android-actions/setup-android@v2
+
+      - name: install node
+        uses: actions/setup-node@v1
+
+      - name: install ionic
+        run: npm install -g @ionic/cli
+
+      - name: npm install
+        run: npm install
+
+      - name: change crlf to lf
+        run: sudo apt update && sudo apt install dos2unix && cd android && dos2unix ./gradlew && cd ..
+
+      - name: make ./gradlew command executable
+        run: cd android && chmod +x ./gradlew && cd ..
+
+      - name: build ionic
+        run: ionic build --prod
+
+      - name: cap sync
+        run: npx cap copy android && npx cap update android
+
+      - name: generate
+        run: cd android && ./gradlew assembleDebug && cd ..
+
+      - name: upload
+        uses: actions/upload-artifact@v1
+        with:
+          name: app-dev
+          path: android/app/build/outputs/apk/debug/app-debug.apk
