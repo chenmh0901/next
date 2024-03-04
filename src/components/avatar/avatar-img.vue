@@ -5,17 +5,32 @@ interface IProps {
   src: string;
 }
 defineProps<IProps>();
+
 const loaded = ref(false);
+const isError = ref(false);
 </script>
+
 <template>
   <div>
-    <img :src="src" alt="" @load="loaded = true" />
     <img
-      v-if="!loaded && !src"
+      v-show="!isError"
+      class="avatar-img"
+      :src="src"
+      alt=""
+      @load="loaded = true"
+      @error="isError = true"
+    />
+    <img
+      v-if="!loaded || isError"
+      class="avatar-img"
       src="https://ionicframework.com/docs/img/demos/avatar.svg"
       alt=""
     />
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+.avatar-img {
+  @apply aspect-square;
+}
+</style>
