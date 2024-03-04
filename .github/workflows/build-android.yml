@@ -20,9 +20,9 @@ jobs:
         uses: android-actions/setup-android@v3
 
       - name: install node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
-          node-version: '16'
+          node-version: '18'
 
       - name: install ionic
         run: npm install -g @ionic/cli
