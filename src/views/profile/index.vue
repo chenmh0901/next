@@ -6,6 +6,7 @@ import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { UserFormMode } from '@/components/user-form/type';
 import AvatarUpload from '@/components/avatar-upload/index.vue';
+import { toast } from '@/utils/toast';
 
 // about view and view model
 const mode = ref<UserFormMode>(UserFormMode.READ);
@@ -16,7 +17,10 @@ const handleUpdate = (val: User) => {
 const handleCancel = () => {
   mode.value = UserFormMode.READ;
 };
-
+// about avatar
+const handleUploaded = async () => {
+  await toast('上传成功');
+};
 // user-form data
 const user = ref<User>();
 const fetchUserInfo = async () => {
@@ -52,16 +56,17 @@ onMounted(refresh);
         @update="handleUpdate"
         @cancel="handleCancel"
       />
-      <footer>
-        <IonButton
-          v-if="mode == UserFormMode.READ"
-          class="default-action-btn"
-          @click="mode = UserFormMode.EDIT"
-          >编辑
-        </IonButton>
-        <AvatarUpload v-slot="props">
-          <IonButton @click="props.upload">你好</IonButton>
+      <footer class="flex justify-around w-full h-[400px]">
+        <AvatarUpload
+          v-if="mode === UserFormMode.READ"
+          v-slot="props"
+          @uploaded="handleUploaded"
+        >
+          <IonButton @click="props.upload">上传头像</IonButton>
         </AvatarUpload>
+        <div v-if="mode == UserFormMode.READ">
+          <IonButton @click="mode = UserFormMode.EDIT">编辑信息 </IonButton>
+        </div>
       </footer>
     </div>
   </div>
