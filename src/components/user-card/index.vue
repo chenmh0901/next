@@ -32,7 +32,6 @@ defineProps<IProps>();
 
 <style scoped>
 .user-card {
-  @apply w-full;
 }
 .user-card__body {
   @apply flex m-0 shadow-xl rounded-lg;
