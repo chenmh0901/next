@@ -5,14 +5,13 @@ import {
   ProfileField,
   ProfileFieldType,
   UserFormMode
-} from '@/components/profile/type';
+} from '@/components/user-form/type';
 import { IonInput, IonItem, IonLabel } from '@ionic/vue';
 import { usePicker } from '@/composables/use-picker';
 import { Icon } from '@iconify/vue';
 
 interface IProps {
   mode: UserFormMode;
-
   field: ProfileField;
   value: string;
 }
@@ -47,9 +46,7 @@ const onClick = async () => {
     </IonLabel>
 
     <!-- TEXT OR INPUT -->
-    <ion-text v-if="mode === UserFormMode.READ"
-      >{{ value ?? '未填写' }}
-    </ion-text>
+    <ion-text v-if="mode === UserFormMode.READ">{{ value ?? '无' }}</ion-text>
     <template v-else>
       <template
         v-if="field.type == ProfileFieldType.DEFAULT_TEXT || !field.type"

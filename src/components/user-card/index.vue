@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { IonCard } from '@ionic/vue';
-import Avatar from '@/components/avatar/index.vue';
+import Avatar from '@/components/avatar/avatar.vue';
 import { User } from '@/types/user';
 
 enum ShowMode {
@@ -17,23 +17,13 @@ defineProps<IProps>();
 </script>
 
 <template>
-  <div>
+  <div class="user-card">
     <IonCard
-      class="user-card"
+      class="user-card__body"
       :class="mode === ShowMode.COL ? 'flex-col items-center' : 'flex-row'"
     >
-      <!-- AVATAR -->
-      <img
-        v-if="mode === ShowMode.COL"
-        alt="Silhouette of mountains"
-        class="w-full aspect-square object-cover"
-        :src="`https://ionicframework.com/docs/img/demos/avatar.svg`"
-      />
-      <div v-else>
-        <Avatar :size="70" />
-      </div>
-
-      <div class="p-2 text-lg">
+      <Avatar :user="user" :plain="mode === ShowMode.COL" />
+      <div class="m-1 text-lg">
         {{ user.name }}
       </div>
     </IonCard>
@@ -42,6 +32,8 @@ defineProps<IProps>();
 
 <style scoped>
 .user-card {
-  @apply flex m-1.5 shadow-xl;
+}
+.user-card__body {
+  @apply flex m-0 shadow-xl rounded-lg;
 }
 </style>

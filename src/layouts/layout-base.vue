@@ -36,7 +36,6 @@ const footerHeightStyle = {
       <IonToolbar>
         <IonTitle>搜索框</IonTitle>
         <LogoutBtn v-if="page == 'PROFILE'" class="mr-3" />
-
         <ThemeToggle v-if="page != 'PROFILE'" class="mr-3" />
       </IonToolbar>
     </IonHeader>

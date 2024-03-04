@@ -1,12 +1,24 @@
 import { Camera, CameraResultType } from '@capacitor/camera';
-import { UserPhoto } from '@/types/user';
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
+
+interface UserPhoto {
+  filepath: string;
+  webviewPath: string;
+}
 
 export const useCamera = () => {
   const photo = ref<UserPhoto>({
     filepath: '',
     webviewPath: ''
   });
+
+  const url = computed(() => {
+    if (photo.value.webviewPath) {
+      return photo.value.webviewPath;
+    }
+    return null;
+  });
+
   const takePhoto = async () => {
     try {
       const p = await Camera.getPhoto({
@@ -21,5 +33,5 @@ export const useCamera = () => {
       console.error('Error', e);
     }
   };
-  return { photo, takePhoto };
+  return { url, photo, takePhoto };
 };

@@ -1,22 +1,10 @@
 import { ref, Ref } from 'vue';
 
 export interface EasyToggleOptions {
-  /**
-   * 默认值，优先级最高
-   */
   default: any;
-
-  /**
-   * 原型 Ref，优先级低于 default
-   */
   source: Ref<any>;
 }
 
-/**
- * 在几个值之间切换
- * @param shufflingValues 轮换的值，若无 options 默认取第一个
- * @param options 配置项
- */
 export const useEasyToggle = (
   shufflingValues: any[],
   options?: EasyToggleOptions
