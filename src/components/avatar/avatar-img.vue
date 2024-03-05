@@ -3,6 +3,7 @@ import { ref } from 'vue';
 
 interface IProps {
   src: string;
+  circle?: boolean;
 }
 defineProps<IProps>();
 
@@ -14,7 +15,7 @@ const isError = ref(false);
   <div>
     <img
       v-show="!isError"
-      class="avatar-img"
+      :class="circle ? 'aspect-square object-contain border-b' : 'rounded-full'"
       :src="src"
       alt=""
       @load="loaded = true"
@@ -22,16 +23,11 @@ const isError = ref(false);
     />
     <img
       v-if="!loaded || isError"
-      class="avatar-img"
+      :class="circle ? 'avatar-img__circle' : 'avatar-img__matrix'"
       src="https://ionicframework.com/docs/img/demos/avatar.svg"
       alt=""
     />
   </div>
 </template>
 
-<style scoped>
-.avatar-img {
-  @apply aspect-square;
-  object-fit: contain;
-}
-</style>
+<style scoped></style>

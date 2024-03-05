@@ -7,6 +7,7 @@ interface IProps {
   user: User;
   size?: number | string;
   plain?: boolean;
+  circle?: boolean;
 }
 const props = defineProps<IProps>();
 const avatarUrl = computed(() => {
@@ -25,7 +26,7 @@ const sizeStyle = computed(() => {
 </script>
 
 <template>
-  <AvatarImg v-if="plain" :src="avatarUrl" />
+  <AvatarImg v-if="plain" :src="avatarUrl" circle />
   <IonAvatar v-else :style="sizeStyle">
     <AvatarImg :src="avatarUrl" />
   </IonAvatar>
@@ -34,7 +35,6 @@ const sizeStyle = computed(() => {
 <style scoped>
 ion-avatar {
   @apply shadow-2xl;
-  --border-radius: 8px;
   box-shadow: 0 1px 5px 0 var(--ion-color-primary);
 }
 </style>

@@ -17,7 +17,7 @@ defineProps<IProps>();
 </script>
 
 <template>
-  <div class="user-card">
+  <div>
     <IonCard
       class="user-card__body"
       :class="mode === ShowMode.COL ? 'flex-col items-center' : 'flex-row'"
@@ -31,8 +31,6 @@ defineProps<IProps>();
 </template>
 
 <style scoped>
-.user-card {
-}
 .user-card__body {
   @apply flex m-0 shadow-xl rounded-lg;
 }
