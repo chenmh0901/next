@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import { uploadAvatar } from '@/utils/upload-avatar';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
+
 const emit = defineEmits<{
   (e: 'uploaded', val: boolean): void;
 }>();

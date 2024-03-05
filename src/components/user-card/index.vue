@@ -17,21 +17,35 @@ defineProps<IProps>();
 </script>
 
 <template>
-  <div>
-    <IonCard
-      class="user-card__body"
-      :class="mode === ShowMode.COL ? 'flex-col items-center' : 'flex-row'"
-    >
-      <Avatar :user="user" :plain="mode === ShowMode.COL" />
-      <div class="m-1 text-lg">
-        {{ user.name }}
-      </div>
-    </IonCard>
+  <div class="user-card">
+    <!-- 三个三个的 -->
+    <div v-if="mode == ShowMode.ROW">
+      <IonCard class="user-card__body flex-col items-center">
+        <Avatar class="flex" :user="user" plain />
+        <div class="text-lg">
+          {{ user.name }}
+        </div>
+      </IonCard>
+    </div>
+
+    <!-- 一个一行 -->
+    <div v-else class="w-full">
+      <IonCard class="user-card__body">
+        <Avatar class="flex" :user="user" />
+        <div class="text-lg">
+          {{ user.name }}
+        </div>
+      </IonCard>
+    </div>
   </div>
 </template>
 
 <style scoped>
+.user-card {
+  @apply flex;
+}
+
 .user-card__body {
-  @apply flex m-0 shadow-xl rounded-lg;
+  @apply flex w-full m-0 shadow-xl rounded-lg;
 }
 </style>

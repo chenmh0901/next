@@ -1,21 +1,31 @@
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 interface IProps {
   src: string;
   circle?: boolean;
 }
-defineProps<IProps>();
+
+const props = defineProps<IProps>();
 
 const loaded = ref(false);
 const isError = ref(false);
+
+const baseClass = computed(() => {
+  const base = 'aspect-square object-cover border-b';
+  if (props.circle) {
+    return base + ' rounded-full';
+  } else {
+    return base;
+  }
+});
 </script>
 
 <template>
   <div>
     <img
       v-show="!isError"
-      :class="circle ? 'aspect-square object-contain border-b' : 'rounded-full'"
+      :class="baseClass"
       :src="src"
       alt=""
       @load="loaded = true"
@@ -23,7 +33,7 @@ const isError = ref(false);
     />
     <img
       v-if="!loaded || isError"
-      :class="circle ? 'avatar-img__circle' : 'avatar-img__matrix'"
+      :class="baseClass"
       src="https://ionicframework.com/docs/img/demos/avatar.svg"
       alt=""
     />

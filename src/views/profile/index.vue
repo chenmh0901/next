@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { IonButton } from '@ionic/vue';
+import { Icon } from '@iconify/vue';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
@@ -36,17 +36,31 @@ onMounted(refresh);
 
 <template>
   <div v-if="!!user" class="profile">
-    <div class="profile__content">
-      <ProfileUserCard :user="user" class="profile__card" />
-      <footer class="flex justify-around w-full mt-2">
-        <AvatarUpload v-slot="props" @uploaded="handleUploaded">
-          <IonButton @click="props.upload">上传头像</IonButton>
+    <ProfileUserCard :user="user" class="profile__card mt-4" />
+
+    <footer class="profile__card flex">
+      <div class="half-block">
+        <AvatarUpload
+          class="w-full h-full flex"
+          v-slot="props"
+          @uploaded="handleUploaded"
+        >
+          <button class="card-btn" @click="props.upload">
+            <Icon
+              class="inline text-[22px]"
+              icon="mdi:account-box-plus-outline"
+            />上传头像
+          </button>
         </AvatarUpload>
-        <div>
-          <IonButton @click="OnClick">编辑信息</IonButton>
-        </div>
-      </footer>
-    </div>
+      </div>
+      <div class="divider w-[20px]"></div>
+      <div class="half-block">
+        <button class="card-btn" @click="OnClick">
+          <Icon class="inline text-[22px]" icon="mdi:account-edit-outline" />
+          编辑信息
+        </button>
+      </div>
+    </footer>
   </div>
 </template>
 
@@ -55,11 +69,16 @@ onMounted(refresh);
   @apply flex flex-col items-center;
 }
 
-.profile__content {
-  @apply flex flex-col items-center w-[90%];
-}
 .profile__card {
-  @apply w-full border rounded-md mt-1;
-  box-shadow: 0 1px 5px 1px var(--ion-color-primary);
+  @apply px-6 py-4 w-full;
+}
+
+.half-block {
+  @apply w-1/2 h-[80px] flex text-lg;
+}
+
+.card-btn {
+  @apply w-full h-full rounded-3xl shadow-xl flex items-center justify-center gap-1;
+  background-color: var(--ion-color-secondary);
 }
 </style>

@@ -26,15 +26,14 @@ const sizeStyle = computed(() => {
 </script>
 
 <template>
-  <AvatarImg v-if="plain" :src="avatarUrl" circle />
+  <AvatarImg v-if="plain" :src="avatarUrl" :circle="circle" />
   <IonAvatar v-else :style="sizeStyle">
-    <AvatarImg :src="avatarUrl" />
+    <AvatarImg :src="avatarUrl" :circle="circle" />
   </IonAvatar>
 </template>
 
 <style scoped>
 ion-avatar {
-  @apply shadow-2xl;
-  box-shadow: 0 1px 5px 0 var(--ion-color-primary);
+  @apply shadow-xl;
 }
 </style>

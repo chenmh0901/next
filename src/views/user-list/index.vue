@@ -17,13 +17,13 @@ enum ShowMode {
 }
 
 // view toggle
-const { val, toggle } = useEasyToggle([ShowMode.COL, ShowMode.ROW]);
+const { val, toggle } = useEasyToggle([ShowMode.ROW, ShowMode.COL]);
 const topPosStyle = ref<StyleValue>();
 watch(
   val,
   (val) => {
     topPosStyle.value =
-      val == ShowMode.COL
+      val == ShowMode.ROW
         ? {
             top: '50px',
             right: '20px'
@@ -68,13 +68,13 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <ul v-if="users?.length && users.length > 0" class="flex flex-wrap">
+  <ul v-if="users?.length && users.length > 0" class="flex flex-wrap py-4">
     <UserCard
       v-for="user in users"
       :key="user.id"
       :mode="val"
       :user="user"
-      :class="val === ShowMode.COL ? 'w-1/3 p-1.5' : 'w-full p-1'"
+      :class="val === ShowMode.ROW ? 'w-1/3 p-1.5' : 'w-full py-1.5 px-5'"
       @click="onClick(user)"
     />
     <IonButton

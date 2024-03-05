@@ -7,35 +7,33 @@ import {
   IonCardContent
 } from '@ionic/vue';
 import { MessageType } from '@/components/board/type';
-import { onMounted, ref } from 'vue';
-import { User } from '@/types/user';
-import { IHttpOptions, useHttp } from '@/utils/http';
 
 interface IProps {
   msg: MessageType;
+  nameDict: Record<string, string>;
 }
-
-const props = defineProps<IProps>();
-const name = ref();
-const getUserName = async () => {
-  const options: IHttpOptions<any> = {
-    path: `user/${props.msg.userId}`,
-    method: 'get'
-  };
-  const { data } = await useHttp<User>(options);
-  name.value = data.name;
-};
-onMounted(getUserName);
+defineProps<IProps>();
 </script>
 
 <template>
-  <IonCard>
+  <IonCard class="pb-2">
     <IonCardHeader>
-      <IonCardSubtitle>发布时间: {{ msg?.time }}</IonCardSubtitle>
-      <IonCardTitle>{{ name }}</IonCardTitle>
+      <IonCardSubtitle>发布时间: {{ msg.time }}</IonCardSubtitle>
+      <IonCardTitle>{{ nameDict[msg.userId] }}</IonCardTitle>
     </IonCardHeader>
-    <IonCardContent class="truncate ...">{{ msg?.content }}</IonCardContent>
+    <IonCardContent>
+      <div class="three-truncate">{{ msg.content }}</div>
+    </IonCardContent>
   </IonCard>
 </template>
 
-<style scoped></style>
+<style scoped>
+.three-truncate {
+  @apply max-h-[60px];
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+</style>

@@ -34,7 +34,7 @@ const footerHeightStyle = {
   <IonPage>
     <IonHeader>
       <IonToolbar>
-        <IonTitle>搜索框</IonTitle>
+        <IonTitle>ZustCloud Next</IonTitle>
         <LogoutBtn v-if="page == 'PROFILE'" class="mr-3" />
         <ThemeToggle v-if="page != 'PROFILE'" class="mr-3" />
       </IonToolbar>

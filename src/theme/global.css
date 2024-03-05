@@ -13,3 +13,6 @@ ion-popover {
   @apply text-base;
 }
 
+* {
+  box-sizing: border-box;
+}

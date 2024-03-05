@@ -72,6 +72,6 @@ onBeforeMount(async () => {
 
 <style scoped>
 .message-add-btn {
-  @apply fixed top-9 right-3 w-[40px] h-[30px];
+  @apply fixed top-[48px] right-3 w-[40px] h-[30px];
 }
 </style>
