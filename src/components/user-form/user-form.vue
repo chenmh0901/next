@@ -37,7 +37,6 @@ const onCancel = () => {
     <UserFormItem
       v-for="field in PROFILE_FIELDS"
       :key="field.key"
-      class="my-2"
       :field="field"
       :mode="mode"
       :value="form[field.key] as string"

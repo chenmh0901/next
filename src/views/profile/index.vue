@@ -11,6 +11,7 @@ import UserForm from '@/components/user-form/user-form.vue';
 // about avatar
 const handleUploaded = async () => {
   await toast('上传成功');
+  await refresh();
 };
 // user-form data
 const user = ref<User>();
@@ -21,7 +22,10 @@ const fetchUserInfo = async () => {
   };
   return await useHttp<User>(option);
 };
+
+const cardKey = ref(0);
 const refresh = async () => {
+  cardKey.value++;
   const { data } = await fetchUserInfo();
   user.value = data as User;
 };
@@ -36,13 +40,13 @@ onMounted(refresh);
 
 <template>
   <div v-if="!!user" class="profile">
-    <ProfileUserCard :user="user" class="profile__card mt-4" />
+    <ProfileUserCard :key="cardKey" :user="user" class="profile__card mt-4" />
 
     <footer class="profile__card flex">
       <div class="half-block">
         <AvatarUpload
-          class="w-full h-full flex"
           v-slot="props"
+          class="w-full h-full flex"
           @uploaded="handleUploaded"
         >
           <button class="card-btn" @click="props.upload">

@@ -32,8 +32,11 @@ defineProps<IProps>();
     <div v-else class="w-full">
       <IonCard class="user-card__body">
         <Avatar class="flex" :user="user" />
-        <div class="text-lg">
-          {{ user.name }}
+        <div
+          class="text-lg flex-grow flex items-center justify-between pl-3 pr-5"
+        >
+          <span class="text-[22px]">{{ user.name }}</span>
+          <span class="text-[16px]">{{ user.no }}</span>
         </div>
       </IonCard>
     </div>
