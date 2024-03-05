@@ -77,8 +77,8 @@ onMounted(fetchAuthorNo);
     </div>
     <div class="content">
       <IonList class="p-0">
-        <IonItem lines="none" class="my-4">
-          <IonLabel class="w-1/5">发布者:</IonLabel>
+        <IonItem lines="none">
+          <IonLabel class="w-1/5">发布者</IonLabel>
           <IonInput
             :value="no"
             class="border border-grey-300 rounded-lg text-center w-4/5"
@@ -86,7 +86,7 @@ onMounted(fetchAuthorNo);
           ></IonInput>
         </IonItem>
         <IonItem lines="none">
-          <IonLabel class="w-1/5">内容:</IonLabel>
+          <IonLabel class="w-1/5">内容</IonLabel>
           <IonTextarea
             :value="form?.content"
             placeholder="请输入内容"
@@ -99,7 +99,7 @@ onMounted(fetchAuthorNo);
           ></IonTextarea>
         </IonItem>
       </IonList>
-      <IonButtons class="flex flex-row justify-around">
+      <IonButtons class="flex justify-around mt-auto mb-6">
         <IonButton class="w-1/3" color="light" @click="close">关闭</IonButton>
         <IonButton class="w-1/3" @click="onClick">发布</IonButton>
       </IonButtons>
@@ -109,7 +109,7 @@ onMounted(fetchAuthorNo);
 
 <style scoped>
 .message__form {
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center h-full py-12;
 }
 
 .header {
@@ -117,6 +117,6 @@ onMounted(fetchAuthorNo);
 }
 
 .content {
-  @apply w-full;
+  @apply w-full h-full flex flex-col;
 }
 </style>
