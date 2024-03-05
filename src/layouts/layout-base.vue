@@ -10,7 +10,14 @@ import {
   IonTabButton,
   IonLabel
 } from '@ionic/vue';
-import { homeOutline, newspaperOutline, personOutline } from 'ionicons/icons';
+import {
+  home,
+  newspaper,
+  person,
+  homeOutline,
+  newspaperOutline,
+  personOutline
+} from 'ionicons/icons';
 import ThemeToggle from '@/components/theme-toggle/index.vue';
 import LogoutBtn from '@/components/logout-btn/index.vue';
 
@@ -51,15 +58,17 @@ const footerHeightStyle = {
     >
       <IonTabBar :style="footerHeightStyle">
         <IonTabButton @click="emit('toggle-page', 'USER_LIST')">
-          <IonIcon :icon="homeOutline"></IonIcon>
+          <IonIcon :icon="page == 'USER_LIST' ? home : homeOutline"></IonIcon>
           <IonLabel>主页</IonLabel>
         </IonTabButton>
         <IonTabButton @click="emit('toggle-page', 'BOARD')">
-          <IonIcon :icon="newspaperOutline"></IonIcon>
+          <IonIcon
+            :icon="page == 'BOARD' ? newspaper : newspaperOutline"
+          ></IonIcon>
           <IonLabel>通知</IonLabel>
         </IonTabButton>
         <IonTabButton @click="emit('toggle-page', 'PROFILE')">
-          <IonIcon :icon="personOutline"></IonIcon>
+          <IonIcon :icon="page == 'PROFILE' ? person : personOutline"></IonIcon>
           <IonLabel>我</IonLabel>
         </IonTabButton>
       </IonTabBar>
