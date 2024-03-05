@@ -19,14 +19,17 @@ defineProps<IProps>();
 <template>
   <div class="user-card">
     <!-- 三个三个的 -->
-    <div v-if="mode == ShowMode.ROW">
+    <template v-if="mode == ShowMode.ROW">
       <IonCard class="user-card__body flex-col items-center">
-        <Avatar class="flex" :user="user" plain />
+        <div class="w-full aspect-square">
+          <Avatar class="flex" :user="user" plain />
+        </div>
+
         <div class="text-lg">
           {{ user.name }}
         </div>
       </IonCard>
-    </div>
+    </template>
 
     <!-- 一个一行 -->
     <div v-else class="w-full">

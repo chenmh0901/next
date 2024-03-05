@@ -22,22 +22,33 @@ const baseClass = computed(() => {
 </script>
 
 <template>
-  <div>
+  <transition>
     <img
-      v-show="!isError"
+      v-if="!isError"
       :class="baseClass"
       :src="src"
       alt=""
+      @loadstart="loaded = true"
       @load="loaded = true"
       @error="isError = true"
     />
     <img
-      v-if="!loaded || isError"
+      v-else-if="!loaded || isError"
       :class="baseClass"
       src="https://ionicframework.com/docs/img/demos/avatar.svg"
       alt=""
     />
-  </div>
+  </transition>
 </template>
 
-<style scoped></style>
+<style scoped>
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
+
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
+}
+</style>
