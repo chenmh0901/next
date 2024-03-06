@@ -42,42 +42,43 @@ const footerHeightStyle = {
     <IonHeader>
       <IonToolbar>
         <IonTitle>ZustCloud Next</IonTitle>
+        <ThemeToggle class="mr-3" />
         <LogoutBtn v-if="page == 'PROFILE'" class="mr-3" />
-        <ThemeToggle v-if="page != 'PROFILE'" class="mr-3" />
       </IonToolbar>
     </IonHeader>
     <IonContent :fullscreen="true" class="layout-base-content">
-      <slot></slot>
+      <slot />
     </IonContent>
 
     <!-- FOOTER -->
     <div :style="footerHeightStyle"></div>
-    <IonToolbar
-      :style="footerHeightStyle"
-      class="nav-tool-bar absolute bottom-0"
-    >
-      <IonTabBar :style="footerHeightStyle">
-        <IonTabButton @click="emit('toggle-page', 'USER_LIST')">
-          <IonIcon :icon="page == 'USER_LIST' ? home : homeOutline"></IonIcon>
-          <IonLabel>主页</IonLabel>
-        </IonTabButton>
-        <IonTabButton @click="emit('toggle-page', 'BOARD')">
-          <IonIcon
-            :icon="page == 'BOARD' ? newspaper : newspaperOutline"
-          ></IonIcon>
-          <IonLabel>通知</IonLabel>
-        </IonTabButton>
-        <IonTabButton @click="emit('toggle-page', 'PROFILE')">
-          <IonIcon :icon="page == 'PROFILE' ? person : personOutline"></IonIcon>
-          <IonLabel>我</IonLabel>
-        </IonTabButton>
-      </IonTabBar>
-    </IonToolbar>
+    <footer :style="footerHeightStyle" class="nav-tool-bar">
+      <button @click="emit('toggle-page', 'USER_LIST')">
+        <IonIcon :icon="page == 'USER_LIST' ? home : homeOutline"></IonIcon>
+        <div>主页</div>
+      </button>
+      <button @click="emit('toggle-page', 'BOARD')">
+        <IonIcon
+          :icon="page == 'BOARD' ? newspaper : newspaperOutline"
+        ></IonIcon>
+        <div>通知</div>
+      </button>
+      <button @click="emit('toggle-page', 'PROFILE')">
+        <IonIcon :icon="page == 'PROFILE' ? person : personOutline"></IonIcon>
+        <div>我</div>
+      </button>
+    </footer>
   </IonPage>
 </template>
 
 <style scoped>
 .nav-tool-bar {
-  box-shadow: 0 8px 12px 1px var(--ion-color-primary);
+  @apply absolute bottom-0 w-full flex backdrop-blur-[2px];
+  background: var(--ion-card-background);
+  color: var(--ion-color-dark);
+}
+
+.nav-tool-bar button {
+  @apply w-1/3;
 }
 </style>

@@ -3,10 +3,10 @@ import { Icon } from '@iconify/vue';
 import { onMounted, ref } from 'vue';
 import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
-import AvatarUpload from '@/components/avatar-upload/index.vue';
 import { toast } from '@/utils/toast';
-import ProfileUserCard from '@/components/profile-user-card/index.vue';
 import { useModal } from '@/composables/use-modal';
+import AvatarUpload from '@/components/avatar-upload/index.vue';
+import ProfileUserCard from '@/components/profile-user-card/index.vue';
 import ProfileUserForm from '@/components/profile-user-form/index.vue';
 
 // about avatar
@@ -28,12 +28,18 @@ const fetchUserInfo = async () => {
 // open user-form
 const { open } = useModal();
 const openSelfForm = async () => {
-  await open(ProfileUserForm, { user: user.value, wrapperType: 'modal' });
+  await open({
+    component: ProfileUserForm,
+    property: { user: user.value, wrapperType: 'modal' }
+  });
 };
 
 // open admin-resume
 const openAdminResume = async () => {
-  await open(ProfileUserForm, { user: user.value, wrapperType: 'modal' });
+  await open({
+    component: ProfileUserForm,
+    property: { user: user.value, wrapperType: 'modal' }
+  });
 };
 
 // mounted
@@ -60,7 +66,8 @@ onMounted(refresh);
             <Icon
               class="inline text-[22px]"
               icon="mdi:account-box-plus-outline"
-            />上传头像
+            />
+            上传头像
           </button>
         </AvatarUpload>
       </div>
@@ -77,7 +84,8 @@ onMounted(refresh);
         <Icon
           class="inline text-[22px]"
           icon="mdi:message-processing-outline"
-        />查看留言
+        />
+        查看留言
       </button>
     </div>
   </div>
@@ -104,9 +112,11 @@ onMounted(refresh);
   @apply w-full h-full rounded-3xl shadow-xl flex items-center justify-center gap-1;
   background-color: var(--ion-color-secondary);
 }
+
 .msg-btn {
   background-color: var(--ion-color-secondary-contrast);
 }
+
 .loading-mask {
   @apply absolute flex flex-col justify-center w-full h-full top-0 bottom-0 items-center;
   background-color: rgba(121, 121, 121, 0.2);
