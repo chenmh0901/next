@@ -1,34 +1,50 @@
 <script lang="ts" setup>
-import { IonButton, IonList } from '@ionic/vue';
+import {
+  IonButton,
+  IonList,
+  modalController,
+  popoverController
+} from '@ionic/vue';
 import { PROFILE_FIELDS, UserFormMode } from '@/components/user-form/type';
 import { User } from '@/types/user';
 import UserFormItem from '@/components/user-form/user-form-item.vue';
-import { toast } from '@/utils/toast';
-import { clone } from 'lodash';
 import { ref } from 'vue';
+import { IHttpOptions, useHttp } from '@/utils/http';
+import { toast } from '@/utils/toast';
 
 interface IProps {
   user: User;
+  wrapperType: string;
 }
 
 const props = defineProps<IProps>();
-const emit = defineEmits<{
-  (e: 'update', val: User): void;
-  (e: 'cancel'): void;
-}>();
-const form = ref<User>(clone(props.user));
+const form = ref<User>(props.user);
 const mode = ref<UserFormMode>(UserFormMode.READ);
-const onSave = () => {
+const onSave = async () => {
   try {
-    toast('保存成功');
-    emit('update', form.value);
+    const { data } = await patchUserInfo();
+    if (data) {
+      await toast('保存成功');
+      mode.value = UserFormMode.READ;
+    }
   } catch (e) {
     console.error('Error', e);
   }
 };
+const patchUserInfo = async () => {
+  const option: IHttpOptions<User> = {
+    path: 'user/',
+    method: 'patch',
+    data: form.value
+  };
+  return await useHttp(option);
+};
 const onCancel = () => {
-  form.value = clone(props.user);
-  emit('cancel');
+  if (props.wrapperType === 'modal') {
+    modalController.dismiss(false);
+  } else if (props.wrapperType === 'popover') {
+    popoverController.dismiss(false);
+  }
 };
 </script>
 
@@ -46,15 +62,23 @@ const onCancel = () => {
         }
       "
     />
-    <footer class="mt-2 flex justify-evenly">
-      <IonButton color="medium" @click="onCancel">退出</IonButton>
-      <IonButton @click="onSave">编辑</IonButton>
+    <footer class="mt-auto flex justify-evenly mb-5">
+      <template v-if="mode == UserFormMode.READ">
+        <IonButton color="medium" @click="onCancel">退出</IonButton>
+        <IonButton @click="mode = UserFormMode.EDIT">编辑</IonButton>
+      </template>
+      <template v-else>
+        <IonButton color="medium" @click="mode = UserFormMode.READ"
+          >取消</IonButton
+        >
+        <IonButton @click="onSave">保存</IonButton>
+      </template>
     </footer>
   </IonList>
 </template>
 
 <style scoped>
 .user-form {
-  @apply w-full rounded-lg;
+  @apply w-full rounded-lg h-full flex flex-col;
 }
 </style>

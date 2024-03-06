@@ -9,7 +9,6 @@ import UserCard from '@/components/user-card/index.vue';
 import { useUserStore } from '@/stores/user';
 import { usePopover } from '@/composables/use-popover';
 import UserForm from '@/components/user-form/user-form.vue';
-import { UserFormMode } from '@/components/user-form/type';
 
 enum ShowMode {
   COL = 'COL',
@@ -58,7 +57,7 @@ const { open } = usePopover();
 const onClick = (user: User) => {
   open(UserForm, {
     user,
-    mode: UserFormMode.READ
+    wrapperType: 'popover'
   });
 };
 onBeforeMount(async () => {

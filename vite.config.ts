@@ -8,7 +8,8 @@ export default defineConfig({
   plugins: [vue(), legacy()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src')
+      '@': path.resolve(__dirname, './src'),
+      '@components': path.resolve(__dirname, './src/components')
     }
   },
   test: {

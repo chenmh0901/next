@@ -7,7 +7,7 @@ import AvatarUpload from '@/components/avatar-upload/index.vue';
 import { toast } from '@/utils/toast';
 import ProfileUserCard from '@/components/profile-user-card/index.vue';
 import { useModal } from '@/composables/use-modal';
-import UserForm from '@/components/user-form/user-form.vue';
+import ProfileUserForm from '@/components/profile-user-form/index.vue';
 // about avatar
 const handleUploaded = async () => {
   await toast('上传成功');
@@ -32,16 +32,14 @@ const refresh = async () => {
 //open user-form
 const { open } = useModal();
 const OnClick = async () => {
-  console.log(user.value);
-  await open(UserForm, { user: user.value });
+  await open(ProfileUserForm, { user: user.value, wrapperType: 'modal' });
 };
 onMounted(refresh);
 </script>
 
 <template>
-  <div v-if="!!user" class="profile">
+  <div v-if="user" class="profile">
     <ProfileUserCard :key="cardKey" :user="user" class="profile__card mt-4" />
-
     <footer class="profile__card flex">
       <div class="half-block">
         <AvatarUpload
@@ -66,6 +64,10 @@ onMounted(refresh);
       </div>
     </footer>
   </div>
+  <div v-else class="loading-mask">
+    <Icon class="text-[60px] mb-4" icon="line-md:loading-twotone-loop" />
+    <div class="text-[20px]">正在加载...</div>
+  </div>
 </template>
 
 <style scoped>
@@ -84,5 +86,9 @@ onMounted(refresh);
 .card-btn {
   @apply w-full h-full rounded-3xl shadow-xl flex items-center justify-center gap-1;
   background-color: var(--ion-color-secondary);
+}
+.loading-mask {
+  @apply absolute flex flex-col justify-center w-full h-full top-0 bottom-0 items-center;
+  background-color: rgba(121, 121, 121, 0.2);
 }
 </style>

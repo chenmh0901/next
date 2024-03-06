@@ -68,12 +68,13 @@ export const PROFILE_FIELDS: ProfileField[] = [
     key: 'selfResume',
     label: '简介',
     iconifyName: 'mdi:comment-outline'
-  },
-  {
-    key: 'adminResume',
-    label: '留言',
-    iconifyName: 'icon-park-outline:comment'
   }
+  // ,
+  // {
+  //   key: 'adminResume',
+  //   label: '留言',
+  //   iconifyName: 'icon-park-outline:comment'
+  // }
 ];
 
 export enum UserFormMode {

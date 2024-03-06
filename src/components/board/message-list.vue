@@ -41,12 +41,6 @@ watch(
     immediate: true
   }
 );
-
-/**
- * msg.userId exist in nameDictionary
- *
- * nameDictionary?.[msg.userId]
- */
 </script>
 <template>
   <IonList v-if="msgs && nameDictionary">
