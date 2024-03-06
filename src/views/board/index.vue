@@ -55,18 +55,16 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div>
-    <div v-if="msgs?.length && msgs.length > 0">
-      <MessageList :msgs="msgs" />
-      <IonButton
-        v-if="!isAdmin"
-        class="message-add-btn"
-        size="small"
-        @click="publish"
-      >
-        <IonIcon :icon="add"></IonIcon>
-      </IonButton>
-    </div>
+  <div v-if="msgs?.length && msgs.length > 0">
+    <MessageList :msgs="msgs" />
+    <IonButton
+      v-if="!isAdmin"
+      class="message-add-btn"
+      size="small"
+      @click="publish"
+    >
+      <IonIcon :icon="add"></IonIcon>
+    </IonButton>
   </div>
 </template>
 

@@ -8,11 +8,13 @@ import { toast } from '@/utils/toast';
 import ProfileUserCard from '@/components/profile-user-card/index.vue';
 import { useModal } from '@/composables/use-modal';
 import ProfileUserForm from '@/components/profile-user-form/index.vue';
+
 // about avatar
 const handleUploaded = async () => {
   await toast('上传成功');
   await refresh();
 };
+
 // user-form data
 const user = ref<User>();
 const fetchUserInfo = async () => {
@@ -23,16 +25,23 @@ const fetchUserInfo = async () => {
   return await useHttp<User>(option);
 };
 
+// open user-form
+const { open } = useModal();
+const openSelfForm = async () => {
+  await open(ProfileUserForm, { user: user.value, wrapperType: 'modal' });
+};
+
+// open admin-resume
+const openAdminResume = async () => {
+  await open(ProfileUserForm, { user: user.value, wrapperType: 'modal' });
+};
+
+// mounted
 const cardKey = ref(0);
 const refresh = async () => {
   cardKey.value++;
   const { data } = await fetchUserInfo();
   user.value = data as User;
-};
-//open user-form
-const { open } = useModal();
-const OnClick = async () => {
-  await open(ProfileUserForm, { user: user.value, wrapperType: 'modal' });
 };
 onMounted(refresh);
 </script>
@@ -40,7 +49,7 @@ onMounted(refresh);
 <template>
   <div v-if="user" class="profile">
     <ProfileUserCard :key="cardKey" :user="user" class="profile__card mt-4" />
-    <footer class="profile__card flex">
+    <div class="profile__card flex">
       <div class="half-block">
         <AvatarUpload
           v-slot="props"
@@ -57,12 +66,20 @@ onMounted(refresh);
       </div>
       <div class="divider w-[20px]"></div>
       <div class="half-block">
-        <button class="card-btn" @click="OnClick">
+        <button class="card-btn" @click="openSelfForm">
           <Icon class="inline text-[22px]" icon="mdi:account-edit-outline" />
           编辑信息
         </button>
       </div>
-    </footer>
+    </div>
+    <div class="profile__card flex">
+      <button class="card-btn !h-[80px] msg-btn" @click="openAdminResume">
+        <Icon
+          class="inline text-[22px]"
+          icon="mdi:message-processing-outline"
+        />查看留言
+      </button>
+    </div>
   </div>
   <div v-else class="loading-mask">
     <Icon class="text-[60px] mb-4" icon="line-md:loading-twotone-loop" />
@@ -86,6 +103,9 @@ onMounted(refresh);
 .card-btn {
   @apply w-full h-full rounded-3xl shadow-xl flex items-center justify-center gap-1;
   background-color: var(--ion-color-secondary);
+}
+.msg-btn {
+  background-color: var(--ion-color-secondary-contrast);
 }
 .loading-mask {
   @apply absolute flex flex-col justify-center w-full h-full top-0 bottom-0 items-center;
