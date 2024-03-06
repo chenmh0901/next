@@ -28,10 +28,7 @@ const fetchUserInfo = async () => {
 // open user-form
 const { open } = useModal();
 const openSelfForm = async () => {
-  await open({
-    component: ProfileUserForm,
-    property: { user: user.value, wrapperType: 'modal' }
-  });
+  await open(ProfileUserForm, { user: user.value, wrapperType: 'modal' });
 };
 
 // open admin-resume

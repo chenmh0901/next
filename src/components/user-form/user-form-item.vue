@@ -24,7 +24,8 @@ const props = defineProps<IProps>();
 const emit = defineEmits<{
   (e: 'change', val?: string): void;
 }>();
-//Picker
+
+// Picker
 const optionPlaceholder = '请选择';
 const options =
   PICKER_OPTIONS.find((i) => i.label == props.field.label)?.options || [];
@@ -33,7 +34,8 @@ const onClick = async () => {
   await picker.open();
   if (picker.picked.value) emit('change', picker.picked.value);
 };
-//DatePicker
+
+// DatePicker
 const datePicker = useModal();
 const datePicked = ref(props.value);
 const OpenDatePicker = async () => {

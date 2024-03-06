@@ -17,3 +17,19 @@ ion-popover {
 * {
   box-sizing: border-box;
 }
+
+.datepicker{
+  --background: rgba(44,39,45,0.2);
+}
+
+.datepicker ion-content{
+  --background:transparent;
+  --padding-top: 25vh;
+  --padding-start: 20px;
+  --padding-end: 20px;
+}
+
+.datepicker ion-datetime{
+  border-radius: 10px;
+}
+
