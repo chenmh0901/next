@@ -5,11 +5,11 @@ import { watch, onBeforeMount, ref, StyleValue } from 'vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
-import UserCard from '@/views/user-list/components/user-card/index.vue';
 import { useUserStore } from '@/stores/user';
 import { usePopover } from '@/composables/use-popover';
+import UserCard from '@/views/user-list/components/user-card/index.vue';
 import UserForm from '@/components/user-form/user-form.vue';
-
+import LoadingMask from '@/components/loading-mask/index.vue';
 enum ShowMode {
   COL = 'COL',
   ROW = 'ROW'
@@ -85,6 +85,7 @@ onBeforeMount(async () => {
       <IonIcon :icon="copyOutline" />
     </IonButton>
   </ul>
+  <LoadingMask v-else />
 </template>
 
 <style scoped>

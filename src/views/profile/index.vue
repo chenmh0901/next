@@ -10,6 +10,7 @@ import AvatarUpload from '@/components/avatar-upload/index.vue';
 import ProfileUserCard from '@/views/profile/components/user-card/index.vue';
 import ProfileUserForm from '@/views/profile/components/user-form/index.vue';
 import AdminMsg from '@/views/profile/components/admin-msg/index.vue';
+import LoadingMask from '@/components/loading-mask/index.vue';
 // about avatar
 const handleUploaded = async () => {
   await toast('上传成功');
@@ -88,10 +89,7 @@ onMounted(refresh);
       </button>
     </div>
   </div>
-  <div v-else class="loading-mask">
-    <Icon class="text-[60px] mb-4" icon="line-md:loading-twotone-loop" />
-    <div class="text-[20px]">正在加载...</div>
-  </div>
+  <LoadingMask v-else></LoadingMask>
 </template>
 
 <style scoped>
@@ -114,10 +112,5 @@ onMounted(refresh);
 
 .msg-btn {
   background-color: var(--ion-color-secondary-contrast);
-}
-
-.loading-mask {
-  @apply absolute flex flex-col justify-center w-full h-full top-0 bottom-0 items-center;
-  background-color: rgba(121, 121, 121, 0.2);
 }
 </style>
