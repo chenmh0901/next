@@ -65,7 +65,10 @@ const OpenDatePicker = async () => {
 
     <!-- TEXT OR INPUT -->
     <template v-if="mode === UserFormMode.READ">
-      <span class="flex items-center w-3/4">
+      <span
+        class="flex items-center justify-evenly"
+        :class="field.isSimple ? 'w-1/2' : 'w-3/4'"
+      >
         {{ value ?? '无' }}
       </span>
     </template>
@@ -76,7 +79,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="'请填写'"
           :value="value"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
+          class="border border-grey-300 rounded-lg text-center w-1/2"
           @change="(e) => emit('change', e.target.value)"
         />
       </template>
@@ -84,7 +87,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="optionPlaceholder"
           :value="picker.picked.value"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
+          class="border border-grey-300 rounded-lg text-center w-3/4"
           @click="onClick"
         />
       </template>
