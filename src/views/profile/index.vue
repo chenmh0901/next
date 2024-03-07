@@ -8,7 +8,7 @@ import { useModal } from '@/composables/use-modal';
 import AvatarUpload from '@/components/avatar-upload/index.vue';
 import ProfileUserCard from '@/views/profile/components/user-card/index.vue';
 import ProfileUserForm from '@/views/profile/components/user-form/index.vue';
-
+import AdminMsg from '@/views/profile/components/admin-msg/index.vue';
 // about avatar
 const handleUploaded = async () => {
   await toast('上传成功');
@@ -28,15 +28,15 @@ const fetchUserInfo = async () => {
 // open user-form
 const { open } = useModal();
 const openSelfForm = async () => {
-  await open(ProfileUserForm, { user: user.value, wrapperType: 'modal' });
-};
-
-// open admin-resume
-const openAdminResume = async () => {
   await open({
     component: ProfileUserForm,
     property: { user: user.value, wrapperType: 'modal' }
   });
+};
+
+// open admin-resume
+const openAdminResume = async () => {
+  await open({ component: AdminMsg, property: { user: user.value } });
 };
 
 // mounted
