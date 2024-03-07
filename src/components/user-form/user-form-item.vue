@@ -73,7 +73,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="'请填写'"
           :value="value"
-          class="inputStyle"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
           @change="(e) => emit('change', e.target.value)"
         />
       </template>
@@ -81,7 +81,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="optionPlaceholder"
           :value="picker.picked.value"
-          class="inputStyle"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
           @click="onClick"
         />
       </template>
@@ -89,7 +89,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="optionPlaceholder"
           :value="datePicked"
-          class="inputStyle"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
           @click="OpenDatePicker"
         />
       </template>
@@ -99,15 +99,11 @@ const OpenDatePicker = async () => {
           :value="datePicked"
           auto-grow
           :maxlength="50"
-          class="inputStyle"
+          class="border border-grey-300 rounded-lg text-center w-4/5"
         ></IonTextarea>
       </template>
     </template>
   </IonItem>
 </template>
 
-<style scoped>
-.inputStyle {
-  @apply border border-grey-300 rounded-lg text-center w-4/5;
-}
-</style>
+<style scoped></style>
