@@ -5,6 +5,7 @@ import { User } from '@/types/user';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { toast } from '@/utils/toast';
 import { useModal } from '@/composables/use-modal';
+import { usePopover } from '@/composables/use-popover';
 import AvatarUpload from '@/components/avatar-upload/index.vue';
 import ProfileUserCard from '@/views/profile/components/user-card/index.vue';
 import ProfileUserForm from '@/views/profile/components/user-form/index.vue';
@@ -35,8 +36,9 @@ const openSelfForm = async () => {
 };
 
 // open admin-resume
+const openPopover = usePopover();
 const openAdminResume = async () => {
-  await open({ component: AdminMsg, property: { user: user.value } });
+  await openPopover.open(AdminMsg, { user: user.value });
 };
 
 // mounted

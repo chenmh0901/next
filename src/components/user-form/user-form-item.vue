@@ -39,7 +39,10 @@ const onClick = async () => {
 const datePicker = useModal();
 const datePicked = ref(props.value);
 const OpenDatePicker = async () => {
-  const data = await datePicker.open(DatePicker, {}, 'datepicker');
+  const data = await datePicker.open({
+    component: DatePicker,
+    cssClass: 'datepicker'
+  });
   if (data) {
     datePicked.value = format(data.value, 'yyyy-MM-dd');
     emit('change', datePicked.value);
