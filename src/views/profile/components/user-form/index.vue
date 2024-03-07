@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import UserForm from '@components/user-form/user-form.vue';
 import { User } from '@/types/user';
-import Avatar from '@/components/avatar/avatar.vue';
+import Avatar from '@components/avatar/avatar.vue';
 interface IProps {
   user: User;
   wrapperType: string;

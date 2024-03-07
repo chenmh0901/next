@@ -6,8 +6,8 @@ import { IHttpOptions, useHttp } from '@/utils/http';
 import { toast } from '@/utils/toast';
 import { useModal } from '@/composables/use-modal';
 import AvatarUpload from '@/components/avatar-upload/index.vue';
-import ProfileUserCard from '@/components/profile-user-card/index.vue';
-import ProfileUserForm from '@/components/profile-user-form/index.vue';
+import ProfileUserCard from '@/views/profile/components/user-card/index.vue';
+import ProfileUserForm from '@/views/profile/components/user-form/index.vue';
 
 // about avatar
 const handleUploaded = async () => {
