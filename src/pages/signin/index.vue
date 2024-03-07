@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { IonButton, IonContent, IonInput } from '@ionic/vue';
+import { IonButton, IonInput, IonContent } from '@ionic/vue';
 import { onBeforeMount, ref } from 'vue';
 import { pageTo } from '@/router/director';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
@@ -9,7 +9,7 @@ import { useAuthStore } from '@/stores/auth';
 import { toast } from '@/utils/toast';
 import { validate } from '@/pages/signin/validator';
 import { useUserStore } from '@/stores/user';
-
+import LoadingMask from '@/components/loading-mask/index.vue';
 enum PageMode {
   SIGNIN = 'login',
   SIGNUP = 'register'
@@ -54,9 +54,13 @@ const getUserAndSetInStore = async () => {
   const user = (await useHttp(option)) as IUserResponse;
   await userStore.setUser(user.data);
 };
+// loading
+const loading = ref();
 const redirectWithToken = async (t: string) => {
+  loading.value = true;
   await authStore.setToken(t);
   await getUserAndSetInStore();
+  loading.value = false;
   pageTo('home');
 };
 const onClick = async () => {
@@ -82,15 +86,20 @@ const ChangeMode = () => {
 };
 
 onBeforeMount(() => {
+  loading.value = true;
   authStore.getToken().then((val) => {
-    if (val?.length) pageTo('home');
+    if (val?.length) {
+      loading.value = false;
+      pageTo('home');
+    }
   });
 });
 </script>
 
 <template>
   <IonContent>
-    <div class="signin">
+    <LoadingMask v-if="loading" />
+    <div v-else class="signin">
       <template v-if="val === PageMode.SIGNIN">
         <h1>登入芸馆💡</h1>
         <IonInput

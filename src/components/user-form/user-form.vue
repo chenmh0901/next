@@ -7,11 +7,12 @@ import {
 } from '@ionic/vue';
 import { PROFILE_FIELDS, UserFormMode } from '@/components/user-form/type';
 import { User } from '@/types/user';
-import UserFormItem from '@/components/user-form/user-form-item.vue';
 import { ref } from 'vue';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { toast } from '@/utils/toast';
+import { validate } from '@components/user-form/validator';
 
+import UserFormItem from '@/components/user-form/user-form-item.vue';
 interface IProps {
   user: User;
   wrapperType: string;
@@ -22,6 +23,7 @@ const form = ref<User>(props.user);
 const mode = ref<UserFormMode>(UserFormMode.READ);
 const onSave = async () => {
   try {
+    if (!(await validate(form.value))) return;
     const { data } = await patchUserInfo();
     if (data) {
       await toast('保存成功');

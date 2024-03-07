@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 ion-popover {
-  --width: 300px;
+  --width: 350px;
 }
 
 .alert .alert-title {
