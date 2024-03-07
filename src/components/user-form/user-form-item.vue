@@ -48,9 +48,9 @@ const OpenDatePicker = async () => {
 </script>
 
 <template>
-  <IonItem lines="none" class="mt-1">
+  <IonItem lines="none" :class="field.isSimple ? 'w-1/2' : 'w-full'">
     <!-- LABEL -->
-    <IonLabel class="w-1/4">
+    <IonLabel :class="field.isSimple ? 'w-1/2' : '1/4'">
       <template class="flex items-center">
         <Icon
           class="block w-[16px]"
@@ -61,11 +61,11 @@ const OpenDatePicker = async () => {
     </IonLabel>
 
     <!-- TEXT OR INPUT -->
-    <ion-text
-      v-if="mode === UserFormMode.READ"
-      class="h-[46px] flex items-center"
-      >{{ value ?? '无' }}</ion-text
-    >
+    <template v-if="mode === UserFormMode.READ">
+      <span class="flex items-center w-3/4">
+        {{ value ?? '无' }}
+      </span>
+    </template>
     <template v-else>
       <template
         v-if="field.type == ProfileFieldType.DEFAULT_TEXT || !field.type"
@@ -73,7 +73,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="'请填写'"
           :value="value"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
+          class="inputStyle"
           @change="(e) => emit('change', e.target.value)"
         />
       </template>
@@ -81,7 +81,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="optionPlaceholder"
           :value="picker.picked.value"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
+          class="inputStyle"
           @click="onClick"
         />
       </template>
@@ -89,7 +89,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="optionPlaceholder"
           :value="datePicked"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
+          class="inputStyle"
           @click="OpenDatePicker"
         />
       </template>
@@ -98,12 +98,16 @@ const OpenDatePicker = async () => {
           :placeholder="'请填写'"
           :value="datePicked"
           auto-grow
-          :maxlength="100"
-          class="border border-grey-300 text-center w-4/5"
+          :maxlength="50"
+          class="inputStyle"
         ></IonTextarea>
       </template>
     </template>
   </IonItem>
 </template>
 
-<style scoped></style>
+<style scoped>
+.inputStyle {
+  @apply border border-grey-300 rounded-lg text-center w-4/5;
+}
+</style>

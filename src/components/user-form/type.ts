@@ -3,6 +3,7 @@ export interface ProfileField {
   key: string;
   label: string;
   iconifyName?: string;
+  isSimple?: boolean;
 }
 
 export interface ProfilePickerField extends ProfileField {
@@ -34,16 +35,31 @@ export const DEFAULT_PROFILE_FIELD = {
   type: ProfileFieldType.DEFAULT_TEXT,
   key: 'undefined',
   label: '未定义',
-  iconifyName: 'prime:circle-off'
+  iconifyName: 'prime:circle-off',
+  isSimple: false
 };
 export const PROFILE_FIELDS: ProfileField[] = [
   {
     key: 'name',
     label: '姓名',
-    iconifyName: 'material-symbols:person-outline'
+    iconifyName: 'material-symbols:person-outline',
+    isSimple: true
+  },
+  { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别', isSimple: true },
+  {
+    key: 'roomName',
+    label: '寝室',
+    iconifyName: 'cil:room',
+    isSimple: true
+  },
+  {
+    type: ProfileFieldType.OPTIONS,
+    key: 'className',
+    label: '班级',
+    iconifyName: 'ic:outline-class',
+    isSimple: true
   },
   { key: 'no', label: '学号', iconifyName: 'ant-design:idcard-outlined' },
-  { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别' },
   {
     type: ProfileFieldType.DATE,
     key: 'birthday',
@@ -55,13 +71,6 @@ export const PROFILE_FIELDS: ProfileField[] = [
   { key: 'qq', label: 'QQ', iconifyName: 'ri:qq-line' },
   { key: 'birthPlace', label: '籍贯', iconifyName: 'tdesign:address-book' },
   { key: 'phone', label: '手机', iconifyName: 'tabler:phone-call' },
-  {
-    type: ProfileFieldType.OPTIONS,
-    key: 'className',
-    label: '班级',
-    iconifyName: 'ic:outline-class'
-  },
-  { key: 'roomName', label: '寝室', iconifyName: 'cil:room' },
   { key: 'address', label: '地址', iconifyName: 'mdi:address-marker-outline' },
   {
     type: ProfileFieldType.TEXTAREA,

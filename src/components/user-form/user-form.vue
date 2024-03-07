@@ -62,7 +62,7 @@ const onCancel = () => {
         }
       "
     />
-    <footer class="mt-auto flex justify-evenly mb-5">
+    <footer class="mt-auto flex justify-evenly mb-5 w-full">
       <template v-if="mode == UserFormMode.READ">
         <IonButton color="medium" @click="onCancel">退出</IonButton>
         <IonButton @click="mode = UserFormMode.EDIT">编辑</IonButton>
@@ -79,6 +79,6 @@ const onCancel = () => {
 
 <style scoped>
 .user-form {
-  @apply w-full rounded-lg h-full flex flex-col;
+  @apply w-full rounded-lg h-full flex flex-wrap;
 }
 </style>
