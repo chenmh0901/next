@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { watch, ref } from 'vue';
-import { MessageType } from '@/components/board/type';
+import { MessageType } from '@/views/board/components/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
-import MessageCard from '@/components/board/message-card.vue';
-import LoadingMask from '@/components/loading-mask/index.vue';
+import MessageCard from '@/views/board/components/message-card.vue';
+import LoadingMask from '@components/loading-mask/index.vue';
 interface IProps {
   msgs: MessageType[];
 }

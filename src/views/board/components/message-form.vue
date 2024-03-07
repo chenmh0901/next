@@ -10,7 +10,7 @@ import {
 } from '@ionic/vue';
 import { onMounted, ref } from 'vue';
 import { toast } from '@/utils/toast';
-import { MessageType } from '@/components/board/type';
+import { MessageType } from '@/views/board/components/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { useAlert } from '@/composables/use-alert';
 import { User } from '@/types/user';

@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { IonButton, IonIcon } from '@ionic/vue';
 import { computed, onBeforeMount, ref } from 'vue';
-import MessageList from '@/components/board/message-list.vue';
+import MessageList from '@/views/board/components/message-list.vue';
 import { IHttpOptions, useHttp } from '@/utils/http';
-import { MessageType } from '@/components/board/type';
-import MessageForm from '@/components/board/message-form.vue';
+import { MessageType } from '@/views/board/components/type';
+import MessageForm from '@/views/board/components/message-form.vue';
 import { useModal } from '@/composables/use-modal';
 import { add } from 'ionicons/icons';
 import { format } from 'date-fns';
@@ -42,7 +42,7 @@ const refresh = async () => {
 // onClick open modal and publish message
 const { open } = useModal();
 const publish = async () => {
-  const data = await open(MessageForm);
+  const data = await open({ component: MessageForm });
   if (data) {
     await refresh();
   }
