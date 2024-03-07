@@ -25,7 +25,7 @@ const confirm = async () => {
   <IonContent>
     <IonDatetime ref="datetime" :value="date" size="cover" presentation="date">
       <IonButtons slot="buttons">
-        <IonButton color="danger" @click="cancel()">取消</IonButton>
+        <IonButton color="medium" @click="cancel()">取消</IonButton>
         <IonButton color="primary" @click="confirm()">确认</IonButton>
       </IonButtons>
     </IonDatetime>
