@@ -45,7 +45,7 @@ const auth = async (data: AuthForm) => {
   }
 };
 // loading
-const loading = ref();
+const loading = ref(false);
 const redirectWithToken = async (t: string) => {
   loading.value = true;
   await authStore.setToken(t);
@@ -82,6 +82,7 @@ onBeforeMount(() => {
       pageTo('home');
     }
   });
+  loading.value = false;
 });
 </script>
 
