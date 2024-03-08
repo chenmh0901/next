@@ -61,7 +61,7 @@ const onCancel = () => {
     />
     <footer
       v-if="isAdmin || !isPrivacy"
-      class="mt-auto flex justify-evenly mb-5 w-full"
+      class="mt-auto flex justify-evenly w-full"
     >
       <template v-if="mode == UserFormMode.READ">
         <IonButton class="user-form__btn" color="medium" @click="onCancel"

@@ -65,13 +65,13 @@ const OpenDatePicker = async () => {
   >
     <!-- LABEL -->
     <IonLabel :class="field.isSimple ? 'w-1/2' : '1/4'">
-      <template class="flex items-center">
+      <div class="flex items-center">
         <Icon
           class="block w-[16px]"
           :icon="field.iconifyName ?? DEFAULT_PROFILE_FIELD.iconifyName"
         />
         <span class="ml-2">{{ field.label }}</span>
-      </template>
+      </div>
     </IonLabel>
 
     <!-- TEXT OR INPUT -->
