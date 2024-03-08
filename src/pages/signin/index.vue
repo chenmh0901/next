@@ -8,7 +8,6 @@ import { AuthForm } from '@/pages/signin/type';
 import { useAuthStore } from '@/stores/auth';
 import { toast } from '@/utils/toast';
 import { validate } from '@/pages/signin/validator';
-import { useUserStore } from '@/stores/user';
 import LoadingMask from '@/components/loading-mask/index.vue';
 enum PageMode {
   SIGNIN = 'login',
@@ -19,7 +18,6 @@ const form = ref<AuthForm>({} as AuthForm);
 const { val, toggle } = useEasyToggle([PageMode.SIGNIN, PageMode.SIGNUP]);
 
 const authStore = useAuthStore();
-const userStore = useUserStore();
 const register = async (data: AuthForm) => {
   const options: IHttpOptions<AuthForm> = {
     method: 'post',
@@ -46,20 +44,11 @@ const auth = async (data: AuthForm) => {
     await toast('登录失败');
   }
 };
-const getUserAndSetInStore = async () => {
-  const option: IHttpOptions<[]> = {
-    path: 'user/me',
-    method: 'get'
-  };
-  const user = (await useHttp(option)) as IUserResponse;
-  await userStore.setUser(user.data);
-};
 // loading
 const loading = ref();
 const redirectWithToken = async (t: string) => {
   loading.value = true;
   await authStore.setToken(t);
-  await getUserAndSetInStore();
   loading.value = false;
   pageTo('home');
 };

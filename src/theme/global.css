@@ -4,6 +4,8 @@
 
 ion-popover {
   --width: 350px;
+  --height: auto;
+  --max-width: 80vh;
 }
 
 .alert .alert-title {

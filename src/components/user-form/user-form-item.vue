@@ -18,6 +18,7 @@ interface IProps {
   mode: UserFormMode;
   field: ProfileField;
   value: string;
+  isAdmin: boolean;
 }
 
 const props = defineProps<IProps>();
@@ -51,7 +52,11 @@ const OpenDatePicker = async () => {
 </script>
 
 <template>
-  <IonItem lines="none" :class="field.isSimple ? 'w-1/2' : 'w-full'">
+  <IonItem
+    v-if="(!isAdmin && !field.isPrivacy) || (isAdmin && field.isPrivacy)"
+    lines="none"
+    :class="field.isSimple ? 'w-1/2' : 'w-full'"
+  >
     <!-- LABEL -->
     <IonLabel :class="field.isSimple ? 'w-1/2' : '1/4'">
       <template class="flex items-center">

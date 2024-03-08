@@ -8,7 +8,7 @@ import { User } from '@/types/user';
 import { useUserStore } from '@/stores/user';
 import { usePopover } from '@/composables/use-popover';
 import UserCard from '@/views/user-list/components/user-card/index.vue';
-import UserForm from '@/components/user-form/user-form.vue';
+import UserForm from './components/user-form/index.vue';
 import LoadingMask from '@/components/loading-mask/index.vue';
 enum ShowMode {
   COL = 'COL',
@@ -38,8 +38,6 @@ watch(
 );
 // users
 const users = ref<User[]>([]);
-const userStore = useUserStore();
-const isAdmin = ref<boolean>(false);
 const fetchUsers = async () => {
   try {
     const options: IHttpOptions<any> = {
@@ -52,14 +50,18 @@ const fetchUsers = async () => {
     console.error(e);
   }
 };
-// open dialog
+// open user-form
 const { open } = usePopover();
 const onClick = (user: User) => {
   open(UserForm, {
     user,
+    isAdmin: isAdmin.value,
     wrapperType: 'popover'
   });
 };
+// isAdmin
+const userStore = useUserStore();
+const isAdmin = ref<boolean>(false);
 onBeforeMount(async () => {
   await fetchUsers();
   isAdmin.value = await userStore.isAdmin();

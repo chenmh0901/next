@@ -33,8 +33,7 @@ const fetchMessages = async () => {
   };
   return await useHttp<MessageType[]>(option);
 };
-const userStore = useUserStore();
-const isAdmin = ref<boolean>();
+
 const refresh = async () => {
   const { data } = await fetchMessages();
   rawMsgs.value = data;
@@ -48,6 +47,9 @@ const publish = async () => {
   }
 };
 
+// isAdmin
+const userStore = useUserStore();
+const isAdmin = ref<boolean>();
 onBeforeMount(async () => {
   await refresh();
   isAdmin.value = await userStore.isAdmin();

@@ -15,7 +15,8 @@ import { validate } from '@components/user-form/validator';
 import UserFormItem from '@/components/user-form/user-form-item.vue';
 interface IProps {
   user: User;
-  wrapperType: string;
+  isAdmin: boolean;
+  wrapperType?: string;
 }
 
 const props = defineProps<IProps>();
@@ -58,13 +59,14 @@ const onCancel = () => {
       :field="field"
       :mode="mode"
       :value="form[field.key] as string"
+      :is-admin="isAdmin"
       @change="
         (v) => {
           form[field.key] = v;
         }
       "
     />
-    <footer class="mt-auto flex justify-evenly mb-5 w-full">
+    <footer v-if="isAdmin" class="mt-auto flex justify-evenly mb-5 w-full">
       <template v-if="mode == UserFormMode.READ">
         <IonButton color="medium" @click="onCancel">退出</IonButton>
         <IonButton @click="mode = UserFormMode.EDIT">编辑</IonButton>
