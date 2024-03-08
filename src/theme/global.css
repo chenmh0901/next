@@ -20,18 +20,33 @@ ion-popover {
   box-sizing: border-box;
 }
 
-.datepicker{
-  --background: rgba(121,121,121,0.2);
+.datepicker {
+  --background: rgba(121, 121, 121, 0.2);
 }
 
-.datepicker ion-content{
-  --background:transparent;
+.datepicker ion-content {
+  --background: transparent;
   --padding-top: 25vh;
   --padding-start: 20px;
   --padding-end: 20px;
 }
 
-.datepicker ion-datetime{
+.datepicker ion-datetime {
   border-radius: 10px;
 }
 
+ion-modal {
+  --height: 80%;
+  --border-radius: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal::part(backdrop) {
+  background: rgba(209, 213, 219);
+  opacity: 1;
+}
+
+ion-modal ion-toolbar {
+  --background: rgb(14 116 144);
+  --color: white;
+}
