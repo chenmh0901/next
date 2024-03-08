@@ -34,10 +34,14 @@ ion-popover {
 .datepicker ion-datetime {
   border-radius: 10px;
 }
-
+.dialog-modal{
+  --width: fit-content;
+  --max-width: 350px;
+  --height: fit-content;
+}
 ion-modal {
-  --height: 80%;
-  --border-radius: 16px;
+  --height: 100%;
+  --border-radiuss: 16px;
   --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 

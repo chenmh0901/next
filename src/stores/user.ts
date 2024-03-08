@@ -4,7 +4,7 @@ import { IHttpOptions, useHttp } from '@/utils/http';
 export const useUserStore = () => {
   const getUser = async () => {
     const options: IHttpOptions<any> = {
-      path: '/user/me',
+      path: 'user/me',
       method: 'get'
     };
     return await useHttp<User>(options);

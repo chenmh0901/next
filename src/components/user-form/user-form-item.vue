@@ -19,6 +19,7 @@ interface IProps {
   field: ProfileField;
   value: string;
   isAdmin: boolean;
+  isPrivacy: boolean;
 }
 
 const props = defineProps<IProps>();
@@ -53,7 +54,12 @@ const OpenDatePicker = async () => {
 
 <template>
   <IonItem
-    v-if="(!isAdmin && !field.isPrivacy) || (isAdmin && field.isPrivacy)"
+    v-if="
+      (!isAdmin && !field.isPrivacy) ||
+      (isAdmin && field.isPrivacy && isPrivacy) ||
+      (!isPrivacy && !field.isPrivacy && isAdmin) ||
+      (!isAdmin && !isPrivacy)
+    "
     lines="none"
     :class="field.isSimple ? 'w-1/2' : 'w-full'"
   >
@@ -72,7 +78,7 @@ const OpenDatePicker = async () => {
     <template v-if="mode === UserFormMode.READ">
       <span
         class="flex items-center justify-evenly"
-        :class="field.isSimple ? 'w-1/2' : 'w-3/4'"
+        :class="field.isSimple ? '' : 'w-3/4'"
       >
         {{ value ?? '无' }}
       </span>
@@ -84,7 +90,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="'请填写'"
           :value="value"
-          class="border border-grey-300 rounded-lg text-center w-1/2"
+          class="border border-grey-300 rounded-lg text-center"
           @change="(e) => emit('change', e.target.value)"
         />
       </template>
@@ -92,7 +98,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="optionPlaceholder"
           :value="picker.picked.value"
-          class="border border-grey-300 rounded-lg text-center w-3/4"
+          class="border border-grey-300 rounded-lg text-center"
           @click="onClick"
         />
       </template>
@@ -100,17 +106,17 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="optionPlaceholder"
           :value="datePicked"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
+          class="border border-grey-300 rounded-lg text-center"
           @click="OpenDatePicker"
         />
       </template>
       <template v-else-if="field.type === ProfileFieldType.TEXTAREA">
         <IonTextarea
           :placeholder="'请填写'"
-          :value="datePicked"
+          :value="value"
           auto-grow
           :maxlength="50"
-          class="border border-grey-300 rounded-lg text-center w-4/5"
+          class="border border-grey-300 rounded-lg text-center"
         ></IonTextarea>
       </template>
     </template>

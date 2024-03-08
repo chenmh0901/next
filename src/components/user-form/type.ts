@@ -103,7 +103,16 @@ export const PROFILE_FIELDS: ProfileField[] = [
     isPrivacy: true
   }
 ];
-
+export const PROFILE_FIELDS_ADMIN: ProfileField[] = [
+  ...PROFILE_FIELDS,
+  {
+    type: ProfileFieldType.TEXTAREA,
+    key: 'adminResume',
+    label: '留言',
+    iconifyName: 'mdi:message-text-outline',
+    isPrivacy: true
+  }
+];
 export enum UserFormMode {
   READ,
   EDIT

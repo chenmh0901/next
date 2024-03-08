@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { popoverController, IonButton, IonText } from '@ionic/vue';
+import { IonButton, IonText, modalController } from '@ionic/vue';
 import { Icon } from '@iconify/vue';
 import { User } from '@/types/user';
 interface IProps {
@@ -7,7 +7,7 @@ interface IProps {
 }
 defineProps<IProps>();
 const onClick = () => {
-  popoverController.dismiss();
+  modalController.dismiss();
 };
 </script>
 

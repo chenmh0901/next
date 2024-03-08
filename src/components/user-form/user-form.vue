@@ -1,11 +1,6 @@
 <script lang="ts" setup>
-import {
-  IonButton,
-  IonList,
-  modalController,
-  popoverController
-} from '@ionic/vue';
-import { PROFILE_FIELDS, UserFormMode } from '@/components/user-form/type';
+import { IonButton, IonList, modalController } from '@ionic/vue';
+import { ProfileField, UserFormMode } from '@/components/user-form/type';
 import { User } from '@/types/user';
 import { ref } from 'vue';
 import { IHttpOptions, useHttp } from '@/utils/http';
@@ -16,7 +11,8 @@ import UserFormItem from '@/components/user-form/user-form-item.vue';
 interface IProps {
   user: User;
   isAdmin: boolean;
-  wrapperType?: string;
+  isPrivacy: boolean;
+  profileFields: ProfileField[];
 }
 
 const props = defineProps<IProps>();
@@ -43,39 +39,46 @@ const patchUserInfo = async () => {
   return await useHttp(option);
 };
 const onCancel = () => {
-  if (props.wrapperType === 'modal') {
-    modalController.dismiss(false);
-  } else if (props.wrapperType === 'popover') {
-    popoverController.dismiss(false);
-  }
+  modalController.dismiss(false);
 };
 </script>
 
 <template>
   <IonList v-if="user" class="user-form">
     <UserFormItem
-      v-for="field in PROFILE_FIELDS"
+      v-for="field in props.profileFields"
       :key="field.key"
       :field="field"
       :mode="mode"
       :value="form[field.key] as string"
       :is-admin="isAdmin"
+      :is-privacy="isPrivacy"
       @change="
         (v) => {
           form[field.key] = v;
         }
       "
     />
-    <footer v-if="isAdmin" class="mt-auto flex justify-evenly mb-5 w-full">
+    <footer
+      v-if="isAdmin || !isPrivacy"
+      class="mt-auto flex justify-evenly mb-5 w-full"
+    >
       <template v-if="mode == UserFormMode.READ">
-        <IonButton color="medium" @click="onCancel">退出</IonButton>
-        <IonButton @click="mode = UserFormMode.EDIT">编辑</IonButton>
+        <IonButton class="user-form__btn" color="medium" @click="onCancel"
+          >退出</IonButton
+        >
+        <IonButton class="user-form__btn" @click="mode = UserFormMode.EDIT"
+          >编辑</IonButton
+        >
       </template>
       <template v-else>
-        <IonButton color="medium" @click="mode = UserFormMode.READ"
+        <IonButton
+          class="user-form__btn"
+          color="medium"
+          @click="mode = UserFormMode.READ"
           >取消</IonButton
         >
-        <IonButton @click="onSave">保存</IonButton>
+        <IonButton class="user-form__btn" @click="onSave">保存</IonButton>
       </template>
     </footer>
   </IonList>
@@ -84,5 +87,8 @@ const onCancel = () => {
 <style scoped>
 .user-form {
   @apply w-full rounded-lg h-full flex flex-wrap;
+}
+.user-form__btn {
+  @apply w-1/3;
 }
 </style>

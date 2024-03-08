@@ -76,8 +76,8 @@ onMounted(fetchAuthorNo);
       <h1>发布通知</h1>
     </div>
     <div class="content">
-      <IonList class="p-0">
-        <IonItem lines="none">
+      <IonList>
+        <IonItem lines="none" class="mb-2">
           <IonLabel class="w-1/5">发布者</IonLabel>
           <IonInput
             :value="no"

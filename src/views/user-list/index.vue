@@ -6,7 +6,6 @@ import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
 import { useUserStore } from '@/stores/user';
-import { usePopover } from '@/composables/use-popover';
 import UserCard from '@/views/user-list/components/user-card/index.vue';
 import UserForm from './components/user-form/index.vue';
 import LoadingMask from '@/components/loading-mask/index.vue';
@@ -58,22 +57,26 @@ const onClick = (user: User) => {
     component: UserForm,
     property: {
       user,
-      isAdmin: isAdmin.value,
-      wrapperType: 'popover'
-    }
+      isAdmin: isAdmin.value
+    },
+    cssClass: 'dialog-modal'
   });
 };
 // isAdmin
 const userStore = useUserStore();
-const isAdmin = ref<boolean>(false);
+const isAdmin = ref<boolean>();
+// loading
+const loading = ref();
 onBeforeMount(async () => {
+  loading.value = true;
   await fetchUsers();
   isAdmin.value = await userStore.isAdmin();
+  loading.value = false;
 });
 </script>
 
 <template>
-  <ul v-if="users?.length && users.length > 0" class="flex flex-wrap py-4">
+  <ul v-if="!loading" class="flex flex-wrap py-4">
     <UserCard
       v-for="user in users"
       :key="user.id"

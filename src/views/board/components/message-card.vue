@@ -7,8 +7,8 @@ import {
   IonCardContent
 } from '@ionic/vue';
 import { MessageType } from '@/views/board/components/type';
-import { usePopover } from '@/composables/use-popover';
-import CardDetailPopover from '@/views/board/components/card-detail-popover.vue';
+import { useModal } from '@/composables/use-modal';
+import CardDetailPopover from '@/views/board/components/card-detail-modal.vue';
 
 interface IProps {
   msg: MessageType;
@@ -16,11 +16,15 @@ interface IProps {
 }
 const props = defineProps<IProps>();
 // open msg detail
-const { open } = usePopover();
+const { open } = useModal();
 const onClick = async () => {
-  await open(CardDetailPopover, {
-    msg: props.msg,
-    name: props.nameDict[props.msg.userId]
+  await open({
+    component: CardDetailPopover,
+    property: {
+      msg: props.msg,
+      name: props.nameDict[props.msg.userId]
+    },
+    cssClass: 'dialog-modal'
   });
 };
 </script>
