@@ -82,6 +82,7 @@ onBeforeMount(() => {
       pageTo('home');
     }
   });
+  loading.value = false;
 });
 </script>
 
