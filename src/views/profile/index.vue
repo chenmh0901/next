@@ -50,7 +50,7 @@ const cardKey = ref(0);
 const refresh = async () => {
   cardKey.value++;
   const { data } = await fetchUserInfo();
-  user.value = data as User;
+  user.value = data;
 };
 onMounted(refresh);
 </script>
