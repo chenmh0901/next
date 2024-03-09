@@ -3,6 +3,8 @@ export interface ProfileField {
   key: string;
   label: string;
   iconifyName?: string;
+  isSimple?: boolean;
+  isPrivacy?: boolean;
 }
 
 export interface ProfilePickerField extends ProfileField {
@@ -34,48 +36,83 @@ export const DEFAULT_PROFILE_FIELD = {
   type: ProfileFieldType.DEFAULT_TEXT,
   key: 'undefined',
   label: '未定义',
-  iconifyName: 'prime:circle-off'
+  iconifyName: 'prime:circle-off',
+  isSimple: false,
+  isPrivacy: false
 };
 export const PROFILE_FIELDS: ProfileField[] = [
   {
     key: 'name',
     label: '姓名',
-    iconifyName: 'material-symbols:person-outline'
+    iconifyName: 'material-symbols:person-outline',
+    isSimple: true
   },
-  { key: 'no', label: '学号', iconifyName: 'ant-design:idcard-outlined' },
-  { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别' },
+  { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别', isSimple: true },
   {
-    type: ProfileFieldType.DATE,
-    key: 'birthday',
-    label: '生日',
-    iconifyName: 'mingcute:birthday-2-line'
+    key: 'roomName',
+    label: '寝室',
+    iconifyName: 'cil:room',
+    isSimple: true
   },
-  { key: 'email', label: '邮箱', iconifyName: 'ic:outline-email' },
-  { key: 'wechat', label: '微信', iconifyName: 'mingcute:wechat-line' },
-  { key: 'qq', label: 'QQ', iconifyName: 'ri:qq-line' },
-  { key: 'birthPlace', label: '籍贯', iconifyName: 'tdesign:address-book' },
-  { key: 'phone', label: '手机', iconifyName: 'tabler:phone-call' },
   {
     type: ProfileFieldType.OPTIONS,
     key: 'className',
     label: '班级',
-    iconifyName: 'ic:outline-class'
+    iconifyName: 'ic:outline-class',
+    isSimple: true
   },
-  { key: 'roomName', label: '寝室', iconifyName: 'cil:room' },
-  { key: 'address', label: '地址', iconifyName: 'mdi:address-marker-outline' },
+  { key: 'no', label: '学号', iconifyName: 'ant-design:idcard-outlined' },
+  { key: 'email', label: '邮箱', iconifyName: 'ic:outline-email' },
+  {
+    key: 'wechat',
+    label: '微信',
+    iconifyName: 'mingcute:wechat-line',
+    isPrivacy: true
+  },
+  {
+    type: ProfileFieldType.DATE,
+    key: 'birthday',
+    label: '生日',
+    iconifyName: 'mingcute:birthday-2-line',
+    isPrivacy: true
+  },
+  { key: 'qq', label: 'QQ', iconifyName: 'ri:qq-line', isPrivacy: true },
+  {
+    key: 'birthPlace',
+    label: '籍贯',
+    iconifyName: 'tdesign:address-book',
+    isPrivacy: true
+  },
+  {
+    key: 'phone',
+    label: '手机',
+    iconifyName: 'tabler:phone-call',
+    isPrivacy: true
+  },
+  {
+    key: 'address',
+    label: '地址',
+    iconifyName: 'mdi:address-marker-outline',
+    isPrivacy: true
+  },
   {
     type: ProfileFieldType.TEXTAREA,
     key: 'selfResume',
     label: '简介',
-    iconifyName: 'mdi:comment-outline'
-  },
-  {
-    key: 'adminResume',
-    label: '留言',
-    iconifyName: 'icon-park-outline:comment'
+    iconifyName: 'mdi:comment-outline',
+    isPrivacy: true
   }
 ];
-
+export const PROFILE_FIELDS_ADMIN: ProfileField[] = [
+  ...PROFILE_FIELDS,
+  {
+    type: ProfileFieldType.TEXTAREA,
+    key: 'adminResume',
+    label: '留言',
+    iconifyName: 'mdi:message-text-outline',
+    isPrivacy: true
+  }
+];
 export enum UserFormMode {
   READ,
   EDIT

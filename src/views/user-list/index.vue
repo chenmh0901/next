@@ -5,12 +5,11 @@ import { watch, onBeforeMount, ref, StyleValue } from 'vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
-import UserCard from '@/components/user-card/index.vue';
 import { useUserStore } from '@/stores/user';
-import { usePopover } from '@/composables/use-popover';
-import UserForm from '@/components/user-form/user-form.vue';
-import { UserFormMode } from '@/components/user-form/type';
-
+import UserCard from '@/views/user-list/components/user-card/index.vue';
+import UserForm from './components/user-form/index.vue';
+import LoadingMask from '@/components/loading-mask/index.vue';
+import { useModal } from '@/composables/use-modal';
 enum ShowMode {
   COL = 'COL',
   ROW = 'ROW'
@@ -39,8 +38,6 @@ watch(
 );
 // users
 const users = ref<User[]>([]);
-const userStore = useUserStore();
-const isAdmin = ref<boolean>(false);
 const fetchUsers = async () => {
   try {
     const options: IHttpOptions<any> = {
@@ -53,22 +50,33 @@ const fetchUsers = async () => {
     console.error(e);
   }
 };
-// open dialog
-const { open } = usePopover();
+// open user-form
+const { open } = useModal();
 const onClick = (user: User) => {
-  open(UserForm, {
-    user,
-    mode: UserFormMode.READ
+  open({
+    component: UserForm,
+    property: {
+      user,
+      isAdmin: isAdmin.value
+    },
+    cssClass: 'dialog-modal'
   });
 };
+// isAdmin
+const userStore = useUserStore();
+const isAdmin = ref<boolean>();
+// loading
+const loading = ref();
 onBeforeMount(async () => {
+  loading.value = true;
   await fetchUsers();
   isAdmin.value = await userStore.isAdmin();
+  loading.value = false;
 });
 </script>
 
 <template>
-  <ul v-if="users?.length && users.length > 0" class="flex flex-wrap py-4">
+  <ul v-if="!loading" class="flex flex-wrap py-4">
     <UserCard
       v-for="user in users"
       :key="user.id"
@@ -86,6 +94,7 @@ onBeforeMount(async () => {
       <IonIcon :icon="copyOutline" />
     </IonButton>
   </ul>
+  <LoadingMask v-else />
 </template>
 
 <style scoped>

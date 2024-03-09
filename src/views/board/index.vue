@@ -1,10 +1,10 @@
 <script lang="ts" setup>
 import { IonButton, IonIcon } from '@ionic/vue';
 import { computed, onBeforeMount, ref } from 'vue';
-import MessageList from '@/components/board/message-list.vue';
+import MessageList from '@/views/board/components/message-list.vue';
 import { IHttpOptions, useHttp } from '@/utils/http';
-import { MessageType } from '@/components/board/type';
-import MessageForm from '@/components/board/message-form.vue';
+import { MessageType } from '@/views/board/components/type';
+import MessageForm from '@/views/board/components/message-form.vue';
 import { useModal } from '@/composables/use-modal';
 import { add } from 'ionicons/icons';
 import { format } from 'date-fns';
@@ -33,8 +33,7 @@ const fetchMessages = async () => {
   };
   return await useHttp<MessageType[]>(option);
 };
-const userStore = useUserStore();
-const isAdmin = ref<boolean>();
+
 const refresh = async () => {
   const { data } = await fetchMessages();
   rawMsgs.value = data;
@@ -42,12 +41,15 @@ const refresh = async () => {
 // onClick open modal and publish message
 const { open } = useModal();
 const publish = async () => {
-  const data = await open(MessageForm);
+  const data = await open({ component: MessageForm });
   if (data) {
     await refresh();
   }
 };
 
+// isAdmin
+const userStore = useUserStore();
+const isAdmin = ref<boolean>();
 onBeforeMount(async () => {
   await refresh();
   isAdmin.value = await userStore.isAdmin();
@@ -55,12 +57,10 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <div>
-    <div v-if="msgs?.length && msgs.length > 0">
-      <MessageList :msgs="msgs" />
-    </div>
+  <div v-if="msgs?.length && msgs.length > 0">
+    <MessageList :msgs="msgs" />
     <IonButton
-      v-if="!isAdmin"
+      v-if="isAdmin"
       class="message-add-btn"
       size="small"
       @click="publish"
@@ -72,6 +72,6 @@ onBeforeMount(async () => {
 
 <style scoped>
 .message-add-btn {
-  @apply fixed top-[48px] right-3 w-[40px] h-[30px];
+  @apply fixed top-[38px] right-3 w-[40px] h-[30px];
 }
 </style>

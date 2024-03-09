@@ -10,7 +10,7 @@ import {
 } from '@ionic/vue';
 import { onMounted, ref } from 'vue';
 import { toast } from '@/utils/toast';
-import { MessageType } from '@/components/board/type';
+import { MessageType } from '@/views/board/components/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { useAlert } from '@/composables/use-alert';
 import { User } from '@/types/user';
@@ -76,8 +76,8 @@ onMounted(fetchAuthorNo);
       <h1>发布通知</h1>
     </div>
     <div class="content">
-      <IonList class="p-0">
-        <IonItem lines="none">
+      <IonList>
+        <IonItem lines="none" class="mb-2">
           <IonLabel class="w-1/5">发布者</IonLabel>
           <IonInput
             :value="no"

@@ -22,7 +22,7 @@ const baseClass = computed(() => {
 </script>
 
 <template>
-  <transition>
+  <transition mode="out-in">
     <img
       v-if="!isError"
       :class="baseClass"

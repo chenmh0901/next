@@ -1,8 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 ion-popover {
-  --width: 300px;
+  --width: 350px;
+  --height: auto;
+  --max-width: 80vh;
 }
 
 .alert .alert-title {
@@ -15,4 +18,39 @@ ion-popover {
 
 * {
   box-sizing: border-box;
+}
+
+.datepicker {
+  --background: rgba(121, 121, 121, 0.2);
+}
+
+.datepicker ion-content {
+  --background: transparent;
+  --padding-top: 25vh;
+  --padding-start: 20px;
+  --padding-end: 20px;
+}
+
+.datepicker ion-datetime {
+  border-radius: 10px;
+}
+.dialog-modal{
+  --width: fit-content;
+  --max-width: 350px;
+  --height: fit-content;
+}
+ion-modal {
+  --height: 100%;
+  --border-radiuss: 16px;
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+ion-modal::part(backdrop) {
+  background: rgba(209, 213, 219);
+  opacity: 1;
+}
+
+ion-modal ion-toolbar {
+  --background: rgb(14 116 144);
+  --color: white;
 }

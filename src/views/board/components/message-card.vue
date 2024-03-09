@@ -6,17 +6,31 @@ import {
   IonCardTitle,
   IonCardContent
 } from '@ionic/vue';
-import { MessageType } from '@/components/board/type';
+import { MessageType } from '@/views/board/components/type';
+import { useModal } from '@/composables/use-modal';
+import CardDetailPopover from '@/views/board/components/card-detail-modal.vue';
 
 interface IProps {
   msg: MessageType;
   nameDict: Record<string, string>;
 }
-defineProps<IProps>();
+const props = defineProps<IProps>();
+// open msg detail
+const { open } = useModal();
+const onClick = async () => {
+  await open({
+    component: CardDetailPopover,
+    property: {
+      msg: props.msg,
+      name: props.nameDict[props.msg.userId]
+    },
+    cssClass: 'dialog-modal'
+  });
+};
 </script>
 
 <template>
-  <IonCard class="pb-2">
+  <IonCard class="pb-2" @click="onClick">
     <IonCardHeader>
       <IonCardSubtitle>发布时间: {{ msg.time }}</IonCardSubtitle>
       <IonCardTitle>{{ nameDict[msg.userId] }}</IonCardTitle>

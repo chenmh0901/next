@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Avatar from '@/components/avatar/avatar.vue';
+import Avatar from '@components/avatar/avatar.vue';
 import { User } from '@/types/user';
 import { Icon } from '@iconify/vue';
 

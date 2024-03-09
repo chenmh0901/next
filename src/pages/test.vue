@@ -1,58 +1,36 @@
 <script lang="ts" setup>
-import { onMounted, ref, StyleValue, watch } from 'vue';
-import { useDraggable } from '@vueuse/core';
-
-const cardEl = ref<HTMLElement | null>(null);
-
-const { x, y, style } = useDraggable(cardEl, {
-  initialValue: { x: 40, y: 40 }
-});
-const customStyle = ref<StyleValue>();
-watch([x, y], () => {
-  const random = Math.random() * 50;
-
-  const top = y.value + random + 'px';
-  const left = x.value + random + 'px';
-  setTimeout(() => {
-    customStyle.value = {
-      position: 'fixed',
-      top,
-      left
-    } as StyleValue;
-  }, 233);
-});
-const helloEl = ref<HTMLElement | null>(null);
-onMounted(() => {
-  window.addEventListener('mousemove', (e) => {
-    if (helloEl.value) {
-      const x = (window.innerWidth / 2 - e.pageX) / 10;
-      const y = (window.innerHeight / 2 - e.pageY) / 10;
-      helloEl.value.style.transform = `perspective(1000px) rotateY(${y}deg) rotateX(${x}deg)`;
-    }
-  });
+import UserForm from '@components/user-form/user-form.vue';
+import { ref } from 'vue';
+import { User } from '@/types/user';
+const user = ref<User>({
+  id: 5,
+  no: 1210204146,
+  name: '浣熊',
+  password: '',
+  isAdmin: true,
+  email: 'nestaliy@666.com',
+  phone: '19112341234',
+  qq: '6666666666',
+  wechat: '15212341234',
+  sex: '男',
+  birthday: '2000-01-01',
+  className: '数媒212',
+  roomName: '8-324',
+  avatar: '1',
+  address: '浣能镇立本街道15-213',
+  birthPlace: '西安浣能镇',
+  selfResume:
+    '没有更多信息了!没有更多信息了!没有更多信息了!没有更多信息了!没有更多信息了!没有更多信息了!',
+  adminResume: '123456781234455'
 });
 </script>
-
 <template>
-  <div
-    ref="cardEl"
-    :style="style"
-    style="position: fixed; width: 200px; height: 200px"
-  >
-    <el-card style="width: 200px; height: 200px">你好</el-card>
-  </div>
-
-  <div
-    ref="helloEl"
-    :style="customStyle"
-    class="w-24 h-24 block shadow-2xl hello"
-  />
+  <ion-accordion-group>
+    <ion-accordion value="first">
+      <ion-item slot="header" color="light">
+        <ion-label>个人信息</ion-label>
+      </ion-item>
+      <UserForm slot="content" :user="user" />
+    </ion-accordion>
+  </ion-accordion-group>
 </template>
-
-<style scoped>
-.hello {
-  background: linear-gradient(45deg, #ff00ff, #00ffff);
-  border-radius: 50%;
-  z-index: 1000;
-}
-</style>

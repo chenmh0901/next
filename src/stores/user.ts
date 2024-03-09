@@ -1,20 +1,17 @@
-import { Storage } from '@ionic/storage';
 import { User } from '@/types/user';
+import { IHttpOptions, useHttp } from '@/utils/http';
 
 export const useUserStore = () => {
-  const storage = new Storage();
-
-  const setUser = async (u: User) => {
-    const s = await storage.create();
-    await s.set('user', u);
-  };
   const getUser = async () => {
-    const s = await storage.create();
-    return await s.get('user');
+    const options: IHttpOptions<any> = {
+      path: 'user/me',
+      method: 'get'
+    };
+    return await useHttp<User>(options);
   };
   const isAdmin = async () => {
-    const u = (await getUser()) as User;
-    return u.isAdmin;
+    const { data } = await getUser();
+    return data.isAdmin;
   };
-  return { getUser, setUser, isAdmin };
+  return { isAdmin, getUser };
 };
