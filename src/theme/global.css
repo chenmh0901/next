@@ -37,6 +37,7 @@ ion-popover {
 .dialog-modal{
   --width: fit-content;
   --max-width: 350px;
+  --min-width: 300px;
   --height: fit-content;
 }
 ion-modal {

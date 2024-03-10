@@ -17,8 +17,8 @@ const onClick = () => {
     <p>发布者:{{ name }}</p>
     <p class="my-1">发布时间:{{ msg.time }}</p>
     <div class="w-full flex h-full mb-2">
-      <p class="w-1/5">内容:</p>
-      <IonText class="border w-full">{{ msg.content }}}</IonText>
+      <p class="">内容:</p>
+      <IonText class="border w-5/6">{{ msg.content }}}</IonText>
     </div>
     <IonButton
       color="medium"
