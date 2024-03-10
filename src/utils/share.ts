@@ -1,20 +1,30 @@
-import {
-  Filesystem,
-  Directory,
-  FilesystemEncoding
-} from '@capacitor/filesystem';
+import { Directory, Filesystem } from '@capacitor/filesystem';
+import { User } from '@/types/user';
 import { Share } from '@capacitor/share';
 
-export async function exampleCreateAndShareFile() {
+export async function exampleCreateAndShareFile(user: User) {
+  const jsonToCsv = (json: User) => {
+    const keys = Object.keys(json);
+    const values = Object.values(json);
+    const delimiter = ',';
+
+    return (
+      keys.join(delimiter) +
+      '\n' +
+      values.map((v) => (v === null ? '' : v)).join(delimiter)
+    );
+  };
+  const csv = jsonToCsv(user);
   const fileName = 'example.txt';
-  const fileContent = 'Hello, world!';
+  const encoder = new TextEncoder();
+  const data = encoder.encode(csv);
+
+  const base64Data = btoa(String.fromCharCode(...Array.from(data)));
   const result = await Filesystem.writeFile({
     path: fileName,
-    data: fileContent,
-    directory: Directory.Documents,
-    encoding: FilesystemEncoding.UTF8
+    data: base64Data,
+    directory: Directory.Documents
   });
-
   try {
     await Share.share({
       title: 'Example File',
