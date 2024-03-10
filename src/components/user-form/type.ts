@@ -44,49 +44,49 @@ export const PROFILE_FIELDS: ProfileField[] = [
   {
     key: 'name',
     label: '姓名',
-    iconifyName: 'material-symbols:person-outline',
+    iconifyName: 'mdi:person-outline',
     isSimple: true
   },
   { type: ProfileFieldType.OPTIONS, key: 'sex', label: '性别', isSimple: true },
   {
     key: 'roomName',
     label: '寝室',
-    iconifyName: 'cil:room',
+    iconifyName: 'mdi:bedroom-outline',
     isSimple: true
   },
   {
     type: ProfileFieldType.OPTIONS,
     key: 'className',
     label: '班级',
-    iconifyName: 'ic:outline-class',
+    iconifyName: 'mdi:class',
     isSimple: true
   },
-  { key: 'no', label: '学号', iconifyName: 'ant-design:idcard-outlined' },
-  { key: 'email', label: '邮箱', iconifyName: 'ic:outline-email' },
+  { key: 'no', label: '学号', iconifyName: 'mdi:card-account-details-outline' },
+  { key: 'email', label: '邮箱', iconifyName: 'mdi:email-outline' },
   {
     key: 'wechat',
     label: '微信',
-    iconifyName: 'mingcute:wechat-line',
+    iconifyName: 'mdi:wechat',
     isPrivacy: true
   },
   {
     type: ProfileFieldType.DATE,
     key: 'birthday',
     label: '生日',
-    iconifyName: 'mingcute:birthday-2-line',
+    iconifyName: 'mdi:birthday-cake-outline',
     isPrivacy: true
   },
   { key: 'qq', label: 'QQ', iconifyName: 'ri:qq-line', isPrivacy: true },
   {
     key: 'birthPlace',
     label: '籍贯',
-    iconifyName: 'tdesign:address-book',
+    iconifyName: 'mdi:book-marker-outline',
     isPrivacy: true
   },
   {
     key: 'phone',
     label: '手机',
-    iconifyName: 'tabler:phone-call',
+    iconifyName: 'mdi:phone-in-talk-outline',
     isPrivacy: true
   },
   {
