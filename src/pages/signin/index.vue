@@ -64,7 +64,7 @@ const onClick = async () => {
   } else {
     auth(form.value).then(async (r) => {
       if (r?.token) {
-        await toast('登陆成功');
+        await toast('登入成功');
         await redirectWithToken(r.token as string);
       }
     });
