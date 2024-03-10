@@ -55,15 +55,17 @@ const redirectWithToken = async (t: string) => {
 const onClick = async () => {
   if (!(await validate(form.value, val.value))) return;
   if (val.value === PageMode.SIGNUP) {
-    register(form.value).then((r) => {
+    register(form.value).then(async (r) => {
       if (r?.token) {
-        redirectWithToken(r.token as string);
+        await toast('注册成功');
+        await redirectWithToken(r.token as string);
       }
     });
   } else {
-    auth(form.value).then((r) => {
+    auth(form.value).then(async (r) => {
       if (r?.token) {
-        redirectWithToken(r.token as string);
+        await toast('登陆成功');
+        await redirectWithToken(r.token as string);
       }
     });
   }
