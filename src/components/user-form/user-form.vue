@@ -60,7 +60,7 @@ const onCancel = () => {
       "
     />
     <footer
-      v-if="isAdmin || !isPrivacy"
+      v-if="isAdmin || isPrivacy"
       class="mt-auto flex justify-evenly w-full"
     >
       <template v-if="mode == UserFormMode.READ">

@@ -55,10 +55,9 @@ const OpenDatePicker = async () => {
 <template>
   <IonItem
     v-if="
-      (!isAdmin && !field.isPrivacy) ||
-      (isAdmin && field.isPrivacy && isPrivacy) ||
-      (!isPrivacy && !field.isPrivacy && isAdmin) ||
-      (!isAdmin && !isPrivacy)
+      (!isAdmin && !field.isPrivacy && !isPrivacy) ||
+      (isAdmin && !field.isPrivacy && !isPrivacy) ||
+      (isAdmin && field.isPrivacy && isPrivacy)
     "
     lines="none"
     :class="field.isSimple ? 'w-1/2' : 'w-full'"

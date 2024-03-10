@@ -16,7 +16,7 @@ defineProps<IProps>();
     <template v-if="!isAdmin">
       <UserForm
         :user="user"
-        :is-admin="!isAdmin"
+        :is-admin="isAdmin"
         :is-privacy="false"
         :profile-fields="PROFILE_FIELDS_ADMIN"
       />
