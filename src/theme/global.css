@@ -2,12 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-ion-popover {
-  --width: 350px;
-  --height: auto;
-  --max-width: 80vh;
-}
-
 .alert .alert-title {
   @apply text-lg;
 }

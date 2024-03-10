@@ -36,9 +36,9 @@ const openSelfForm = async () => {
 };
 
 // open admin-resume
-const openPopover = useModal();
+const openModal = useModal();
 const openAdminResume = async () => {
-  await openPopover.open({
+  await openModal.open({
     component: AdminMsg,
     property: { user: user.value },
     cssClass: 'dialog-modal'
