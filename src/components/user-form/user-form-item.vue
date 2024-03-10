@@ -20,6 +20,7 @@ interface IProps {
   value: string;
   isAdmin: boolean;
   isPrivacy: boolean;
+  isSelfForm: boolean;
 }
 
 const props = defineProps<IProps>();
@@ -58,7 +59,7 @@ const OpenDatePicker = async () => {
       (!isAdmin && !field.isPrivacy && !isPrivacy) ||
       (isAdmin && !field.isPrivacy && !isPrivacy) ||
       (isAdmin && field.isPrivacy && isPrivacy) ||
-      (isAdmin && !isPrivacy)
+      isSelfForm
     "
     lines="none"
     :class="field.isSimple ? 'w-1/2' : 'w-full'"
