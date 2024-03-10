@@ -64,7 +64,7 @@ const OpenDatePicker = async () => {
     :class="field.isSimple ? 'w-1/2' : 'w-full'"
   >
     <!-- LABEL -->
-    <IonLabel :class="field.isSimple ? 'w-1/2' : '1/4'">
+    <IonLabel :class="field.isSimple ? 'w-1/2' : 'w-1/4'">
       <div class="flex items-center">
         <Icon
           class="block w-[16px]"
@@ -90,7 +90,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="'请填写'"
           :value="value"
-          class="border border-grey-300 rounded-lg text-center"
+          class="border border-grey-300 rounded-lg text-center w-3/4"
           @change="(e) => emit('change', e.target.value)"
         />
       </template>
@@ -98,7 +98,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="optionPlaceholder"
           :value="picker.picked.value"
-          class="border border-grey-300 rounded-lg text-center"
+          class="border border-grey-300 rounded-lg text-center w-3/4"
           @click="onClick"
         />
       </template>
@@ -106,7 +106,7 @@ const OpenDatePicker = async () => {
         <IonInput
           :placeholder="optionPlaceholder"
           :value="datePicked"
-          class="border border-grey-300 rounded-lg text-center"
+          class="border border-grey-300 rounded-lg text-center w-3/4"
           @click="OpenDatePicker"
         />
       </template>
@@ -116,7 +116,7 @@ const OpenDatePicker = async () => {
           :value="value"
           auto-grow
           :maxlength="50"
-          class="border border-grey-300 rounded-lg text-center"
+          class="border border-grey-300 rounded-lg text-center w-3/4"
         ></IonTextarea>
       </template>
     </template>
