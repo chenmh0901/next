@@ -17,7 +17,7 @@ const onClick = () => {
       <Icon class="inline mr-0.5" icon="mdi:message-text-outline" />管理员留言
     </p>
     <div class="w-full flex h-[100px] my-2">
-      <IonText class="border w-full">{{ user.adminResume }}}</IonText>
+      <IonText class="border w-full">{{ user.adminResume ?? '无' }}</IonText>
     </div>
     <IonButton color="medium" class="mt-auto flex" size="small" @click="onClick"
       >确认</IonButton
