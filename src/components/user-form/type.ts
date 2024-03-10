@@ -29,7 +29,7 @@ export enum ProfileFieldType {
   TEXTAREA,
   OPTIONS,
   DATE,
-  NUMBER
+  CHECKBOX
 }
 
 export const DEFAULT_PROFILE_FIELD = {
@@ -110,6 +110,13 @@ export const PROFILE_FIELDS_ADMIN: ProfileField[] = [
     key: 'adminResume',
     label: '留言',
     iconifyName: 'mdi:message-text-outline',
+    isPrivacy: true
+  },
+  {
+    type: ProfileFieldType.CHECKBOX,
+    key: 'isAdmin',
+    label: '管理员',
+    iconifyName: 'mdi:account-check-outline',
     isPrivacy: true
   }
 ];

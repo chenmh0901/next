@@ -17,7 +17,7 @@ defineProps<IProps>();
     <UserForm
       class="my-2"
       :user="user"
-      :is-admin="false"
+      :is-admin="true"
       :is-privacy="false"
       :profile-fields="PROFILE_FIELDS"
     />

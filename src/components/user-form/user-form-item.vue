@@ -32,7 +32,7 @@ const optionPlaceholder = '请选择';
 const options =
   PICKER_OPTIONS.find((i) => i.label == props.field.label)?.options || [];
 const picker = usePicker(options, props.value);
-const onClick = async () => {
+const openOptionPicker = async () => {
   await picker.open();
   if (picker.picked.value) emit('change', picker.picked.value);
 };
@@ -57,7 +57,8 @@ const OpenDatePicker = async () => {
     v-if="
       (!isAdmin && !field.isPrivacy && !isPrivacy) ||
       (isAdmin && !field.isPrivacy && !isPrivacy) ||
-      (isAdmin && field.isPrivacy && isPrivacy)
+      (isAdmin && field.isPrivacy && isPrivacy) ||
+      (isAdmin && !isPrivacy)
     "
     lines="none"
     :class="field.isSimple ? 'w-1/2' : 'w-full'"
@@ -90,7 +91,14 @@ const OpenDatePicker = async () => {
           :placeholder="'请填写'"
           :value="value"
           class="border border-grey-300 rounded-lg text-center w-3/4"
-          @change="(e) => emit('change', e.target.value)"
+          @change="
+            (e: Event) => {
+              const target = e.target as HTMLInputElement;
+              if (target) {
+                emit('change', target.value);
+              }
+            }
+          "
         />
       </template>
       <template v-else-if="field.type == ProfileFieldType.OPTIONS">
@@ -98,7 +106,7 @@ const OpenDatePicker = async () => {
           :placeholder="optionPlaceholder"
           :value="picker.picked.value"
           class="border border-grey-300 rounded-lg text-center w-3/4"
-          @click="onClick"
+          @click="openOptionPicker"
         />
       </template>
       <template v-else-if="field.type == ProfileFieldType.DATE">
@@ -109,7 +117,7 @@ const OpenDatePicker = async () => {
           @click="OpenDatePicker"
         />
       </template>
-      <template v-else-if="field.type === ProfileFieldType.TEXTAREA">
+      <template v-else-if="field.type == ProfileFieldType.TEXTAREA">
         <IonTextarea
           :placeholder="'请填写'"
           :value="value"
@@ -117,6 +125,20 @@ const OpenDatePicker = async () => {
           :maxlength="50"
           class="border border-grey-300 rounded-lg text-center w-3/4"
         ></IonTextarea>
+      </template>
+      <template v-else-if="field.type == ProfileFieldType.CHECKBOX">
+        <input
+          type="checkbox"
+          class="w-3/4"
+          @change="
+            (e: Event) => {
+              const target = e.target as HTMLInputElement;
+              if (target) {
+                emit('change', target.checked.toString());
+              }
+            }
+          "
+        />
       </template>
     </template>
   </IonItem>
