@@ -7,9 +7,12 @@
 
 <script setup lang="ts">
 import { IonApp, IonRouterOutlet } from '@ionic/vue';
-import { exampleCreateAndShareFile } from '@/utils/share';
+import {
+  exampleCreateAndDownloadFile,
+  exampleCreateAndShareFile
+} from '@/utils/share';
 const debug = () => {
-  exampleCreateAndShareFile();
+  exampleCreateAndDownloadFile();
 };
 </script>
 

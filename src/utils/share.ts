@@ -39,6 +39,20 @@ export const createAndShareCsv = async (users: User[]) => {
     await toast('分享失败 ' + error);
   }
 };
+
+export async function exampleCreateAndDownloadFile() {
+  const fileName = 'example.txt';
+  const fileContent = 'Hello, world!';
+
+  const result = URL.createObjectURL(
+    new Blob([fileContent], { type: 'text/plain' })
+  );
+
+  const link = document.createElement('a');
+  link.download = fileName;
+  link.href = result;
+  link.click();
+}
 export async function exampleCreateAndShareFile() {
   const fileName = 'example.txt';
   const fileContent = 'Hello, world!, 123, 123, 123';
