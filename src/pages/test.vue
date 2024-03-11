@@ -30,7 +30,6 @@ const user = ref<User>({
       <ion-item slot="header" color="light">
         <ion-label>个人信息</ion-label>
       </ion-item>
-      <UserForm slot="content" :user="user" />
     </ion-accordion>
   </ion-accordion-group>
 </template>

@@ -4,10 +4,45 @@ import {
   FilesystemEncoding
 } from '@capacitor/filesystem';
 import { Share } from '@capacitor/share';
+import { User } from '@/types/user';
+import { toast } from '@/utils/toast';
 
+export const createAndShareCsv = async (users: User[]) => {
+  const UsersToCsv = (u: User[]) => {
+    const keys = Object.keys(u); // ['name', 'age', 'email']
+    const lines = u.map((row) =>
+      keys.map((key) => JSON.stringify(row[key])).join(',')
+    ); // [ '"John Doe",25,"
+
+    lines.unshift(keys.join(',')); // ["name,age,email"]
+    return lines.join('\n');
+  };
+
+  const fileName = 'users.csv';
+  const csv = UsersToCsv(users);
+
+  const result = await Filesystem.writeFile({
+    path: fileName,
+    data: csv,
+    directory: Directory.Documents,
+    encoding: FilesystemEncoding.UTF8
+  });
+
+  try {
+    await Share.share({
+      title: '分享用户列表',
+      text: '分享至任意 APP 或社交网站',
+      url: result.uri,
+      dialogTitle: '分享用户列表'
+    });
+  } catch (error) {
+    await toast('分享失败 ' + error);
+  }
+};
 export async function exampleCreateAndShareFile() {
   const fileName = 'example.txt';
-  const fileContent = 'Hello, world!';
+  const fileContent = 'Hello, world!, 123, 123, 123';
+
   const result = await Filesystem.writeFile({
     path: fileName,
     data: fileContent,

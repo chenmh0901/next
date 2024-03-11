@@ -18,9 +18,9 @@ interface IProps {
   mode: UserFormMode;
   field: ProfileField;
   value: string;
-  isAdmin: boolean;
-  isPrivacy: boolean;
-  isSelfForm: boolean;
+  isAdmin?: boolean;
+  isPrivacy?: boolean;
+  isSelfForm?: boolean;
 }
 
 const props = defineProps<IProps>();
