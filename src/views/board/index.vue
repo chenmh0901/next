@@ -9,7 +9,8 @@ import { format } from 'date-fns';
 import { useUserStore } from '@/stores/user';
 import MessageList from '@/views/board/components/message-list.vue';
 import MessageForm from '@/views/board/components/message-form.vue';
-import DefaultMask from '@/components/default-mask/index.vue';
+import LoadingMask from '@components/loading-mask/index.vue';
+import DefaultMask from '@components/default-mask/index.vue';
 
 const rawMsgs = ref<MessageType[]>();
 const msgs = computed(() => {
@@ -51,17 +52,23 @@ const publish = async () => {
 // isAdmin
 const userStore = useUserStore();
 const isAdmin = ref<boolean>();
+const loading = ref();
 onBeforeMount(async () => {
+  loading.value = true;
   await refresh();
   isAdmin.value = await userStore.isAdmin();
+  loading.value = false;
 });
 </script>
 
 <template>
-  <div v-if="msgs?.length && msgs.length > 0">
-    <MessageList :msgs="msgs" />
-  </div>
-  <DefaultMask v-else text="还未有任何通知发布..." />
+  <template v-if="!loading">
+    <div v-if="msgs?.length && msgs.length > 0">
+      <MessageList :msgs="msgs" />
+    </div>
+    <DefaultMask v-else text="还未有任何通知发布..." />
+  </template>
+  <LoadingMask v-else />
   <IonButton
     v-if="isAdmin"
     class="message-add-btn"

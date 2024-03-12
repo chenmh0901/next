@@ -4,7 +4,6 @@ import { MessageType } from '@/views/board/components/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
 import MessageCard from '@/views/board/components/message-card.vue';
-import LoadingMask from '@components/loading-mask/index.vue';
 interface IProps {
   msgs: MessageType[];
 }
@@ -29,7 +28,7 @@ const getUserNameDictionary = async (msgs: MessageType[]) => {
   return dictionary;
 };
 
-const nameDictionary = ref();
+const nameDictionary = ref({});
 watch(
   props.msgs,
   () => {
@@ -51,7 +50,6 @@ watch(
       :msg="msg"
     />
   </IonList>
-  <LoadingMask v-else />
 </template>
 
 <style scoped></style>

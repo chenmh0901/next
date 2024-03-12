@@ -6,10 +6,10 @@ import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
 import { useUserStore } from '@/stores/user';
+import { useModal } from '@/composables/use-modal';
 import UserCard from '@/views/user-list/components/user-card/index.vue';
 import UserForm from './components/user-form/index.vue';
 import LoadingMask from '@/components/loading-mask/index.vue';
-import { useModal } from '@/composables/use-modal';
 enum ShowMode {
   COL = 'COL',
   ROW = 'ROW'

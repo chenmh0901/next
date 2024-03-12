@@ -11,9 +11,11 @@ import ProfileUserForm from '@/views/profile/components/user-form/index.vue';
 import AdminMsg from '@/views/profile/components/admin-msg/index.vue';
 import LoadingMask from '@/components/loading-mask/index.vue';
 // about avatar
-const handleUploaded = async () => {
-  await toast('上传成功');
-  await refresh();
+const handleUploaded = async (date) => {
+  if (date) {
+    await toast('上传成功');
+    await refresh();
+  }
 };
 
 // user-form data
