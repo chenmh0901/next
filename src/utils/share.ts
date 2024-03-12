@@ -9,18 +9,16 @@ import { toast } from '@/utils/toast';
 
 export const createAndShareCsv = async (users: User[]) => {
   const UsersToCsv = (u: User[]) => {
-    const keys = Object.keys(u); // ['name', 'age', 'email']
+    const keys = Object.keys(u[0]); // ['name', 'age', 'email']
     const lines = u.map((row) =>
       keys.map((key) => JSON.stringify(row[key])).join(',')
     ); // [ '"John Doe",25,"
-
     lines.unshift(keys.join(',')); // ["name,age,email"]
     return lines.join('\n');
   };
 
   const fileName = 'users.csv';
   const csv = UsersToCsv(users);
-
   const result = await Filesystem.writeFile({
     path: fileName,
     data: csv,
@@ -35,8 +33,10 @@ export const createAndShareCsv = async (users: User[]) => {
       url: result.uri,
       dialogTitle: '分享用户列表'
     });
+    return true;
   } catch (error) {
     await toast('分享失败 ' + error);
+    return null;
   }
 };
 
