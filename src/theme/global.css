@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-.alert .alert-title {
+ion-alert .alert-title {
   @apply text-lg;
 }
 
-.alert .alert-message {
+ion-alert .alert-message {
   @apply text-base;
 }
 
