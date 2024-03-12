@@ -14,9 +14,15 @@
     "noEmit": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@components/*": ["./src/components/*"],
+      "@components/*": ["./src/components/*"]
     }
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx", "src/**/*.vue"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts",
+    "src/**/*.spec.ts",
+    "src/**/*.tsx",
+    "src/**/*.vue"
+, "src/test/fetch-users.test.js"  ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
