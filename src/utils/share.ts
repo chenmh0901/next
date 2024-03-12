@@ -17,20 +17,23 @@ export const createAndShareCsv = async (users: User[]) => {
     return lines.join('\n');
   };
 
-  const fileName = 'users.csv';
+  // const fileName = 'users.csv';
   const csv = UsersToCsv(users);
-  const result = await Filesystem.writeFile({
-    path: fileName,
-    data: csv,
-    directory: Directory.Documents,
-    encoding: FilesystemEncoding.UTF8
-  });
+  // const result = await Filesystem.writeFile({
+  //   path: fileName,
+  //   data: csv,
+  //   directory: Directory.Documents,
+  //   encoding: FilesystemEncoding.UTF8
+  // });
+  const result = URL.createObjectURL(
+    new Blob([csv], { type: 'text/plain' })
+  );
 
   try {
     await Share.share({
       title: '分享用户列表',
       text: '分享至任意 APP 或社交网站',
-      url: result.uri,
+      files: [result],
       dialogTitle: '分享用户列表'
     });
     return true;

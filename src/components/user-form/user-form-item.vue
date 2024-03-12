@@ -7,11 +7,11 @@ import {
   UserFormMode
 } from '@/components/user-form/type';
 import { IonInput, IonItem, IonLabel, IonTextarea } from '@ionic/vue';
-import { usePicker } from '@/composables/use-picker';
+import { PickerGroup, usePicker } from '@/composables/use-picker';
 import { Icon } from '@iconify/vue';
 import { useModal } from '@/composables/use-modal';
 import DatePicker from '@/components/date-picker/index.vue';
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { format } from 'date-fns';
 
 interface IProps {
@@ -29,9 +29,9 @@ const emit = defineEmits<{
 
 // Picker
 const optionPlaceholder = '请选择';
-const options =
-  PICKER_OPTIONS.find((i) => i.label == props.field.label)?.options || [];
-const picker = usePicker(options, props.value);
+const options: PickerGroup[] =
+  PICKER_OPTIONS.find((i) => i.label == props.field.label)?.groups || [];
+const picker = usePicker(options);
 const openOptionPicker = async () => {
   await picker.open();
   if (picker.picked.value) emit('change', picker.picked.value);

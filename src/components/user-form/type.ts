@@ -1,3 +1,5 @@
+import { PickerGroup } from '@/composables/use-picker';
+
 export interface ProfileField {
   type?: ProfileFieldType;
   key: string;
@@ -8,19 +10,55 @@ export interface ProfileField {
 }
 
 export interface ProfilePickerField extends ProfileField {
-  options: string[];
+  groups: PickerGroup[];
 }
 
 export const PICKER_OPTIONS: ProfilePickerField[] = [
   {
     key: 'sex',
     label: '性别',
-    options: ['男', '女']
+    groups: [
+      {
+        name: '性别',
+        col: {
+          values: ['男', '女'],
+          defaultValue: '男'
+        }
+      }
+    ]
   },
   {
     key: 'className',
     label: '班级',
-    options: ['数媒211', '数媒212']
+    groups: [
+      {
+        name: '班级',
+        col: {
+          values: ['数媒211', '数媒212'],
+          defaultValue: '数媒211'
+        }
+      }
+    ]
+  },
+  {
+    key: 'birthPlace',
+    label: '籍贯',
+    groups: [
+      {
+        name: '省份',
+        col: {
+          values: ['广东省', '湖南省', '浙江省'],
+          defaultValue: '广东省'
+        }
+      },
+      {
+        name: '地级市',
+        col: {
+          values: ['广州市', '长沙市', '杭州市'],
+          defaultValue: '广州市'
+        }
+      }
+    ]
   }
 ];
 
@@ -78,6 +116,7 @@ export const PROFILE_FIELDS: ProfileField[] = [
   },
   { key: 'qq', label: 'QQ', iconifyName: 'ri:qq-line', isPrivacy: true },
   {
+    type: ProfileFieldType.OPTIONS,
     key: 'birthPlace',
     label: '籍贯',
     iconifyName: 'mdi:book-marker-outline',
