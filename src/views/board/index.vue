@@ -1,14 +1,15 @@
 <script lang="ts" setup>
 import { IonButton, IonIcon } from '@ionic/vue';
 import { computed, onBeforeMount, ref } from 'vue';
-import MessageList from '@/views/board/components/message-list.vue';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { MessageType } from '@/views/board/components/type';
-import MessageForm from '@/views/board/components/message-form.vue';
 import { useModal } from '@/composables/use-modal';
 import { add } from 'ionicons/icons';
 import { format } from 'date-fns';
 import { useUserStore } from '@/stores/user';
+import MessageList from '@/views/board/components/message-list.vue';
+import MessageForm from '@/views/board/components/message-form.vue';
+import DefaultMask from '@/components/default-mask/index.vue';
 
 const rawMsgs = ref<MessageType[]>();
 const msgs = computed(() => {
@@ -59,15 +60,16 @@ onBeforeMount(async () => {
 <template>
   <div v-if="msgs?.length && msgs.length > 0">
     <MessageList :msgs="msgs" />
-    <IonButton
-      v-if="isAdmin"
-      class="message-add-btn"
-      size="small"
-      @click="publish"
-    >
-      <IonIcon :icon="add"></IonIcon>
-    </IonButton>
   </div>
+  <DefaultMask v-else text="还未有任何通知发布..." />
+  <IonButton
+    v-if="isAdmin"
+    class="message-add-btn"
+    size="small"
+    @click="publish"
+  >
+    <IonIcon :icon="add"></IonIcon>
+  </IonButton>
 </template>
 
 <style scoped>

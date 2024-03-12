@@ -18,7 +18,10 @@ import { User } from '@/types/user';
 const form = ref<MessageType>({} as MessageType);
 const no = ref();
 //onClick open alert
-const { userChoice, alert } = useAlert('发布提示', '确定发布吗？');
+const { userChoice, alert } = useAlert({
+  header: '发布提示',
+  message: '确定发布吗？'
+});
 const onClick = async () => {
   if (form.value) {
     if (!form.value.content) {
