@@ -11,7 +11,7 @@ import { usePicker } from '@/composables/use-picker';
 import { Icon } from '@iconify/vue';
 import { useModal } from '@/composables/use-modal';
 import DatePicker from '@/components/date-picker/index.vue';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { format } from 'date-fns';
 
 interface IProps {
@@ -50,6 +50,8 @@ const OpenDatePicker = async () => {
     emit('change', datePicked.value);
   }
 };
+// checkbox
+const checkedValue = ref(props.value);
 </script>
 
 <template>
@@ -73,14 +75,22 @@ const OpenDatePicker = async () => {
       </div>
     </IonLabel>
 
-    <!-- TEXT OR INPUT -->
+    <!-- TEXT OR INPUT OR CHECKBOX -->
     <template v-if="mode === UserFormMode.READ">
       <span
+        v-if="field.type != ProfileFieldType.CHECKBOX"
         class="flex items-center justify-evenly"
         :class="field.isSimple ? '' : 'w-3/4'"
       >
         {{ value ?? '无' }}
       </span>
+      <input
+        v-else
+        v-model="checkedValue"
+        type="checkbox"
+        disabled
+        class="w-3/4"
+      />
     </template>
     <template v-else>
       <template
@@ -127,6 +137,7 @@ const OpenDatePicker = async () => {
       </template>
       <template v-else-if="field.type == ProfileFieldType.CHECKBOX">
         <input
+          v-model="checkedValue"
           type="checkbox"
           class="w-3/4"
           @change="
