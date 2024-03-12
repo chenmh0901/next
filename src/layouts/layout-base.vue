@@ -33,7 +33,7 @@ const emit = defineEmits<{
 type PAGE = 'USER_LIST' | 'BOARD' | 'PROFILE';
 
 const footerHeightStyle = {
-  height: '60px'
+  height: '55px'
 };
 </script>
 

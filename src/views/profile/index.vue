@@ -60,6 +60,7 @@ onMounted(refresh);
 <template>
   <div v-if="user" class="profile">
     <ProfileUserCard :key="cardKey" :user="user" class="profile__card mt-4" />
+
     <div class="profile__card flex">
       <div class="half-block">
         <AvatarUpload
@@ -84,6 +85,7 @@ onMounted(refresh);
         </button>
       </div>
     </div>
+
     <div class="profile__card flex">
       <button class="card-btn !h-[80px] msg-btn" @click="openAdminResume">
         <Icon
@@ -99,7 +101,12 @@ onMounted(refresh);
 
 <style scoped>
 .profile {
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center h-full;
+  background: linear-gradient(
+    200deg,
+    var(--zust-cloud-primary-40),
+    var(--ion-color-light)
+  );
 }
 
 .profile__card {
@@ -112,10 +119,10 @@ onMounted(refresh);
 
 .card-btn {
   @apply w-full h-full rounded-3xl shadow-xl flex items-center justify-center gap-1;
-  background-color: var(--ion-color-secondary);
+  background-color: var(--zust-cloud-primary-60);
 }
 
 .msg-btn {
-  background-color: var(--ion-color-secondary-contrast);
+  background-color: var(--zust-cloud-primary-40);
 }
 </style>

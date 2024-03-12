@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { watch, ref } from 'vue';
+import { IonList } from '@ionic/vue';
 import { MessageType } from '@/views/board/components/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
@@ -28,12 +29,14 @@ const getUserNameDictionary = async (msgs: MessageType[]) => {
   return dictionary;
 };
 
+const nameLoading = ref(true);
 const nameDictionary = ref({});
 watch(
   props.msgs,
   () => {
     getUserNameDictionary(props.msgs).then((val) => {
       nameDictionary.value = val;
+      nameLoading.value = false;
     });
   },
   {
@@ -42,7 +45,7 @@ watch(
 );
 </script>
 <template>
-  <IonList v-if="msgs && nameDictionary">
+  <IonList v-if="msgs && !nameLoading">
     <MessageCard
       v-for="msg in msgs"
       :key="msg.userId"

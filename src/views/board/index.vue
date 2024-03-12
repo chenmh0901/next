@@ -62,21 +62,23 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <template v-if="!loading">
-    <div v-if="msgs?.length && msgs.length > 0">
-      <MessageList :msgs="msgs" />
-    </div>
-    <DefaultMask v-else text="还未有任何通知发布..." />
-  </template>
-  <LoadingMask v-else />
-  <IonButton
-    v-if="isAdmin"
-    class="message-add-btn"
-    size="small"
-    @click="publish"
-  >
-    <IonIcon :icon="add"></IonIcon>
-  </IonButton>
+  <div>
+    <template v-if="!loading">
+      <div v-if="msgs?.length && msgs.length > 0">
+        <MessageList :msgs="msgs" />
+      </div>
+      <DefaultMask v-else text="还未有任何通知发布..." />
+    </template>
+    <LoadingMask v-else />
+    <IonButton
+      v-if="isAdmin"
+      class="message-add-btn"
+      size="small"
+      @click="publish"
+    >
+      <IonIcon :icon="add"></IonIcon>
+    </IonButton>
+  </div>
 </template>
 
 <style scoped>

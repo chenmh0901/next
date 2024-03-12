@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+* {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', 'Roboto',
+    sans-serif;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+  scroll-behavior: smooth !important;
+}
 ion-alert .alert-title {
   @apply text-lg;
 }
@@ -28,7 +35,7 @@ ion-alert .alert-message {
 .datepicker ion-datetime {
   border-radius: 10px;
 }
-.dialog-modal{
+.dialog-modal {
   --width: fit-content;
   --max-width: 350px;
   --min-width: 300px;
@@ -37,7 +44,8 @@ ion-alert .alert-message {
 ion-modal {
   --height: 100%;
   --border-radiuss: 16px;
-  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
 }
 
 ion-modal::part(backdrop) {
@@ -48,4 +56,21 @@ ion-modal::part(backdrop) {
 ion-modal ion-toolbar {
   --background: rgb(14 116 144);
   --color: white;
+}
+
+/* 多级主题色 */
+:root {
+  --zust-cloud-primary-100: rgb(173, 136, 0, 1);
+  --zust-cloud-primary-90: rgba(173, 136, 0, 0.9);
+  --zust-cloud-primary-80: rgba(173, 136, 0, 0.8);
+  --zust-cloud-primary-70: rgba(173, 136, 0, 0.7);
+  --zust-cloud-primary-60: rgba(173, 136, 0, 0.6);
+  --zust-cloud-primary-50: rgba(173, 136, 0, 0.5);
+  --zust-cloud-primary-40: rgba(173, 136, 0, 0.4);
+  --zust-cloud-primary-30: rgba(173, 136, 0, 0.3);
+  --zust-cloud-primary-20: rgba(173, 136, 0, 0.2);
+  --zust-cloud-primary-10: rgba(173, 136, 0, 0.1);
+}
+
+body.dark {
 }
