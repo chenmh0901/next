@@ -34,7 +34,7 @@ defineProps<IProps>();
     <!-- 一个一行 -->
     <div v-else class="w-full">
       <IonCard class="user-card__body">
-        <Avatar class="flex" :user="user" />
+        <Avatar class="flex m-2" :user="user" />
         <div
           class="text-lg flex-grow flex items-center justify-between pl-3 pr-5"
         >

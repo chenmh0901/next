@@ -76,7 +76,7 @@ onBeforeMount(async () => {
 </script>
 
 <template>
-  <ul v-if="!loading" class="flex flex-wrap py-4">
+  <ul v-if="!loading" class="flex flex-wrap py-2">
     <UserCard
       v-for="user in users"
       :key="user.id"
