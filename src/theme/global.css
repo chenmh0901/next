@@ -8,6 +8,7 @@
   scrollbar-width: none !important;
   -ms-overflow-style: none !important;
   scroll-behavior: smooth !important;
+  transition: all 0.1s;
 }
 ion-alert .alert-title {
   @apply text-lg;

@@ -32,8 +32,8 @@ const getUserNameDictionary = async (msgs: MessageType[]) => {
 const nameLoading = ref(true);
 const nameDictionary = ref({});
 watch(
-  props.msgs,
-  () => {
+  props,
+  async () => {
     getUserNameDictionary(props.msgs).then((val) => {
       nameDictionary.value = val;
       nameLoading.value = false;
@@ -45,9 +45,9 @@ watch(
 );
 </script>
 <template>
-  <IonList v-if="msgs && !nameLoading">
+  <IonList v-if="props.msgs && !nameLoading">
     <MessageCard
-      v-for="msg in msgs"
+      v-for="msg in props.msgs"
       :key="msg.userId"
       :name-dict="nameDictionary"
       :msg="msg"

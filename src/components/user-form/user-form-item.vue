@@ -128,11 +128,19 @@ const checkedValue = ref(props.value);
       </template>
       <template v-else-if="field.type == ProfileFieldType.TEXTAREA">
         <IonTextarea
+          class="border border-grey-300 rounded-lg text-center w-3/4"
           :placeholder="'请填写'"
           :value="value"
           auto-grow
           :maxlength="50"
-          class="border border-grey-300 rounded-lg text-center w-3/4"
+          @change="
+            (e: Event) => {
+              const target = e.target as HTMLTextAreaElement;
+              if (target) {
+                emit('change', target.value);
+              }
+            }
+          "
         ></IonTextarea>
       </template>
       <template v-else-if="field.type == ProfileFieldType.CHECKBOX">
