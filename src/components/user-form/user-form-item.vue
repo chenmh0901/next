@@ -18,7 +18,6 @@ interface IProps {
   mode: UserFormMode;
   field: ProfileField;
   value: string;
-  isAdmin?: boolean;
   isPrivacy?: boolean;
   isSelfForm?: boolean;
 }
@@ -56,9 +55,8 @@ const OpenDatePicker = async () => {
 <template>
   <IonItem
     v-if="
-      (!isAdmin && !field.isPrivacy && !isPrivacy) ||
-      (isAdmin && !field.isPrivacy && !isPrivacy) ||
-      (isAdmin && field.isPrivacy && isPrivacy) ||
+      (!field.isPrivacy && !isPrivacy) ||
+      (field.isPrivacy && isPrivacy) ||
       isSelfForm
     "
     lines="none"

@@ -52,7 +52,6 @@ const onCancel = () => {
       :field="field"
       :mode="mode"
       :value="form[field.key] as string"
-      :is-admin="isAdmin"
       :is-privacy="isPrivacy"
       :is-self-form="isSelfForm"
       @change="
