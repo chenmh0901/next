@@ -32,7 +32,7 @@ defineProps<IProps>();
 
 .card-body {
   @apply rounded-[20px] w-full h-[140px] shadow-lg flex justify-evenly items-center;
-  background-color: var(--ion-color-light-shade);
+  background-color: var(--zust-cloud-primary-80);
 }
 
 .card-title {

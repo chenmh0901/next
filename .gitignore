@@ -4,6 +4,7 @@
 # manually
 /android
 /ios
+DEBUG.APK
 
 *~
 *.sw[mnpcod]

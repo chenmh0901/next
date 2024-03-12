@@ -8,7 +8,7 @@ import {
 } from '@ionic/vue';
 import { MessageType } from '@/views/board/components/type';
 import { useModal } from '@/composables/use-modal';
-import CardDetailPopover from '@/views/board/components/card-detail-modal.vue';
+import CardDetailModal from '@/views/board/components/card-detail-modal.vue';
 
 interface IProps {
   msg: MessageType;
@@ -19,7 +19,7 @@ const props = defineProps<IProps>();
 const { open } = useModal();
 const onClick = async () => {
   await open({
-    component: CardDetailPopover,
+    component: CardDetailModal,
     property: {
       msg: props.msg,
       name: props.nameDict[props.msg.userId]

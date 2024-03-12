@@ -1,21 +1,22 @@
 import { alertController } from '@ionic/vue';
 import { ref } from 'vue';
-
-export const useAlert = (
-  header: string,
-  message: string,
-  cssClass: string = 'alert'
-) => {
+interface AlertOptions {
+  header: string;
+  message?: string;
+  btnstext?: string[];
+}
+export const useAlert = (options: AlertOptions) => {
   const userChoice = ref(false);
+  const btnstext = options.btnstext;
   const buttons = [
     {
-      text: '取消',
+      text: btnstext?.[0] ?? '取消',
       handler: () => {
         userChoice.value = false;
       }
     },
     {
-      text: '继续',
+      text: btnstext?.[1] ?? '确认',
       handler: () => {
         userChoice.value = true;
       }
@@ -23,10 +24,9 @@ export const useAlert = (
   ];
   const alert = async () => {
     const a = await alertController.create({
-      header,
-      message,
-      buttons: buttons,
-      cssClass
+      header: options.header,
+      message: options.message,
+      buttons: buttons
     });
     await a.present();
     await a.onDidDismiss();

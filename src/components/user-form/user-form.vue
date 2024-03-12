@@ -10,8 +10,9 @@ import { validate } from '@components/user-form/validator';
 import UserFormItem from '@/components/user-form/user-form-item.vue';
 interface IProps {
   user: User;
-  isAdmin: boolean;
-  isPrivacy: boolean;
+  isAdmin?: boolean;
+  isPrivacy?: boolean;
+  isSelfForm?: boolean;
   profileFields: ProfileField[];
 }
 
@@ -51,8 +52,8 @@ const onCancel = () => {
       :field="field"
       :mode="mode"
       :value="form[field.key] as string"
-      :is-admin="isAdmin"
       :is-privacy="isPrivacy"
+      :is-self-form="isSelfForm"
       @change="
         (v) => {
           form[field.key] = v;
@@ -60,8 +61,8 @@ const onCancel = () => {
       "
     />
     <footer
-      v-if="isAdmin || !isPrivacy"
-      class="mt-auto flex justify-evenly w-full"
+      v-if="isAdmin || isSelfForm"
+      class="mt-auto flex justify-evenly w-full mb-2"
     >
       <template v-if="mode == UserFormMode.READ">
         <IonButton class="user-form__btn" color="medium" @click="onCancel"

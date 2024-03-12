@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { watch, ref } from 'vue';
+import { IonList } from '@ionic/vue';
 import { MessageType } from '@/views/board/components/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
 import MessageCard from '@/views/board/components/message-card.vue';
-import LoadingMask from '@components/loading-mask/index.vue';
 interface IProps {
   msgs: MessageType[];
 }
@@ -29,12 +29,14 @@ const getUserNameDictionary = async (msgs: MessageType[]) => {
   return dictionary;
 };
 
-const nameDictionary = ref();
+const nameLoading = ref(true);
+const nameDictionary = ref({});
 watch(
-  props.msgs,
-  () => {
+  props,
+  async () => {
     getUserNameDictionary(props.msgs).then((val) => {
       nameDictionary.value = val;
+      nameLoading.value = false;
     });
   },
   {
@@ -43,15 +45,14 @@ watch(
 );
 </script>
 <template>
-  <IonList v-if="msgs && nameDictionary">
+  <IonList v-if="props.msgs && !nameLoading">
     <MessageCard
-      v-for="msg in msgs"
+      v-for="msg in props.msgs"
       :key="msg.userId"
       :name-dict="nameDictionary"
       :msg="msg"
     />
   </IonList>
-  <LoadingMask v-else />
 </template>
 
 <style scoped></style>

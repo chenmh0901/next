@@ -2,6 +2,7 @@
 import { Icon } from '@iconify/vue';
 import { useEasyToggle } from '@/composables/use-easy-toggle';
 import { onMounted } from 'vue';
+import { IonButtons } from '@ionic/vue';
 
 const { val, toggle } = useEasyToggle(['light', 'dark']);
 

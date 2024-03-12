@@ -3,10 +3,12 @@ import { ref } from 'vue';
 import { uploadAvatar } from '@/utils/upload-avatar';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { User } from '@/types/user';
+import { useAlert } from '@/composables/use-alert';
 
 const emit = defineEmits<{
   (e: 'uploaded', val: boolean): void;
 }>();
+const { userChoice, alert } = useAlert({ header: '是否上传头像' });
 const uploadEl = ref();
 const upload = async () => {
   const id = await getSelfId();
@@ -18,7 +20,9 @@ const upload = async () => {
         `user/${id}/avatar`,
         'multipart/form-data'
       );
-      if (uploaded) {
+
+      await alert();
+      if (uploaded && userChoice.value) {
         emit('uploaded', uploaded);
       }
     } catch (error) {

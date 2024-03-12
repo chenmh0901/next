@@ -1,23 +1,27 @@
 <script lang="ts" setup>
 import { IonButton, IonIcon } from '@ionic/vue';
-import { computed, onBeforeMount, ref } from 'vue';
-import MessageList from '@/views/board/components/message-list.vue';
+import { computed, onMounted, ref } from 'vue';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { MessageType } from '@/views/board/components/type';
-import MessageForm from '@/views/board/components/message-form.vue';
 import { useModal } from '@/composables/use-modal';
 import { add } from 'ionicons/icons';
 import { format } from 'date-fns';
 import { useUserStore } from '@/stores/user';
+import MessageList from '@/views/board/components/message-list.vue';
+import MessageForm from '@/views/board/components/message-form.vue';
+import LoadingMask from '@components/loading-mask/index.vue';
+import DefaultMask from '@components/default-mask/index.vue';
 
 const rawMsgs = ref<MessageType[]>();
+
 const msgs = computed(() => {
   return rawMsgs.value
     ?.map((msg) => {
-      if (msg.time) {
-        msg.time = format(msg.time, 'yyyy-MM-dd');
+      const newMsg = { ...msg };
+      if (newMsg.time) {
+        newMsg.time = format(newMsg.time, 'yyyy-MM-dd');
       }
-      return msg;
+      return newMsg;
     })
     .sort((a, b) => {
       if (a.id && b.id) {
@@ -26,6 +30,7 @@ const msgs = computed(() => {
       return 0;
     });
 });
+
 const fetchMessages = async () => {
   const option: IHttpOptions<any> = {
     path: 'message/',
@@ -38,6 +43,7 @@ const refresh = async () => {
   const { data } = await fetchMessages();
   rawMsgs.value = data;
 };
+
 // onClick open modal and publish message
 const { open } = useModal();
 const publish = async () => {
@@ -48,17 +54,24 @@ const publish = async () => {
 };
 
 // isAdmin
-const userStore = useUserStore();
 const isAdmin = ref<boolean>();
-onBeforeMount(async () => {
+const loading = ref(true);
+onMounted(async () => {
   await refresh();
-  isAdmin.value = await userStore.isAdmin();
+  isAdmin.value = await useUserStore().isAdmin();
+  loading.value = false;
 });
 </script>
 
 <template>
-  <div v-if="msgs?.length && msgs.length > 0">
-    <MessageList :msgs="msgs" />
+  <div>
+    <template v-if="!loading">
+      <div v-if="msgs?.length && msgs.length > 0">
+        <MessageList :msgs="msgs as MessageType[]" />
+      </div>
+      <DefaultMask v-else text="还未有任何通知发布..." />
+    </template>
+    <LoadingMask v-else />
     <IonButton
       v-if="isAdmin"
       class="message-add-btn"

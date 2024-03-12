@@ -1,11 +1,28 @@
 import { pickerController } from '@ionic/vue';
 import { ref } from 'vue';
 
-export const usePicker = (values: string[], defaultValue: string) => {
-  const picked = ref<string>(defaultValue);
-  const name = Math.random().toString();
-  const handler = (val: any) => {
-    picked.value = val[name].value;
+export interface PickerCol {
+  values: string[];
+  defaultValue: string;
+}
+
+export interface PickerGroup {
+  name: string;
+  col: PickerCol;
+}
+
+export const usePicker = (groups: PickerGroup[]) => {
+  const picked = ref<string>();
+  const key = Math.random().toString();
+
+  const onConfirm = (val: any) => {
+    console.log(val);
+
+    picked.value = groups
+      .map((group: PickerGroup) => {
+        return val[group.name + key].value;
+      })
+      .join();
   };
 
   const viewModel = {
@@ -15,14 +32,18 @@ export const usePicker = (values: string[], defaultValue: string) => {
 
   const open = async () => {
     const p = await pickerController.create({
-      columns: [
-        {
-          name,
-          options: values.map((value) => {
-            return { text: value, value };
+      // columns 大列
+      columns: groups.map((group: PickerGroup) => {
+        return {
+          name: group.name + key,
+          options: group.col.values.map((val: string) => {
+            return {
+              text: val,
+              value: val
+            };
           })
-        }
-      ],
+        };
+      }),
       buttons: [
         {
           text: viewModel.cancelButtonText,
@@ -30,7 +51,7 @@ export const usePicker = (values: string[], defaultValue: string) => {
         },
         {
           text: viewModel.confirmButtonText,
-          handler
+          handler: onConfirm
         }
       ]
     });

@@ -3,6 +3,7 @@ import { IonAccordionGroup, IonAccordion, IonItem, IonLabel } from '@ionic/vue';
 import { User } from '@/types/user';
 import { PROFILE_FIELDS_ADMIN } from '@components/user-form/type';
 import UserForm from '@components/user-form/user-form.vue';
+import { first } from 'lodash';
 
 interface IProps {
   user: User;
@@ -16,13 +17,13 @@ defineProps<IProps>();
     <template v-if="!isAdmin">
       <UserForm
         :user="user"
-        :is-admin="!isAdmin"
+        :is-admin="isAdmin"
         :is-privacy="false"
         :profile-fields="PROFILE_FIELDS_ADMIN"
       />
     </template>
-    <IonAccordionGroup v-else class="w-[350px]">
-      <IonAccordion>
+    <IonAccordionGroup v-else class="w-[350px]" :value="['first']">
+      <IonAccordion value="first">
         <IonItem slot="header" color="light">
           <IonLabel>普通信息</IonLabel>
         </IonItem>
@@ -34,7 +35,7 @@ defineProps<IProps>();
           :profile-fields="PROFILE_FIELDS_ADMIN"
         />
       </IonAccordion>
-      <IonAccordion>
+      <IonAccordion value="second">
         <IonItem slot="header" color="light">
           <IonLabel>隐私信息</IonLabel>
         </IonItem>
