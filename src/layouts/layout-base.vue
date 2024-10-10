@@ -5,10 +5,7 @@ import {
   IonTitle,
   IonToolbar,
   IonPage,
-  IonIcon,
-  IonTabBar,
-  IonTabButton,
-  IonLabel
+  IonIcon
 } from '@ionic/vue';
 import {
   home,

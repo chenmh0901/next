@@ -17,7 +17,8 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
-const form = ref<User>(props.user);
+const form = ref<User>({ ...props.user });
+const originalForm = ref<User>({ ...props.user });
 const mode = ref<UserFormMode>(UserFormMode.READ);
 const onSave = async () => {
   try {
@@ -32,15 +33,20 @@ const onSave = async () => {
   }
 };
 const patchUserInfo = async () => {
+  console.log('form', form.value);
   const option: IHttpOptions<User> = {
-    path: 'user/',
+    path: `user/${props.user.id}`,
     method: 'patch',
     data: form.value
   };
   return await useHttp(option);
 };
-const onCancel = () => {
+const onExit = () => {
   modalController.dismiss(false);
+};
+const onCancel = () => {
+  form.value = originalForm.value;
+  mode.value = UserFormMode.READ;
 };
 </script>
 
@@ -65,7 +71,7 @@ const onCancel = () => {
       class="mt-auto flex justify-evenly w-full mb-2"
     >
       <template v-if="mode == UserFormMode.READ">
-        <IonButton class="user-form__btn" color="medium" @click="onCancel"
+        <IonButton class="user-form__btn" color="medium" @click="onExit"
           >退出</IonButton
         >
         <IonButton class="user-form__btn" @click="mode = UserFormMode.EDIT"
@@ -73,10 +79,7 @@ const onCancel = () => {
         >
       </template>
       <template v-else>
-        <IonButton
-          class="user-form__btn"
-          color="medium"
-          @click="mode = UserFormMode.READ"
+        <IonButton class="user-form__btn" color="medium" @click="onCancel"
           >取消</IonButton
         >
         <IonButton class="user-form__btn" @click="onSave">保存</IonButton>

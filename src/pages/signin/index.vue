@@ -10,8 +10,8 @@ import { toast } from '@/utils/toast';
 import { validate } from '@/pages/signin/validator';
 import LoadingMask from '@/components/loading-mask/index.vue';
 enum PageMode {
-  SIGNIN = 'login',
-  SIGNUP = 'register'
+  SIGNIN = 'signin',
+  SIGNUP = 'signup'
 }
 
 const form = ref<AuthForm>({} as AuthForm);
@@ -56,16 +56,16 @@ const onClick = async () => {
   if (!(await validate(form.value, val.value))) return;
   if (val.value === PageMode.SIGNUP) {
     register(form.value).then(async (r) => {
-      if (r?.token) {
+      if (r?.access_token) {
         await toast('注册成功');
-        await redirectWithToken(r.token as string);
+        await redirectWithToken(r.access_token as string);
       }
     });
   } else {
     auth(form.value).then(async (r) => {
-      if (r?.token) {
-        await toast('登入成功');
-        await redirectWithToken(r.token as string);
+      if (r?.access_token) {
+        await toast('登录成功');
+        await redirectWithToken(r.access_token as string);
       }
     });
   }
@@ -131,8 +131,8 @@ onBeforeMount(() => {
           type="password"
           @ion-input="form.password = $event.target.value as string"
         ></IonInput>
-        <IonButton @click="onClick">注册并登入</IonButton>
-        <p>已有账号?<i @click="ChangeMode()">去登入</i></p>
+        <IonButton @click="onClick">注册并登录</IonButton>
+        <p>已有账号?<i @click="ChangeMode()">去登录</i></p>
       </template>
     </div>
   </IonContent>

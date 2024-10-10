@@ -33,7 +33,7 @@ const msgs = computed(() => {
 
 const fetchMessages = async () => {
   const option: IHttpOptions<any> = {
-    path: 'message/',
+    path: 'message/all',
     method: 'get'
   };
   return await useHttp<MessageType[]>(option);

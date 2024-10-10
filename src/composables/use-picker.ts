@@ -16,8 +16,6 @@ export const usePicker = (groups: PickerGroup[]) => {
   const key = Math.random().toString();
 
   const onConfirm = (val: any) => {
-    console.log(val);
-
     picked.value = groups
       .map((group: PickerGroup) => {
         return val[group.name + key].value;

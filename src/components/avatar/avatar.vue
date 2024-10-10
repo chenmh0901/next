@@ -11,8 +11,8 @@ interface IProps {
 }
 const props = defineProps<IProps>();
 const avatarUrl = computed(() => {
-  if (props.user.avatar) {
-    return `http://119.12.173.244:8080/user/${props.user.id}/avatar`;
+  if (props.user.avatarUrl) {
+    return `http://localhost:3000/user/${props.user.id}/avatar`;
   }
   return '';
 });

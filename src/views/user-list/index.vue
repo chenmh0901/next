@@ -41,7 +41,7 @@ const users = ref<User[]>([]);
 const fetchUsers = async () => {
   try {
     const options: IHttpOptions<any> = {
-      path: 'user/',
+      path: 'user/all',
       method: 'get'
     };
     const { data } = await useHttp<User[]>(options);

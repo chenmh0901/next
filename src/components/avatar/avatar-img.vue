@@ -27,7 +27,7 @@ const baseClass = computed(() => {
       v-if="!isError"
       :class="baseClass"
       :src="src"
-      alt=""
+      alt="失败"
       @loadstart="loaded = true"
       @load="loaded = true"
       @error="isError = true"

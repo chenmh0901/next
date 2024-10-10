@@ -113,7 +113,7 @@ const checkedValue = ref(props.value);
       <template v-else-if="field.type == ProfileFieldType.OPTIONS">
         <IonInput
           :placeholder="optionPlaceholder"
-          :value="picker.picked.value"
+          :value="picker.picked.value || value"
           class="border border-grey-300 rounded-lg text-center w-3/4"
           @click="openOptionPicker"
         />
@@ -121,7 +121,7 @@ const checkedValue = ref(props.value);
       <template v-else-if="field.type == ProfileFieldType.DATE">
         <IonInput
           :placeholder="optionPlaceholder"
-          :value="datePicked"
+          :value="datePicked || value"
           class="border border-grey-300 rounded-lg text-center w-3/4"
           @click="OpenDatePicker"
         />

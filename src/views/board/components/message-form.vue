@@ -14,6 +14,9 @@ import { MessageType } from '@/views/board/components/type';
 import { IHttpOptions, useHttp } from '@/utils/http';
 import { useAlert } from '@/composables/use-alert';
 import { User } from '@/types/user';
+import { useModal } from '@/composables/use-modal';
+import DatePicker from '@/components/date-picker/index.vue';
+import { format } from 'date-fns';
 
 const form = ref<MessageType>({} as MessageType);
 const no = ref();
@@ -44,6 +47,7 @@ const publish = async () => {
       data: form.value
     };
     try {
+      console.log('form', form.value);
       await useHttp(option);
       await toast('发布成功');
       await modalController.dismiss(true);
@@ -71,6 +75,29 @@ const fetchAuthorNo = async () => {
   no.value = user.value.no;
 };
 onMounted(fetchAuthorNo);
+
+const getNowDate = () => {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+  form.value.time = `${year}-${month}-${day}`;
+  return `${year}-${month}-${day}`;
+};
+
+// get time
+const datePicker = useModal();
+const datePicked = ref(getNowDate());
+const OpenDatePicker = async () => {
+  const data = await datePicker.open({
+    component: DatePicker,
+    cssClass: 'datepicker'
+  });
+  if (data) {
+    datePicked.value = format(data.value, 'yyyy-MM-dd');
+    form.value.time = datePicked.value;
+  }
+};
 </script>
 
 <template>
@@ -86,6 +113,23 @@ onMounted(fetchAuthorNo);
             :value="no"
             class="border border-grey-300 rounded-lg text-center w-4/5"
             disabled
+          ></IonInput>
+        </IonItem>
+        <IonItem lines="none" class="mb-2">
+          <IonLabel class="w-1/5">发布时间</IonLabel>
+          <IonInput
+            :value="datePicked || form?.time"
+            @click="OpenDatePicker"
+            class="border border-grey-300 rounded-lg text-center w-4/5"
+          ></IonInput>
+        </IonItem>
+        <IonItem lines="none" class="mb-2">
+          <IonLabel class="w-1/5">标题</IonLabel>
+          <IonInput
+            placeholder="请输入标题"
+            :value="form?.title"
+            @ion-change="form.title = $event.detail.value"
+            class="border border-grey-300 rounded-lg text-center w-4/5"
           ></IonInput>
         </IonItem>
         <IonItem lines="none">

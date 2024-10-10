@@ -10,7 +10,7 @@ export type User = {
    */
   sex: string;
   birthday: string;
-  avatar: string;
+  avatarUrl: string;
   /**
    * auth
    */
